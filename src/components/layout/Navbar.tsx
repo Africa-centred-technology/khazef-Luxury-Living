@@ -271,10 +271,12 @@ const Navbar = () => {
         />
       </div>
 
-      {/* Mobile drawer — slide-in from right, full panel */}
+      {/* Mobile drawer — slide-in from right, full panel.
+          Needs its OWN z-index above the header's inner stacking context
+          (the container has z-10) otherwise the drawer renders behind. */}
       <div
         aria-hidden={!open}
-        className={`fixed inset-0 lg:hidden transition-opacity duration-500 ${
+        className={`fixed inset-0 z-[60] lg:hidden transition-opacity duration-500 ${
           open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       >
