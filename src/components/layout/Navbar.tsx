@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { Menu, X, ArrowUpRight, ChevronDown, Phone, Mail } from "lucide-react";
+import { Menu, X, ArrowUpRight, ChevronDown, ChevronRight, Phone, Mail } from "lucide-react";
 import logo from "@/assets/logo.png";
 
 interface NavItem {
@@ -296,29 +296,62 @@ const Navbar = () => {
           role="dialog"
           aria-label="Menu"
           style={{ backgroundColor: "hsl(var(--background))" }}
-          className={`absolute right-0 top-0 h-full w-[min(92vw,22rem)] border-l border-border/60 shadow-luxe-xl flex flex-col transition-transform duration-500 ${
+          className={`absolute right-0 top-0 h-full w-[min(92vw,22rem)] border-l border-gold/40 shadow-luxe-xl flex flex-col transition-transform duration-500 overflow-hidden ${
             open ? "translate-x-0" : "translate-x-full"
           }`}
         >
-          <header className="flex items-center justify-between px-6 pt-6 pb-4 border-b border-border/60">
+          {/* Gold signature rail on the left edge of the panel */}
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-y-0 left-0 w-[2px] bg-gradient-to-b from-gold/0 via-gold to-gold/0"
+          />
+          {/* Arabic watermark behind the list */}
+          <span
+            aria-hidden
+            className="pointer-events-none absolute -right-6 top-1/2 -translate-y-1/2 arabic text-primary/5 select-none"
+            style={{ fontSize: "clamp(10rem, 38vw, 18rem)", lineHeight: 1 }}
+          >
+            خَزَف
+          </span>
+
+          <header className="relative flex items-center justify-between px-6 pt-6 pb-4 border-b border-border/60">
             <div className="flex items-center gap-3">
-              <img src={logo} alt="" className="h-14 w-14 object-contain" width={56} height={56} />
+              <div className="relative h-14 w-14 flex items-center justify-center shrink-0">
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 rounded-full"
+                  style={{
+                    background:
+                      "conic-gradient(from 0deg, hsl(var(--gold) / 0) 0deg, hsl(var(--gold) / 0.85) 90deg, hsl(var(--gold) / 0) 180deg)",
+                    animation: "logo-spin-slow 16s linear infinite",
+                    WebkitMask:
+                      "radial-gradient(circle, transparent 82%, black 86%, black 94%, transparent 98%)",
+                    mask: "radial-gradient(circle, transparent 82%, black 86%, black 94%, transparent 98%)",
+                  }}
+                />
+                <img src={logo} alt="" className="relative z-10 h-12 w-12 object-contain" width={48} height={48} />
+              </div>
               <div>
-                <div className="font-display text-xl text-primary leading-tight">Luxury Living</div>
-                <div className="eyebrow text-[9px] text-gold">Résidence signature</div>
+                <div className="font-display text-xl text-primary leading-tight">Khazef</div>
+                <div className="eyebrow text-[9px] text-gold">Luxury Living</div>
               </div>
             </div>
             <button
               type="button"
               onClick={() => setOpen(false)}
               aria-label="Fermer"
-              className="p-2 text-primary hover:text-gold transition-colors"
+              className="p-2 text-primary hover:text-gold transition-all duration-500 hover:rotate-90"
             >
               <X className="h-5 w-5" />
             </button>
           </header>
 
-          <nav className="flex-1 overflow-y-auto px-6 py-6" aria-label="Navigation mobile">
+          <nav className="relative flex-1 overflow-y-auto px-6 py-6" aria-label="Navigation mobile">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="gold-rule" aria-hidden />
+              <span className="eyebrow text-gold text-[10px]">Navigation</span>
+            </div>
+
             <ul className="flex flex-col">
               {ALL_NAV.map((item, i) => (
                 <li
@@ -334,41 +367,99 @@ const Navbar = () => {
                     to={item.to}
                     end={item.to === "/"}
                     className={({ isActive }) =>
-                      `flex items-baseline justify-between gap-4 py-4 font-display text-2xl transition-colors ${
-                        isActive ? "text-gold" : "text-primary hover:text-gold"
+                      `group relative flex items-center justify-between gap-4 py-4 pl-6 pr-1 font-display text-2xl transition-all duration-500 ${
+                        isActive ? "text-gold translate-x-1" : "text-primary hover:text-gold hover:translate-x-1"
                       }`
                     }
                   >
-                    <span>{item.label}</span>
-                    {item.arabic && (
-                      <span className="arabic text-sm text-muted-foreground opacity-70">{item.arabic}</span>
+                    {({ isActive }) => (
+                      <>
+                        {/* Editorial number prefix (01, 02, ...) */}
+                        <span
+                          aria-hidden
+                          className={`absolute left-0 top-1/2 -translate-y-1/2 eyebrow text-[10px] transition-colors ${
+                            isActive ? "text-gold" : "text-primary/30 group-hover:text-gold/70"
+                          }`}
+                          style={{ letterSpacing: "0.16em" }}
+                        >
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <span className="flex items-center gap-3">
+                          {/* Active dot */}
+                          {isActive && (
+                            <span aria-hidden className="inline-block h-1.5 w-1.5 rounded-full bg-gold shadow-[0_0_8px_hsl(var(--gold))]" />
+                          )}
+                          {item.label}
+                        </span>
+                        <span className="flex items-center gap-2">
+                          {item.arabic && (
+                            <span className="arabic text-sm text-muted-foreground opacity-70 group-hover:opacity-100 group-hover:text-gold/80 transition-opacity">
+                              {item.arabic}
+                            </span>
+                          )}
+                          <ChevronRight
+                            className={`h-4 w-4 transition-all duration-500 ${
+                              isActive
+                                ? "text-gold translate-x-0 opacity-100"
+                                : "text-primary/40 -translate-x-1 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:text-gold"
+                            }`}
+                            aria-hidden
+                          />
+                        </span>
+                      </>
                     )}
                   </NavLink>
                 </li>
               ))}
             </ul>
 
-            {/* Contact block at the bottom of drawer */}
-            <div className="mt-8 pt-6 border-t border-border/60">
-              <div className="eyebrow text-gold text-[10px] mb-4">Contact direct</div>
-              <a href="tel:+212000000000" className="flex items-center gap-3 py-2 text-sm text-primary hover:text-gold transition-colors">
-                <Phone className="h-4 w-4 text-gold" /> +212 0 00 00 00 00
+            {/* Contact block */}
+            <div className="mt-10 pt-6 border-t border-border/60">
+              <div className="flex items-center gap-3 mb-4">
+                <span className="gold-rule" aria-hidden />
+                <span className="eyebrow text-gold text-[10px]">Contact direct</span>
+              </div>
+              <a
+                href="tel:+212000000000"
+                className="group flex items-center gap-3 py-2 text-sm text-primary hover:text-gold hover:translate-x-1 transition-all duration-500"
+              >
+                <span className="inline-flex h-7 w-7 items-center justify-center border border-gold/40 group-hover:bg-gold/10 transition-colors">
+                  <Phone className="h-3.5 w-3.5 text-gold" />
+                </span>
+                +212 0 00 00 00 00
               </a>
-              <a href="mailto:contact@luxuryliving.ma" className="flex items-center gap-3 py-2 text-sm text-primary hover:text-gold transition-colors">
-                <Mail className="h-4 w-4 text-gold" /> contact@luxuryliving.ma
+              <a
+                href="mailto:contact@luxuryliving.ma"
+                className="group flex items-center gap-3 py-2 text-sm text-primary hover:text-gold hover:translate-x-1 transition-all duration-500"
+              >
+                <span className="inline-flex h-7 w-7 items-center justify-center border border-gold/40 group-hover:bg-gold/10 transition-colors">
+                  <Mail className="h-3.5 w-3.5 text-gold" />
+                </span>
+                contact@luxuryliving.ma
               </a>
             </div>
           </nav>
 
           {/* Mobile CTA */}
-          <div className="px-6 pb-6">
+          <div className="relative px-6 pb-6 pt-2">
             <Link
               to="/contact"
-              className="group inline-flex w-full items-center justify-center gap-2 bg-gradient-gold-bright text-primary px-5 py-4 text-[12px] uppercase tracking-[0.22em] font-medium shadow-luxe-sm transition-all duration-500 hover:shadow-luxe-md"
+              className="group relative inline-flex w-full items-center justify-center gap-2 bg-gradient-gold-bright text-primary px-5 py-4 text-[12px] uppercase tracking-[0.22em] font-medium shadow-luxe-sm transition-all duration-500 hover:shadow-luxe-md overflow-hidden"
             >
-              Réserver une visite privée
-              <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <span className="relative z-10">Réserver une visite privée</span>
+              <ArrowUpRight className="relative z-10 h-3.5 w-3.5 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <span
+                aria-hidden
+                className="absolute inset-0 bg-primary translate-y-full transition-transform duration-500 group-hover:translate-y-0"
+              />
+              <span className="absolute inset-0 flex items-center justify-center gap-2 text-secondary translate-y-full transition-transform duration-500 group-hover:translate-y-0 pointer-events-none">
+                <span>Réserver une visite privée</span>
+                <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
+              </span>
             </Link>
+            <div className="mt-3 text-center eyebrow text-[9px] text-muted-foreground">
+              Sur rendez-vous · 7j/7
+            </div>
           </div>
         </aside>
       </div>,
