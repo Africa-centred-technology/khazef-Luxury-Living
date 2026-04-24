@@ -81,17 +81,31 @@ const Navbar = () => {
   }, [open]);
 
   const headerTone = scrolled || open;
+  const onImage = !scrolled && !open;
   const isSecondaryActive = SECONDARY.some((item) => location.pathname.startsWith(item.to) && item.to !== "/");
+
+  // Text-shadow strings applied when the navbar sits on top of a hero image
+  const textShadowStrong = "0 2px 12px hsl(var(--primary) / 0.75), 0 1px 3px hsl(var(--primary) / 0.85)";
+  const textShadowSoft = "0 1px 4px hsl(var(--primary) / 0.75)";
 
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
         headerTone
-          ? "bg-background/92 backdrop-blur-md border-b border-border/60 shadow-luxe-sm"
+          ? "bg-background backdrop-blur-lg border-b border-gold/30 shadow-luxe-md"
           : "bg-transparent"
       }`}
     >
-      <div className="container-luxe flex items-center justify-between h-28 md:h-32">
+      {/* Top legibility scrim — dark gradient behind the navbar when transparent.
+          Does NOT touch any hero image; sits on top of it at low opacity so
+          the text below has enough contrast on any photo. */}
+      {onImage && (
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-primary/55 via-primary/25 to-transparent"
+        />
+      )}
+      <div className="container-luxe relative z-10 flex items-center justify-between h-28 md:h-32">
         {/* Brand */}
         <Link to="/" className="flex items-center gap-4 md:gap-5 group" aria-label="Luxury Living — Accueil">
           <div className="relative h-[88px] w-[88px] md:h-[104px] md:w-[104px] flex items-center justify-center shrink-0">
@@ -147,17 +161,27 @@ const Navbar = () => {
             />
           </div>
           <div className="leading-tight">
-            <div className="font-display text-lg md:text-xl text-primary tracking-wide group-hover:text-gold transition-colors duration-500">
+            <div
+              className={`font-display text-lg md:text-xl tracking-wide group-hover:text-gold transition-colors duration-500 ${
+                onImage ? "text-white" : "text-primary"
+              }`}
+              style={onImage ? { textShadow: textShadowStrong } : undefined}
+            >
+              Khazef
+            </div>
+            <div
+              className="eyebrow text-[9px] md:text-[10px] text-gold -mt-0.5"
+              style={onImage ? { textShadow: textShadowSoft } : undefined}
+            >
               Luxury Living
             </div>
-            <div className="eyebrow text-[9px] md:text-[10px] text-gold -mt-0.5">Résidence signature · Safi</div>
           </div>
         </Link>
 
         {/* Desktop nav */}
         <nav className="hidden lg:flex items-center gap-6 xl:gap-8" aria-label="Navigation principale">
           {PRIMARY.map((item) => (
-            <DesktopNavLink key={item.to} item={item} />
+            <DesktopNavLink key={item.to} item={item} onImage={onImage} />
           ))}
 
           {/* "Plus" dropdown */}
@@ -167,8 +191,13 @@ const Navbar = () => {
               onClick={() => setMoreOpen((v) => !v)}
               aria-expanded={moreOpen}
               aria-haspopup="menu"
+              style={onImage && !isSecondaryActive ? { textShadow: textShadowSoft } : undefined}
               className={`group inline-flex items-center gap-1 text-[13px] uppercase tracking-[0.18em] font-medium transition-colors ${
-                isSecondaryActive ? "text-gold" : "text-primary hover:text-gold"
+                isSecondaryActive
+                  ? "text-gold"
+                  : onImage
+                    ? "text-white hover:text-gold"
+                    : "text-primary hover:text-gold"
               }`}
             >
               Plus
@@ -221,7 +250,8 @@ const Navbar = () => {
 
         {/* Mobile trigger */}
         <button
-          className="lg:hidden p-2 text-primary"
+          className={`lg:hidden p-2 transition-colors ${onImage ? "text-white" : "text-primary"}`}
+          style={onImage ? { filter: "drop-shadow(0 1px 3px hsl(var(--primary) / 0.8))" } : undefined}
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
           aria-expanded={open}
@@ -334,31 +364,37 @@ const Navbar = () => {
 };
 
 /**
- * Desktop nav link with animated gold underline + arabic tooltip on hover.
+ * Desktop nav link with animated gold underline.
+ * When `onImage` is true, text switches to white + text-shadow so it stays
+ * readable over any hero photograph.
  */
-function DesktopNavLink({ item }: { item: NavItem }) {
+function DesktopNavLink({ item, onImage }: { item: NavItem; onImage: boolean }) {
+  const shadow = "0 1px 4px hsl(var(--primary) / 0.8)";
   return (
     <NavLink
       to={item.to}
       end={item.to === "/"}
       className={({ isActive }) =>
         `group relative text-[13px] uppercase tracking-[0.18em] font-medium transition-colors ${
-          isActive ? "text-gold" : "text-primary hover:text-gold"
+          isActive
+            ? "text-gold"
+            : onImage
+              ? "text-white hover:text-gold"
+              : "text-primary hover:text-gold"
         }`
       }
+      style={({ isActive }) => (onImage && !isActive ? { textShadow: shadow } : undefined)}
     >
       {({ isActive }) => (
-        <>
-          <span className="relative">
-            {item.label}
-            <span
-              aria-hidden
-              className={`absolute -bottom-1 left-0 right-0 h-px origin-left transition-transform duration-500 bg-gold ${
-                isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-              }`}
-            />
-          </span>
-        </>
+        <span className="relative">
+          {item.label}
+          <span
+            aria-hidden
+            className={`absolute -bottom-1 left-0 right-0 h-px origin-left transition-transform duration-500 bg-gold ${
+              isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+            }`}
+          />
+        </span>
       )}
     </NavLink>
   );

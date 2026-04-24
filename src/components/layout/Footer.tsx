@@ -11,8 +11,8 @@ const Footer = () => {
           <div className="flex items-center gap-3">
             <img src={logo} alt="" className="h-14 w-14 object-contain" width={56} height={56} />
             <div>
-              <div className="font-display text-2xl text-secondary">Luxury Living</div>
-              <div className="eyebrow text-[10px] text-gold">خَزَف · Résidence Khazef</div>
+              <div className="font-display text-2xl text-secondary">Khazef </div>
+              <div className="eyebrow text-[10px] text-gold">Luxury Living</div>
             </div>
           </div>
           <p className="font-display italic text-secondary/80 text-lg leading-snug">
