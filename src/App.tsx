@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Project from "./pages/Project";
 import Location from "./pages/Location";
 import Apartments from "./pages/Apartments";
+import ApartmentDetail from "./pages/ApartmentDetail";
 import Plans from "./pages/Plans";
 import Timeline from "./pages/Timeline";
 import VirtualTour from "./pages/VirtualTour";
@@ -30,6 +31,7 @@ const App = () => (
             <Route path="/project" element={<Project />} />
             <Route path="/location" element={<Location />} />
             <Route path="/apartments" element={<Apartments />} />
+            <Route path="/apartments/:typologyId" element={<ApartmentDetail />} />
             <Route path="/plans" element={<Plans />} />
             <Route path="/timeline" element={<Timeline />} />
             <Route path="/virtual-tour" element={<VirtualTour />} />
