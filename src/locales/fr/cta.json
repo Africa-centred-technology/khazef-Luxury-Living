@@ -1,0 +1,12 @@
+{
+  "banner": {
+    "eyebrow": "Une adresse confidentielle",
+    "titleLead": "Entrez chez vous,",
+    "titleAccent": "avant tout le monde.",
+    "description": "Une visite privée, sur simple demande. Notre conseiller vous accompagne dans la découverte de votre future résidence.",
+    "actions": {
+      "bookVisit": "Réserver une visite",
+      "discoverApartments": "Découvrir les appartements"
+    }
+  }
+}

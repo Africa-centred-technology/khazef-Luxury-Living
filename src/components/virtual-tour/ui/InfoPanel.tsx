@@ -1,18 +1,11 @@
 import { useEffect, useMemo, useRef } from "react";
 import { X } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { useTourStore } from "../hooks/useTourStore";
 import {
   TOUR_ROOMS,
   type MaterialHotspot,
 } from "../data/tour-data";
-
-const ARABIC_BY_MATERIAL: Record<MaterialHotspot["material"], string> = {
-  tadelakt: "تادلاكت",
-  marbre: "رخام",
-  zellige: "زليج",
-  bois: "خشب",
-  laiton: "نحاس",
-};
 
 function findHotspotById(id: string): MaterialHotspot | null {
   for (const room of Object.values(TOUR_ROOMS)) {
@@ -27,6 +20,7 @@ function findHotspotById(id: string): MaterialHotspot | null {
  * Transparent backdrop — panorama remains visible behind it.
  */
 export function InfoPanel() {
+  const { t } = useTranslation("virtualTour");
   const infoPanelId = useTourStore((s) => s.infoPanelId);
   const closeInfoPanel = useTourStore((s) => s.closeInfoPanel);
   const panelRef = useRef<HTMLDivElement | null>(null);
@@ -65,7 +59,9 @@ export function InfoPanel() {
   }, [isOpen, closeInfoPanel]);
 
   const arabicAccent =
-    hotspot != null ? ARABIC_BY_MATERIAL[hotspot.material] : "";
+    hotspot != null
+      ? t(`ui.infoPanel.arabicLabels.${hotspot.material}`)
+      : "";
 
   const translate = isOpen ? "translateX(0%)" : "translateX(105%)";
 
@@ -74,7 +70,7 @@ export function InfoPanel() {
       ref={panelRef}
       role="dialog"
       aria-hidden={!isOpen}
-      aria-label={hotspot?.title ?? "Matière"}
+      aria-label={hotspot?.title ?? t("ui.infoPanel.fallbackLabel")}
       className="pointer-events-auto fixed right-0 top-0 z-40 h-full"
       style={{
         width: 380,
@@ -93,14 +89,14 @@ export function InfoPanel() {
           <button
             type="button"
             onClick={closeInfoPanel}
-            aria-label="Fermer le panneau"
+            aria-label={t("ui.infoPanel.closeLabel")}
             className="absolute right-5 top-5 inline-flex h-9 w-9 items-center justify-center rounded-full border border-[hsl(var(--gold)/0.45)] text-[hsl(var(--primary))] transition-colors hover:bg-[hsl(var(--gold)/0.12)]"
           >
             <X size={16} strokeWidth={1.5} />
           </button>
 
           <span className="eyebrow text-[hsl(var(--gold-deep))]">
-            Matière · {hotspot.material}
+            {t("ui.infoPanel.eyebrow")} · {t(`ui.infoPanel.materialLabels.${hotspot.material}`)}
           </span>
 
           <div
@@ -128,7 +124,7 @@ export function InfoPanel() {
               className="eyebrow"
               style={{ color: "hsl(var(--gold-deep))" }}
             >
-              Khazef · Safi
+              {t("ui.infoPanel.signature")}
             </span>
           </div>
         </div>

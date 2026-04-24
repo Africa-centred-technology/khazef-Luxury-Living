@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useTourStore } from "../hooks/useTourStore";
 
 /**
@@ -5,6 +6,7 @@ import { useTourStore } from "../hooks/useTourStore";
  * Hidden while the 3D mode is active.
  */
 export function CrosshairCompass() {
+  const { t } = useTranslation("virtualTour");
   const mode = useTourStore((s) => s.mode);
 
   if (mode === "3d") {
@@ -20,10 +22,10 @@ export function CrosshairCompass() {
       {/* Compass ring — top of viewer */}
       <div className="absolute left-1/2 top-6 -translate-x-1/2">
         <div className="flex items-center gap-6 rounded-full border border-[hsl(var(--gold)/0.45)] bg-[hsl(var(--primary)/0.12)] px-5 py-1.5 backdrop-blur-sm">
-          <CompassMark label="N" accent />
-          <CompassMark label="E" />
-          <CompassMark label="S" />
-          <CompassMark label="W" />
+          <CompassMark label={t("ui.compass.n")} accent />
+          <CompassMark label={t("ui.compass.e")} />
+          <CompassMark label={t("ui.compass.s")} />
+          <CompassMark label={t("ui.compass.w")} />
         </div>
       </div>
 

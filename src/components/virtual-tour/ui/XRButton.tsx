@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useXRStoreContext } from "../scenes/XRProvider";
 
 interface NavigatorWithXR extends Navigator {
@@ -12,6 +13,7 @@ interface NavigatorWithXR extends Navigator {
  * Mounts only after we confirm `navigator.xr.isSessionSupported('immersive-vr')`.
  */
 export function XRButton() {
+  const { t } = useTranslation("virtualTour");
   const store = useXRStoreContext();
   const [supported, setSupported] = useState<boolean>(false);
   const [pending, setPending] = useState<boolean>(false);
@@ -64,7 +66,7 @@ export function XRButton() {
       disabled={pending}
       className="bg-primary text-primary-foreground px-5 py-3 text-[12px] uppercase tracking-[0.22em] transition-opacity hover:opacity-90 disabled:opacity-60"
     >
-      {pending ? "Connexion…" : "Mode casque VR"}
+      {pending ? t("ui.xr.connecting") : t("ui.xr.enter")}
     </button>
   );
 }

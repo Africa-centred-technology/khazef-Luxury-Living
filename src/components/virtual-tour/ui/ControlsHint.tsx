@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { X, Keyboard } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { useTourStore } from "../hooks/useTourStore";
 
 /**
@@ -8,6 +9,7 @@ import { useTourStore } from "../hooks/useTourStore";
  * user dismiss; re-expands on click.
  */
 export function ControlsHint() {
+  const { t } = useTranslation("virtualTour");
   const mode = useTourStore((s) => s.mode);
   const [open, setOpen] = useState(true);
 
@@ -20,16 +22,16 @@ export function ControlsHint() {
   const content =
     mode === "panorama"
       ? [
-          { key: "Glisser", label: "Regarder" },
-          { key: "Molette", label: "Zoomer" },
-          { key: "W A S D", label: "Marcher" },
-          { key: "Clic sol", label: "Se rendre" },
+          { key: t("ui.controlsHint.panorama.drag.key"), label: t("ui.controlsHint.panorama.drag.label") },
+          { key: t("ui.controlsHint.panorama.wheel.key"), label: t("ui.controlsHint.panorama.wheel.label") },
+          { key: t("ui.controlsHint.panorama.wasd.key"), label: t("ui.controlsHint.panorama.wasd.label") },
+          { key: t("ui.controlsHint.panorama.clickFloor.key"), label: t("ui.controlsHint.panorama.clickFloor.label") },
         ]
       : [
-          { key: "Glisser", label: "Orbiter" },
-          { key: "Molette", label: "Zoomer" },
-          { key: "Clic droit", label: "Déplacer" },
-          { key: "Clic pièce", label: "Entrer" },
+          { key: t("ui.controlsHint.threeD.drag.key"), label: t("ui.controlsHint.threeD.drag.label") },
+          { key: t("ui.controlsHint.threeD.wheel.key"), label: t("ui.controlsHint.threeD.wheel.label") },
+          { key: t("ui.controlsHint.threeD.rightClick.key"), label: t("ui.controlsHint.threeD.rightClick.label") },
+          { key: t("ui.controlsHint.threeD.clickRoom.key"), label: t("ui.controlsHint.threeD.clickRoom.label") },
         ];
 
   if (!open) {
@@ -37,7 +39,7 @@ export function ControlsHint() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        aria-label="Afficher les contrôles"
+        aria-label={t("ui.controlsHint.showLabel")}
         className="pointer-events-auto absolute bottom-28 right-6 z-30 h-10 w-10 flex items-center justify-center rounded-full bg-background/80 backdrop-blur-md border border-border/60 text-primary hover:text-gold transition-colors shadow-luxe-sm"
       >
         <Keyboard className="h-4 w-4" />
@@ -48,11 +50,11 @@ export function ControlsHint() {
   return (
     <div className="pointer-events-auto absolute bottom-28 right-6 z-30 max-w-[280px] bg-background/85 backdrop-blur-md border border-border/60 shadow-luxe-md animate-fade-in">
       <div className="flex items-center justify-between px-4 py-2 border-b border-border/50">
-        <span className="eyebrow text-[10px] text-gold">Contrôles</span>
+        <span className="eyebrow text-[10px] text-gold">{t("ui.controlsHint.eyebrow")}</span>
         <button
           type="button"
           onClick={() => setOpen(false)}
-          aria-label="Masquer"
+          aria-label={t("ui.controlsHint.hideLabel")}
           className="text-muted-foreground hover:text-primary transition-colors"
         >
           <X className="h-4 w-4" />

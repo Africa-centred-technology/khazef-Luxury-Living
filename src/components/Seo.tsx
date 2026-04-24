@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 interface SeoProps {
   title: string;
@@ -7,8 +8,10 @@ interface SeoProps {
 }
 
 const Seo = ({ title, description, canonical }: SeoProps) => {
+  const { t } = useTranslation("common");
+
   useEffect(() => {
-    const fullTitle = `${title} · Luxury Living — Safi, Maroc`;
+    const fullTitle = `${title}${t("seo.suffix")}`;
     document.title = fullTitle;
 
     const setMeta = (name: string, content: string) => {
@@ -30,7 +33,7 @@ const Seo = ({ title, description, canonical }: SeoProps) => {
       document.head.appendChild(link);
     }
     link.setAttribute("href", canonical ?? window.location.href);
-  }, [title, description, canonical]);
+  }, [title, description, canonical, t]);
 
   return null;
 };

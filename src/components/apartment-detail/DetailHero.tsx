@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowUpRight, ChevronRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import type { ApartmentTypology, TypologyId } from "@/components/virtual-tour/data/apartment-typologies";
 import safiCoast from "@/assets/safi-coast.jpg";
 import interiorLiving from "@/assets/interior-living.jpg";
@@ -14,23 +15,33 @@ const TEXT_SHADOW =
 
 const SOFT_SHADOW = "0 1px 6px hsl(var(--primary) / 0.75)";
 
-const IMAGE_BY_TYPOLOGY: Record<TypologyId, { src: string; alt: string }> = {
-  "harbour-t2": {
-    src: safiCoast,
-    alt: "Vue sur la côte de Safi depuis un appartement Port de Khazef",
-  },
-  "atlantic-t3": {
-    src: interiorLiving,
-    alt: "Salon traversant d'un appartement Atlantique de Khazef, lumière océane",
-  },
-  "penthouse-duplex": {
-    src: heroBuilding,
-    alt: "Façade du duplex Ciel de Khazef, dernier étage avec terrasse panoramique",
-  },
+const IMAGE_SRC_BY_TYPOLOGY: Record<TypologyId, string> = {
+  "harbour-t2": safiCoast,
+  "atlantic-t3": interiorLiving,
+  "penthouse-duplex": heroBuilding,
 };
 
 export function DetailHero({ typology }: DetailHeroProps) {
-  const { src, alt } = IMAGE_BY_TYPOLOGY[typology.id];
+  const { t } = useTranslation("apartmentDetail");
+  const src = IMAGE_SRC_BY_TYPOLOGY[typology.id];
+  const alt = t(`hero.imageAlt.${typology.id}`);
+
+  const bedroomWord =
+    typology.bedrooms > 1
+      ? t("hero.badges.bedroomPlural")
+      : t("hero.badges.bedroomSingular");
+
+  const badges: ReadonlyArray<{ label: string; value: string }> = [
+    { label: t("hero.badges.surface"), value: typology.surface },
+    { label: t("hero.badges.floor"), value: typology.floor },
+    {
+      label: t("hero.badges.bedrooms"),
+      value: `${typology.bedrooms} ${bedroomWord}`,
+    },
+    ...(typology.priceRange
+      ? [{ label: t("hero.badges.price"), value: typology.priceRange }]
+      : []),
+  ];
 
   return (
     <section
@@ -76,16 +87,16 @@ export function DetailHero({ typology }: DetailHeroProps) {
       <div className="container-luxe relative flex min-h-[80vh] flex-col justify-center pt-40 pb-24 md:pt-48 md:pb-32">
         {/* Breadcrumb */}
         <nav
-          aria-label="Fil d'Ariane"
+          aria-label={t("hero.breadcrumbAriaLabel")}
           className="mb-8 flex flex-wrap items-center gap-2 text-[10px] uppercase tracking-[0.22em] font-medium text-white/85"
           style={{ textShadow: "0 1px 3px hsl(var(--primary) / 0.6)" }}
         >
           <Link to="/" className="text-white/85 transition-colors hover:text-gold">
-            Luxury Living
+            {t("hero.brand")}
           </Link>
           <ChevronRight className="h-3 w-3 text-gold" aria-hidden />
           <Link to="/apartments" className="text-white/85 transition-colors hover:text-gold">
-            Appartements
+            {t("hero.apartments")}
           </Link>
           <ChevronRight className="h-3 w-3 text-gold" aria-hidden />
           <span className="text-gold">{typology.name}</span>
@@ -102,7 +113,7 @@ export function DetailHero({ typology }: DetailHeroProps) {
               className="eyebrow text-gold"
               style={{ textShadow: "0 1px 3px hsl(var(--primary) / 0.7)" }}
             >
-              Typologie · {typology.surface}
+              {t("hero.eyebrowTypology")} · {typology.surface}
             </span>
             <span
               className="arabic text-2xl ml-2 text-gold/90"
@@ -143,17 +154,7 @@ export function DetailHero({ typology }: DetailHeroProps) {
             className="mt-10 flex flex-wrap items-center gap-3 opacity-0 animate-fade-in"
             style={{ animationDelay: "0.55s", animationFillMode: "forwards" }}
           >
-            {[
-              { label: "Surface", value: typology.surface },
-              { label: "Étage", value: typology.floor },
-              {
-                label: "Chambres",
-                value: `${typology.bedrooms} chambre${typology.bedrooms > 1 ? "s" : ""}`,
-              },
-              ...(typology.priceRange
-                ? [{ label: "Prix", value: typology.priceRange }]
-                : []),
-            ].map((badge) => (
+            {badges.map((badge) => (
               <li
                 key={badge.label}
                 className="inline-flex items-center gap-2 rounded-full border border-gold/60 bg-white/10 px-4 py-2 text-xs font-medium tracking-wide text-white backdrop-blur-md"
@@ -175,10 +176,10 @@ export function DetailHero({ typology }: DetailHeroProps) {
           >
             <Link
               to="/virtual-tour"
-              aria-label={`Visiter le ${typology.name} en 360 degrés`}
+              aria-label={t("hero.viewIn360Aria", { name: typology.name })}
               className="group inline-flex items-center gap-2 rounded-full bg-gradient-gold-bright px-7 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary shadow-lg shadow-black/20 transition-transform duration-300 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
             >
-              Visiter en 360°
+              {t("hero.viewIn360")}
               <ArrowUpRight
                 className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                 aria-hidden
@@ -187,11 +188,11 @@ export function DetailHero({ typology }: DetailHeroProps) {
 
             <a
               href="#booking"
-              aria-label="Réserver ce bien"
+              aria-label={t("hero.bookAria")}
               className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/5 px-7 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-white backdrop-blur-sm transition-colors hover:border-gold hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
               style={{ textShadow: SOFT_SHADOW }}
             >
-              Réserver
+              {t("hero.book")}
             </a>
           </div>
         </div>

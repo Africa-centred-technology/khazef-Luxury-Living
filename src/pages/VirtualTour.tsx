@@ -1,4 +1,5 @@
 import { Suspense, useRef } from "react";
+import { useTranslation } from "react-i18next";
 
 import Seo from "@/components/Seo";
 import PageHeader from "@/components/PageHeader";
@@ -31,7 +32,7 @@ import { TypologyDetailPanel } from "@/components/virtual-tour/ui/TypologyDetail
 import { TypologyHero } from "@/components/virtual-tour/ui/TypologyHero";
 import { AmbienceLegend } from "@/components/virtual-tour/ui/AmbienceLegend";
 
-import { TOUR_INTRO, TOUR_TIPS } from "@/components/virtual-tour/data/editorial-copy";
+import { useTourIntro, useTourTips } from "@/components/virtual-tour/data/editorial-copy";
 import * as LucideIcons from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -41,6 +42,9 @@ function resolveIcon(name: string): LucideIcon {
 }
 
 const VirtualTour = () => {
+  const { t } = useTranslation("virtualTour");
+  const tourIntro = useTourIntro();
+  const tourTips = useTourTips();
   const currentRoom = useTourStore((s) => s.currentRoom);
   const mode = useTourStore((s) => s.mode);
   const stageRef = useRef<HTMLDivElement | null>(null);
@@ -48,21 +52,21 @@ const VirtualTour = () => {
   return (
     <>
       <Seo
-        title="Visite 360°"
-        description="Explorez Luxury Living en immersion virtuelle 360° — panoramas, mode 3D et support casque VR."
+        title={t("seo.title")}
+        description={t("seo.description")}
       />
       <VirtualTourSchema
-        name="Luxury Living — Visite immersive"
-        description="Visite virtuelle 360° d'un appartement témoin de la résidence Luxury Living à Safi."
+        name={t("schema.name")}
+        description={t("schema.description")}
       />
 
       <VirtualTourAccessibility />
 
       <PageHeader
-        eyebrow={TOUR_INTRO.eyebrow}
-        arabic={TOUR_INTRO.arabic}
-        title={TOUR_INTRO.title}
-        italicWord={TOUR_INTRO.italicWord}
+        eyebrow={tourIntro.eyebrow}
+        arabic={tourIntro.arabic}
+        title={tourIntro.title}
+        italicWord={tourIntro.italicWord}
         image={hero}
       />
 
@@ -111,10 +115,10 @@ const VirtualTour = () => {
       <section className="container-luxe pb-24">
         <div className="mb-10 flex items-center gap-4">
           <span className="gold-rule" aria-hidden="true" />
-          <span className="eyebrow text-gold">{TOUR_TIPS.eyebrow}</span>
+          <span className="eyebrow text-gold">{tourTips.eyebrow}</span>
         </div>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {TOUR_TIPS.items.map((tip) => {
+          {tourTips.items.map((tip) => {
             const Icon = resolveIcon(tip.icon);
             return (
               <article

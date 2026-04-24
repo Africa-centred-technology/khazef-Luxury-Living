@@ -8,6 +8,7 @@ import {
   Phone,
   ShieldCheck,
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -17,35 +18,23 @@ interface BookingCTAProps {
   typology: ApartmentTypology;
 }
 
-interface ReassuranceItem {
-  readonly icon: typeof Clock;
-  readonly label: string;
-}
-
-interface SlotOption {
-  readonly value: "this-week" | "fortnight" | "later";
-  readonly label: string;
-}
+type SlotValue = "this-week" | "fortnight" | "later";
 
 interface BookingFormState {
   readonly fullName: string;
   readonly phone: string;
   readonly email: string;
-  readonly slot: SlotOption["value"];
+  readonly slot: SlotValue;
   readonly message: string;
   readonly wantsCallback: boolean;
 }
 
-const REASSURANCE_ITEMS: readonly ReassuranceItem[] = [
-  { icon: Clock, label: "Sur rendez-vous · 7j/7" },
-  { icon: ShieldCheck, label: "Confidentialité absolue" },
-  { icon: Phone, label: "Conciergerie dédiée" },
-] as const;
+const REASSURANCE_ICONS = [Clock, ShieldCheck, Phone] as const;
 
-const SLOT_OPTIONS: readonly SlotOption[] = [
-  { value: "this-week", label: "Cette semaine" },
-  { value: "fortnight", label: "Dans 15 jours" },
-  { value: "later", label: "Plus tard" },
+const SLOT_VALUES: readonly SlotValue[] = [
+  "this-week",
+  "fortnight",
+  "later",
 ] as const;
 
 const CONTACT_PHONE = "+212 5 24 00 00 00";
@@ -66,9 +55,14 @@ const inputClasses =
 const labelClasses = "eyebrow text-primary/70 text-[0.7rem] tracking-[0.18em]";
 
 export function BookingCTA({ typology }: BookingCTAProps) {
+  const { t } = useTranslation("apartmentDetail");
   const [formState, setFormState] =
     useState<BookingFormState>(INITIAL_FORM_STATE);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+
+  const reassurances = t("booking.reassurances", {
+    returnObjects: true,
+  }) as readonly string[];
 
   const handleFieldChange = (
     event: ChangeEvent<
@@ -99,6 +93,12 @@ export function BookingCTA({ typology }: BookingCTAProps) {
     setIsSubmitted(false);
   };
 
+  const intro1 = t("booking.intro1", {
+    name: typology.name,
+    surface: typology.surface,
+  });
+  const intro1Parts = intro1.split(/<1>(.*?)<\/1>/);
+
   return (
     <section
       id="booking"
@@ -120,46 +120,50 @@ export function BookingCTA({ typology }: BookingCTAProps) {
                 lang="ar"
                 dir="rtl"
               >
-                زيارة خاصة
+                {t("booking.arabic")}
               </span>
-              <span className="eyebrow text-gold">Visite privée</span>
+              <span className="eyebrow text-gold">{t("booking.eyebrow")}</span>
             </div>
 
             <h2
               id="booking-heading"
               className="h-display text-secondary mt-6 max-w-xl"
             >
-              Entrez chez vous, avant tout le monde.
+              {t("booking.title")}
             </h2>
 
             <div className="mt-6 space-y-4 text-secondary/80 leading-relaxed max-w-xl">
               <p>
-                Découvrez en avant-première la typologie{" "}
-                <span className="text-gold">{typology.name}</span> ({" "}
-                {typology.surface}) accompagné par notre conciergerie. Une visite
-                calibrée à votre rythme, sans agitation commerciale.
+                {intro1Parts.map((part, index) =>
+                  index === 1 ? (
+                    <span key={index} className="text-gold">
+                      {part}
+                    </span>
+                  ) : (
+                    <span key={index}>{part}</span>
+                  ),
+                )}
               </p>
-              <p>
-                Un seul interlocuteur vous reçoit, plans en main, pour répondre
-                précisément à vos questions — orientations, matières, finitions
-                sur mesure.
-              </p>
+              <p>{t("booking.intro2")}</p>
             </div>
 
             <ul className="mt-10 grid gap-4 sm:grid-cols-3 max-w-xl">
-              {REASSURANCE_ITEMS.map(({ icon: Icon, label }) => (
-                <li
-                  key={label}
-                  className="flex items-start gap-3 text-sm text-secondary/85"
-                >
-                  <Icon
-                    className="mt-0.5 h-4 w-4 shrink-0 text-gold"
-                    strokeWidth={1.5}
-                    aria-hidden="true"
-                  />
-                  <span>{label}</span>
-                </li>
-              ))}
+              {reassurances.map((label, index) => {
+                const Icon = REASSURANCE_ICONS[index] ?? Clock;
+                return (
+                  <li
+                    key={label}
+                    className="flex items-start gap-3 text-sm text-secondary/85"
+                  >
+                    <Icon
+                      className="mt-0.5 h-4 w-4 shrink-0 text-gold"
+                      strokeWidth={1.5}
+                      aria-hidden="true"
+                    />
+                    <span>{label}</span>
+                  </li>
+                );
+              })}
             </ul>
 
             <div className="mt-10 flex flex-col gap-3 border-t border-gold/30 pt-6 max-w-xl sm:flex-row sm:items-center sm:gap-10">
@@ -200,13 +204,12 @@ export function BookingCTA({ typology }: BookingCTAProps) {
                 </span>
                 <div className="space-y-3">
                   <h3 className="font-display text-2xl text-primary">
-                    Merci — nous vous rappelons sous 24 h
+                    {t("booking.success.heading")}
                   </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    Votre demande de visite privée pour la typologie{" "}
-                    <span className="text-primary">{typology.name}</span> a bien
-                    été transmise à notre conciergerie. Elle vous contactera au
-                    créneau convenu.
+                    {t("booking.success.bodyPrefix")}
+                    <span className="text-primary">{typology.name}</span>
+                    {t("booking.success.bodySuffix")}
                   </p>
                 </div>
                 <button
@@ -215,26 +218,27 @@ export function BookingCTA({ typology }: BookingCTAProps) {
                   className="link-luxe inline-flex items-center gap-2 text-sm text-primary/80 hover:text-gold"
                 >
                   <ArrowLeft className="h-4 w-4" strokeWidth={1.5} />
-                  Nouvelle demande
+                  {t("booking.success.newRequest")}
                 </button>
               </div>
             ) : (
               <>
                 <header className="mb-6 space-y-1.5">
                   <h3 className="font-display text-xl text-primary">
-                    Réservez votre visite privée
+                    {t("booking.form.heading")}
                   </h3>
                   <p className="text-xs text-muted-foreground">
-                    Typologie —{" "}
-                    <span className="text-primary/80">{typology.name}</span> ·{" "}
-                    {typology.surface}
+                    {t("booking.form.typologyLine", {
+                      name: typology.name,
+                      surface: typology.surface,
+                    })}
                   </p>
                 </header>
 
                 <form onSubmit={handleSubmit} noValidate={false} className="space-y-4">
                   <div className="space-y-1.5">
                     <label htmlFor="booking-fullname" className={labelClasses}>
-                      Nom complet
+                      {t("booking.form.fullName")}
                     </label>
                     <input
                       id="booking-fullname"
@@ -245,14 +249,14 @@ export function BookingCTA({ typology }: BookingCTAProps) {
                       value={formState.fullName}
                       onChange={handleFieldChange}
                       className={inputClasses}
-                      placeholder="Mme / M."
+                      placeholder={t("booking.form.fullNamePlaceholder")}
                     />
                   </div>
 
                   <div className="grid gap-4 sm:grid-cols-2">
                     <div className="space-y-1.5">
                       <label htmlFor="booking-phone" className={labelClasses}>
-                        Téléphone
+                        {t("booking.form.phone")}
                       </label>
                       <input
                         id="booking-phone"
@@ -263,12 +267,12 @@ export function BookingCTA({ typology }: BookingCTAProps) {
                         value={formState.phone}
                         onChange={handleFieldChange}
                         className={inputClasses}
-                        placeholder="+212 …"
+                        placeholder={t("booking.form.phonePlaceholder")}
                       />
                     </div>
                     <div className="space-y-1.5">
                       <label htmlFor="booking-email" className={labelClasses}>
-                        Email
+                        {t("booking.form.email")}
                       </label>
                       <input
                         id="booking-email"
@@ -279,14 +283,14 @@ export function BookingCTA({ typology }: BookingCTAProps) {
                         value={formState.email}
                         onChange={handleFieldChange}
                         className={inputClasses}
-                        placeholder="vous@exemple.com"
+                        placeholder={t("booking.form.emailPlaceholder")}
                       />
                     </div>
                   </div>
 
                   <div className="space-y-1.5">
                     <label htmlFor="booking-slot" className={labelClasses}>
-                      Créneau souhaité
+                      {t("booking.form.slot")}
                     </label>
                     <select
                       id="booking-slot"
@@ -296,9 +300,9 @@ export function BookingCTA({ typology }: BookingCTAProps) {
                       onChange={handleFieldChange}
                       className={`${inputClasses} appearance-none bg-background/70 pr-10`}
                     >
-                      {SLOT_OPTIONS.map((option) => (
-                        <option key={option.value} value={option.value}>
-                          {option.label}
+                      {SLOT_VALUES.map((value) => (
+                        <option key={value} value={value}>
+                          {t(`booking.form.slotOptions.${value}`)}
                         </option>
                       ))}
                     </select>
@@ -306,7 +310,10 @@ export function BookingCTA({ typology }: BookingCTAProps) {
 
                   <div className="space-y-1.5">
                     <label htmlFor="booking-message" className={labelClasses}>
-                      Message <span className="text-muted-foreground/70 normal-case tracking-normal">(optionnel)</span>
+                      {t("booking.form.message")}{" "}
+                      <span className="text-muted-foreground/70 normal-case tracking-normal">
+                        {t("booking.form.messageOptional")}
+                      </span>
                     </label>
                     <textarea
                       id="booking-message"
@@ -315,7 +322,7 @@ export function BookingCTA({ typology }: BookingCTAProps) {
                       value={formState.message}
                       onChange={handleFieldChange}
                       className={`${inputClasses} resize-none`}
-                      placeholder="Précisez vos attentes, accompagnants, etc."
+                      placeholder={t("booking.form.messagePlaceholder")}
                     />
                   </div>
 
@@ -332,7 +339,7 @@ export function BookingCTA({ typology }: BookingCTAProps) {
                       className="mt-0.5 border-gold/60 data-[state=checked]:bg-gold data-[state=checked]:text-primary data-[state=checked]:border-gold"
                     />
                     <span className="text-sm text-primary/80">
-                      Je souhaite être rappelé
+                      {t("booking.form.wantsCallback")}
                     </span>
                   </label>
 
@@ -340,7 +347,7 @@ export function BookingCTA({ typology }: BookingCTAProps) {
                     type="submit"
                     className="group w-full bg-gradient-to-r from-gold to-gold-dark text-primary hover:from-gold-dark hover:to-gold shadow-luxe"
                   >
-                    <span>Demander ma visite</span>
+                    <span>{t("booking.form.submit")}</span>
                     <ArrowUpRight
                       className="ml-1 h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
                       strokeWidth={1.75}
@@ -348,8 +355,7 @@ export function BookingCTA({ typology }: BookingCTAProps) {
                   </Button>
 
                   <p className="pt-1 text-[0.7rem] leading-relaxed text-muted-foreground">
-                    Vos données restent strictement confidentielles et ne sont
-                    utilisées que pour cette demande.
+                    {t("booking.form.privacy")}
                   </p>
                 </form>
               </>

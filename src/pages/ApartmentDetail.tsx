@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import Seo from "@/components/Seo";
 import CtaBanner from "@/components/CtaBanner";
 import {
@@ -20,6 +21,7 @@ import {
 import { useTourStore } from "@/components/virtual-tour/hooks/useTourStore";
 
 const ApartmentDetail = () => {
+  const { t } = useTranslation("apartmentDetail");
   const { typologyId } = useParams<{ typologyId: string }>();
   const typology = typologyId
     ? getTypologyById(typologyId as TypologyId)
@@ -35,47 +37,47 @@ const ApartmentDetail = () => {
     return (
       <>
         <Seo
-          title="Typologie introuvable"
-          description="Cette typologie d'appartement n'existe pas ou n'est plus disponible."
+          title={t("notFound.seoTitle")}
+          description={t("notFound.seoDescription")}
         />
         <section className="container-luxe py-28 md:py-40">
-          <p className="eyebrow mb-6">Erreur 404</p>
+          <p className="eyebrow mb-6">{t("notFound.eyebrow")}</p>
           <h1 className="h-display mb-8">
-            Cette typologie
+            {t("notFound.titleLine1")}
             <br />
-            <span className="italic text-primary/70">est introuvable.</span>
+            <span className="italic text-primary/70">
+              {t("notFound.titleLine2")}
+            </span>
           </h1>
           <div className="gold-rule mb-10" />
           <p className="max-w-xl text-lg text-foreground/70 mb-12">
-            L'adresse demandée ne correspond à aucune de nos typologies. Revenez
-            à la sélection pour explorer les vingt-cinq appartements Luxury
-            Living.
+            {t("notFound.body")}
           </p>
           <Link to="/apartments" className="link-luxe">
-            Retour aux appartements
+            {t("notFound.back")}
           </Link>
         </section>
       </>
     );
   }
 
-  const t = typology;
+  const typologyDetail = typology;
 
   return (
     <>
       <Seo
-        title={`${t.name} — Appartement`}
-        description={t.tagline}
+        title={`${typologyDetail.name} ${t("seo.titleSuffix")}`}
+        description={typologyDetail.tagline}
       />
-      <DetailHero typology={t} />
-      <SignatureOverview typology={t} />
-      <NarrativeAndMaterials typology={t} />
-      <RoomGrid typology={t} />
-      <Live3DPreview typology={t} />
-      <FloorPlanSection typology={t} />
-      <LocationOrientation typology={t} />
-      <BookingCTA typology={t} />
-      <RelatedTypologies typology={t} />
+      <DetailHero typology={typologyDetail} />
+      <SignatureOverview typology={typologyDetail} />
+      <NarrativeAndMaterials typology={typologyDetail} />
+      <RoomGrid typology={typologyDetail} />
+      <Live3DPreview typology={typologyDetail} />
+      <FloorPlanSection typology={typologyDetail} />
+      <LocationOrientation typology={typologyDetail} />
+      <BookingCTA typology={typologyDetail} />
+      <RelatedTypologies typology={typologyDetail} />
       <CtaBanner />
     </>
   );

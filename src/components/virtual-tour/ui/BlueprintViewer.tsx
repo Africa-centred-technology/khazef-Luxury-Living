@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { X } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface BlueprintViewerProps {
   open: boolean;
@@ -14,6 +15,8 @@ interface BlueprintViewerProps {
  * Click on the dark backdrop also closes. The image is served from `public/`.
  */
 export function BlueprintViewer({ open, src, caption, typologyName, onClose }: BlueprintViewerProps) {
+  const { t } = useTranslation("virtualTour");
+
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
@@ -35,7 +38,7 @@ export function BlueprintViewer({ open, src, caption, typologyName, onClose }: B
     <div
       role="dialog"
       aria-modal="true"
-      aria-label={`Plan de l'appartement ${typologyName}`}
+      aria-label={t("ui.blueprint.dialogLabel", { name: typologyName })}
       className="fixed inset-0 z-[60] flex items-center justify-center bg-primary/92 backdrop-blur-md animate-fade-in"
       onClick={onClose}
     >
@@ -45,13 +48,13 @@ export function BlueprintViewer({ open, src, caption, typologyName, onClose }: B
       >
         <header className="flex items-center justify-between px-6 py-4 border-b border-border/60">
           <div>
-            <div className="eyebrow text-gold text-[10px]">Plan d'architecte</div>
+            <div className="eyebrow text-gold text-[10px]">{t("ui.blueprint.eyebrow")}</div>
             <h2 className="font-display text-2xl text-primary leading-tight">{typologyName}</h2>
           </div>
           <button
             type="button"
             onClick={onClose}
-            aria-label="Fermer le plan"
+            aria-label={t("ui.blueprint.closeLabel")}
             className="text-muted-foreground hover:text-primary transition-colors"
           >
             <X className="h-5 w-5" />
@@ -60,14 +63,16 @@ export function BlueprintViewer({ open, src, caption, typologyName, onClose }: B
         <div className="relative bg-secondary/40 flex items-center justify-center p-6">
           <img
             src={src}
-            alt={`Plan 2D — ${typologyName}`}
+            alt={t("ui.blueprint.imageAlt", { name: typologyName })}
             className="max-h-[70vh] max-w-full object-contain"
             onError={(e) => {
               const img = e.currentTarget;
               img.style.display = "none";
               const parent = img.parentElement;
               if (parent) {
-                parent.innerHTML = `<p class="font-light text-muted-foreground p-12 text-center">Le plan n'est pas encore disponible.<br/><span class="eyebrow text-[10px] mt-3 inline-block">Attendu : ${src}</span></p>`;
+                const unavailable = t("ui.blueprint.unavailable");
+                const expected = t("ui.blueprint.expected", { path: src });
+                parent.innerHTML = `<p class="font-light text-muted-foreground p-12 text-center">${unavailable}<br/><span class="eyebrow text-[10px] mt-3 inline-block">${expected}</span></p>`;
               }
             }}
           />

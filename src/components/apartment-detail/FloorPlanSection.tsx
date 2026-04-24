@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import type {
   ApartmentTypology,
   RoomKind,
@@ -7,6 +8,8 @@ import type {
 interface FloorPlanSectionProps {
   typology: ApartmentTypology;
 }
+
+type TFn = (key: string, options?: Record<string, unknown>) => string;
 
 interface ParametricPlanGeometry {
   readonly viewBoxWidth: number;
@@ -71,11 +74,11 @@ function getRoomTint(kind: RoomKind): string {
  * Positive Y is interpreted as "back of the plot" (Nord), negative Y as the
  * front facade (Sud). A centered room faces both orientations.
  */
-function getOrientationLabel(room: TypologyRoom): string {
+function getOrientationLabel(room: TypologyRoom, t: TFn): string {
   const [, depthCenter] = room.center;
-  if (depthCenter < 0) return "Sud";
-  if (depthCenter > 0) return "Nord";
-  return "Double";
+  if (depthCenter < 0) return t("floorplan.orientation.south");
+  if (depthCenter > 0) return t("floorplan.orientation.north");
+  return t("floorplan.orientation.double");
 }
 
 function formatDimensions(room: TypologyRoom): string {
@@ -132,6 +135,7 @@ interface ParametricFloorPlanProps {
 }
 
 function ParametricFloorPlan({ typology }: ParametricFloorPlanProps) {
+  const { t } = useTranslation("apartmentDetail");
   const geometry = buildGeometry(typology);
   const roomRects = buildRoomRects(typology.rooms, geometry);
 
@@ -143,7 +147,7 @@ function ParametricFloorPlan({ typology }: ParametricFloorPlanProps) {
     <svg
       viewBox={`0 0 ${geometry.viewBoxWidth} ${geometry.viewBoxHeight}`}
       role="img"
-      aria-label={`Plan schématique ${typology.name}`}
+      aria-label={t("floorplan.schematicAria", { name: typology.name })}
       className="h-full w-full"
       preserveAspectRatio="xMidYMid meet"
     >
@@ -227,7 +231,7 @@ function ParametricFloorPlan({ typology }: ParametricFloorPlanProps) {
           letterSpacing="0.12em"
           fontWeight={500}
         >
-          N
+          {t("floorplan.compassNorth")}
         </text>
       </g>
     </svg>
@@ -242,19 +246,23 @@ interface RoomTableRow {
   readonly orientation: string;
 }
 
-function buildTableRows(rooms: readonly TypologyRoom[]): readonly RoomTableRow[] {
+function buildTableRows(
+  rooms: readonly TypologyRoom[],
+  t: TFn,
+): readonly RoomTableRow[] {
   return rooms.map((room, index) => ({
     key: `${room.name}-${index}`,
     name: room.name,
     surface: room.surface,
     dimensions: formatDimensions(room),
-    orientation: getOrientationLabel(room),
+    orientation: getOrientationLabel(room, t),
   }));
 }
 
 export function FloorPlanSection({ typology }: FloorPlanSectionProps) {
+  const { t } = useTranslation("apartmentDetail");
   const hasBlueprint = Boolean(typology.blueprintUrl);
-  const tableRows = buildTableRows(typology.rooms);
+  const tableRows = buildTableRows(typology.rooms, t);
 
   return (
     <section
@@ -263,13 +271,15 @@ export function FloorPlanSection({ typology }: FloorPlanSectionProps) {
     >
       <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
         <span className="gold-rule" aria-hidden="true" />
-        <span className="eyebrow text-primary/70">Plan d&rsquo;architecte</span>
+        <span className="eyebrow text-primary/70">
+          {t("floorplan.eyebrow")}
+        </span>
         <span
           className="arabic text-lg md:text-xl text-gold"
           lang="ar"
           dir="rtl"
         >
-          المخطط
+          {t("floorplan.arabic")}
         </span>
       </div>
 
@@ -277,7 +287,7 @@ export function FloorPlanSection({ typology }: FloorPlanSectionProps) {
         id="floor-plan-heading"
         className="mt-6 h-display text-primary max-w-3xl"
       >
-        Le plan, à la règle et au compas.
+        {t("floorplan.title")}
       </h2>
 
       <div className="mt-12 grid gap-10 lg:grid-cols-2 lg:gap-16 items-start">
@@ -289,7 +299,7 @@ export function FloorPlanSection({ typology }: FloorPlanSectionProps) {
                 src={typology.blueprintUrl}
                 alt={
                   typology.blueprintCaption ??
-                  `Plan d'architecte de ${typology.name}`
+                  t("floorplan.defaultBlueprintAlt", { name: typology.name })
                 }
                 className="absolute inset-0 h-full w-full object-contain"
                 loading="lazy"
@@ -304,7 +314,7 @@ export function FloorPlanSection({ typology }: FloorPlanSectionProps) {
           <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground/80">
             {hasBlueprint && typology.blueprintCaption
               ? typology.blueprintCaption
-              : "Représentation schématique. Plan d’architecte définitif sur demande."}
+              : t("floorplan.captionDefault")}
           </p>
 
           <div>
@@ -312,11 +322,11 @@ export function FloorPlanSection({ typology }: FloorPlanSectionProps) {
               type="button"
               disabled
               aria-disabled="true"
-              title="Bientôt disponible"
+              title={t("floorplan.comingSoon")}
               className="inline-flex items-center gap-3 border border-gold/60 px-5 py-3 text-xs uppercase tracking-[0.28em] text-primary opacity-60 cursor-not-allowed"
             >
               <span className="gold-rule" aria-hidden="true" />
-              Télécharger le plan (PDF)
+              {t("floorplan.downloadPdf")}
             </button>
           </div>
         </div>
@@ -326,7 +336,7 @@ export function FloorPlanSection({ typology }: FloorPlanSectionProps) {
           <div className="overflow-x-auto">
             <table className="w-full border-collapse text-left">
               <caption className="sr-only">
-                Détails des pièces, surfaces, dimensions et orientation pour {typology.name}.
+                {t("floorplan.tableCaption", { name: typology.name })}
               </caption>
               <thead>
                 <tr className="border-b border-gold/50">
@@ -334,25 +344,25 @@ export function FloorPlanSection({ typology }: FloorPlanSectionProps) {
                     scope="col"
                     className="py-4 pr-4 eyebrow text-muted-foreground/80"
                   >
-                    Pièce
+                    {t("floorplan.columns.room")}
                   </th>
                   <th
                     scope="col"
                     className="py-4 px-4 eyebrow text-muted-foreground/80"
                   >
-                    Surface
+                    {t("floorplan.columns.surface")}
                   </th>
                   <th
                     scope="col"
                     className="py-4 px-4 eyebrow text-muted-foreground/80 whitespace-nowrap"
                   >
-                    Dimensions
+                    {t("floorplan.columns.dimensions")}
                   </th>
                   <th
                     scope="col"
                     className="py-4 pl-4 eyebrow text-muted-foreground/80"
                   >
-                    Orientation
+                    {t("floorplan.columns.orientation")}
                   </th>
                 </tr>
               </thead>
@@ -380,7 +390,7 @@ export function FloorPlanSection({ typology }: FloorPlanSectionProps) {
               <tfoot>
                 <tr className="border-t-2 border-gold/60">
                   <td className="pt-5 pr-4 eyebrow text-primary">
-                    Total utile
+                    {t("floorplan.totalUseful")}
                   </td>
                   <td
                     className="pt-5 px-4 font-display text-lg md:text-xl text-primary whitespace-nowrap"

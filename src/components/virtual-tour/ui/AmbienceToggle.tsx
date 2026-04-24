@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Volume2, VolumeX } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { useTourStore } from "../hooks/useTourStore";
 
 const AMBIENCE_SRC = "/audio/ambience-atlantic.mp3";
@@ -9,6 +10,7 @@ const AMBIENCE_SRC = "/audio/ambience-atlantic.mp3";
  * Silently fails if the audio file is not present.
  */
 export function AmbienceToggle() {
+  const { t } = useTranslation("virtualTour");
   const audioEnabled = useTourStore((s) => s.audioEnabled);
   const toggleAudio = useTourStore((s) => s.toggleAudio);
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -48,8 +50,8 @@ export function AmbienceToggle() {
         aria-pressed={audioEnabled}
         aria-label={
           audioEnabled
-            ? "Couper l'ambiance sonore"
-            : "Activer l'ambiance sonore"
+            ? t("ui.ambienceToggle.disable")
+            : t("ui.ambienceToggle.enable")
         }
         className="pointer-events-auto absolute right-5 top-5 z-30 inline-flex h-11 w-11 items-center justify-center rounded-full border border-[hsl(var(--gold)/0.45)] bg-[hsl(var(--primary)/0.18)] backdrop-blur-md transition-colors hover:bg-[hsl(var(--primary)/0.32)]"
         style={{

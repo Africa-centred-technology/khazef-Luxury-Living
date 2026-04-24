@@ -3,6 +3,7 @@ import PageHeader from "@/components/PageHeader";
 import CtaBanner from "@/components/CtaBanner";
 import { ArrowUpRight, Bed, Maximize, Sun } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import hero from "@/assets/interior-living.jpg";
 import living from "@/assets/interior-living.jpg";
 import bedroom from "@/assets/interior-bedroom.jpg";
@@ -28,97 +29,91 @@ const EXTERIOR_PER_TYPOLOGY: Record<TypologyId, string> = {
   "penthouse-duplex": "Terrasse panoramique 34 m²",
 };
 
-const features = [
-  "Cuisine équipée premium en marbre",
-  "Salles de bain en tadelakt et marbre",
-  "Climatisation réversible silencieuse",
-  "Domotique intégrée (lumière, volets)",
-  "Parking sous-sol sécurisé",
-  "Conciergerie privée",
-];
-
 const Apartments = () => {
+  const { t } = useTranslation("apartments");
+  const featureItems = t("features.items", { returnObjects: true }) as string[];
+
   return (
     <>
-      <Seo title="Appartements" description="Découvrez les 25 appartements Luxury Living — du T2 au penthouse, avec vues mer et terrasses." />
+      <Seo title={t("seo.title")} description={t("seo.description")} />
       <PageHeader
-        eyebrow="Appartements"
-        arabic="الشقق"
-        title="Vingt-cinq écrins,"
-        italicWord="vingt-cinq histoires."
-        intro="Du T2 confidentiel au penthouse sur les toits, chaque appartement Luxury Living a été dessiné comme une pièce unique."
+        eyebrow={t("header.eyebrow")}
+        arabic={t("header.arabic")}
+        title={t("header.title")}
+        italicWord={t("header.italicWord")}
+        intro={t("header.intro")}
         image={hero}
       />
 
       {/* GRID — 3 typologies réelles, chaque carte link vers sa page détail */}
       <section className="container-luxe py-20 md:py-28">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
-          {TYPOLOGIES.map((t) => {
-            const img = IMG_PER_TYPOLOGY[t.id];
-            const units = UNITS_PER_TYPOLOGY[t.id];
-            const exterior = EXTERIOR_PER_TYPOLOGY[t.id];
+          {TYPOLOGIES.map((typology) => {
+            const img = IMG_PER_TYPOLOGY[typology.id];
+            const units = UNITS_PER_TYPOLOGY[typology.id];
+            const exterior = EXTERIOR_PER_TYPOLOGY[typology.id];
             return (
               <Link
-                key={t.id}
-                to={`/apartments/${t.id}`}
+                key={typology.id}
+                to={`/apartments/${typology.id}`}
                 className="group relative bg-background border border-border/60 overflow-hidden shadow-luxe-sm hover:shadow-luxe-xl hover:-translate-y-1 transition-all duration-700 block"
               >
                 <div className="aspect-[4/3] overflow-hidden relative">
                   <img
                     src={img}
-                    alt={`Intérieur ${t.name} — typologie ${t.id}`}
+                    alt={t("card.interiorAlt", { name: typology.name, id: typology.id })}
                     className="h-full w-full object-cover transition-transform duration-[2000ms] group-hover:scale-110"
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-primary/70 via-primary/15 to-transparent" />
                   <div className="absolute top-5 left-5 bg-background/95 backdrop-blur px-4 py-2 eyebrow text-primary">
-                    {t.id.split("-")[1]?.toUpperCase() ?? t.id} · {units} unités
+                    {typology.id.split("-")[1]?.toUpperCase() ?? typology.id} · {units} {t("card.units")}
                   </div>
                   <div
                     className="absolute top-5 right-5 arabic text-3xl text-gold"
                     style={{ textShadow: "0 2px 12px hsl(var(--primary) / 0.6)" }}
                   >
-                    {t.arabic}
+                    {typology.arabic}
                   </div>
                   <div className="absolute bottom-5 left-6 right-6 flex items-baseline justify-between gap-4">
                     <h3
                       className="font-display text-3xl md:text-[34px] text-white leading-tight"
                       style={{ textShadow: "0 2px 14px hsl(var(--primary) / 0.7)" }}
                     >
-                      {t.name}
+                      {typology.name}
                     </h3>
                   </div>
                 </div>
                 <div className="p-8 md:p-10">
-                  <p className="font-display italic text-primary/80 mb-5">{t.tagline}</p>
+                  <p className="font-display italic text-primary/80 mb-5">{typology.tagline}</p>
                   <div className="grid grid-cols-3 gap-4 text-sm border-y border-border/60 py-5 mb-6">
                     <div>
                       <Maximize className="h-4 w-4 text-gold mb-1.5" strokeWidth={1.4} />
-                      <div className="text-muted-foreground text-xs">Surface</div>
-                      <div className="font-medium text-primary">{t.surface}</div>
+                      <div className="text-muted-foreground text-xs">{t("card.surface")}</div>
+                      <div className="font-medium text-primary">{typology.surface}</div>
                     </div>
                     <div>
                       <Bed className="h-4 w-4 text-gold mb-1.5" strokeWidth={1.4} />
-                      <div className="text-muted-foreground text-xs">Chambres</div>
+                      <div className="text-muted-foreground text-xs">{t("card.bedrooms")}</div>
                       <div className="font-medium text-primary">
-                        {t.bedrooms} chambre{t.bedrooms > 1 ? "s" : ""}
+                        {typology.bedrooms} {typology.bedrooms > 1 ? t("card.bedroomPlural") : t("card.bedroomSingular")}
                       </div>
                     </div>
                     <div>
                       <Sun className="h-4 w-4 text-gold mb-1.5" strokeWidth={1.4} />
-                      <div className="text-muted-foreground text-xs">Extérieur</div>
+                      <div className="text-muted-foreground text-xs">{t("card.exterior")}</div>
                       <div className="font-medium text-primary">{exterior}</div>
                     </div>
                   </div>
                   <div className="flex items-center justify-between">
                     <div>
-                      <div className="eyebrow text-muted-foreground text-[10px]">Tarif</div>
+                      <div className="eyebrow text-muted-foreground text-[10px]">{t("card.price")}</div>
                       <div className="font-display text-xl text-primary italic">
-                        {t.priceRange ?? "Sur demande"}
+                        {typology.priceRange ?? t("card.priceOnRequest")}
                       </div>
                     </div>
                     <span className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.18em] text-gold font-medium">
-                      Découvrir
+                      {t("card.discover")}
                       <ArrowUpRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </span>
                   </div>
@@ -134,13 +129,13 @@ const Apartments = () => {
         <div className="absolute inset-0 pattern-zellige opacity-20" />
         <div className="container-luxe relative py-24 md:py-32 grid md:grid-cols-2 gap-12">
           <div>
-            <div className="flex items-center gap-4 mb-5"><span className="gold-rule" /><span className="eyebrow text-gold">Prestations premium</span></div>
-            <h2 className="h-display text-secondary">L'évidence, <em className="text-gold-bright">dans le détail.</em></h2>
+            <div className="flex items-center gap-4 mb-5"><span className="gold-rule" /><span className="eyebrow text-gold">{t("features.eyebrow")}</span></div>
+            <h2 className="h-display text-secondary">{t("features.title")} <em className="text-gold-bright">{t("features.italicWord")}</em></h2>
           </div>
           <ul className="grid sm:grid-cols-2 gap-y-5 gap-x-8">
-            {features.map((f) => (
-              <li key={f} className="flex items-start gap-4 text-secondary/90 font-light">
-                <span className="text-gold text-2xl leading-none">✦</span> {f}
+            {featureItems.map((item) => (
+              <li key={item} className="flex items-start gap-4 text-secondary/90 font-light">
+                <span className="text-gold text-2xl leading-none">✦</span> {item}
               </li>
             ))}
           </ul>

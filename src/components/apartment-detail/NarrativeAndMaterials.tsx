@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import type {
   ApartmentTypology,
   TypologyId,
@@ -8,12 +9,6 @@ interface NarrativeAndMaterialsProps {
   typology: ApartmentTypology;
 }
 
-interface NarrativeCopy {
-  title: string;
-  paragraphs: readonly [string, string, string];
-  pullQuote: string;
-}
-
 interface Material {
   label: string;
   category: string;
@@ -21,163 +16,64 @@ interface Material {
   swatch: string;
 }
 
-const NARRATIVE_BY_TYPOLOGY: Record<TypologyId, NarrativeCopy> = {
-  "harbour-t2": {
-    title: "Habiter le port",
-    paragraphs: [
-      "Ici, la lumière entre par la mer. Les barques de Safi dessinent l'horizon du matin, et le séjour prolonge la cuisine dans un même geste, comme une pièce tournée vers le môle.",
-      "Les murs de chaux minérale absorbent le jour pour le rendre plus doux, tandis que le parquet de chêne clair tient la pièce au chaud. Le cordage des luminaires rappelle la corderie du port, le laiton ponctue sans jamais crier.",
-      "La chambre se love à l'arrière, enveloppée de tadelakt sable et de linge écru. On y retrouve le silence des maisons de pêcheurs, la sobriété des bois brossés, la présence discrète des objets choisis un à un.",
-    ],
-    pullQuote:
-      "Un refuge à hauteur d'artisan, où chaque matière garde la mémoire du port.",
-  },
-  "atlantic-t3": {
-    title: "Habiter l'Atlantique",
-    paragraphs: [
-      "Le salon traversant tient l'océan d'un côté, le jardin clos de l'autre. Entre les deux, le marbre veiné court sans rupture, comme une marée lente qui redessine la pièce à chaque heure du jour.",
-      "Le tadelakt sable des murs capte la lumière atlantique et la renvoie plus chaude. Le zellige cobalt, posé par touches, signe la pièce d'une couleur maroco-méditerranéenne qui dialogue avec le velours indigo du canapé.",
-      "La suite parentale se pare des mêmes bleus profonds, soulignés d'or patiné et de laiton brossé. L'ensemble tient la ligne d'une maison pensée pour durer, sans emphase, avec la mesure d'un riad contemporain.",
-    ],
-    pullQuote:
-      "L'Atlantique et la médina, réconciliés dans une même pièce traversante.",
-  },
-  "penthouse-duplex": {
-    title: "Habiter le ciel",
-    paragraphs: [
-      "Au dernier étage, le salon monte vers la lumière. Le béton ciré fumé court jusqu'aux baies, le ciel de Safi s'invite sans obstacle, et la terrasse tient l'Atlantique dans sa paume ouverte.",
-      "Les murs d'enduit charbon mat dessinent une architecture d'ombre autour des grands vitrages. Le métal noir des menuiseries, les verres trempés, les cuirs patinés composent une pièce taillée pour la hauteur.",
-      "Le velours charbon du mobilier et le laiton brossé des touches finales tiennent la promesse du duplex : une maison contemporaine, posée à six étages du sol, où chaque matière s'efface devant la vue.",
-    ],
-    pullQuote:
-      "À six étages du sol, la matière s'efface pour laisser parler le ciel.",
-  },
+type TFn = (key: string, options?: Record<string, unknown>) => string;
+
+const TOUCH_SWATCHES: Record<TypologyId, string> = {
+  "harbour-t2": "#c9a961",
+  "atlantic-t3": "#c9a961",
+  "penthouse-duplex": "#a0843e",
 };
 
-const FLOOR_LABELS: Record<TypologyTheme["floor"], string> = {
-  parquet: "Parquet chêne clair",
-  marble: "Marbre veiné de crème",
-  concrete: "Béton ciré fumé",
-};
-
-const FLOOR_DESCRIPTIONS: Record<TypologyTheme["floor"], string> = {
-  parquet: "Lames larges, finition huilée mate, patine d'atelier.",
-  marble: "Dalles grand format, joints serrés, polissage satiné.",
-  concrete: "Coulé sur place, surface fumée, rendu minéral profond.",
-};
-
-const ACCENT_LABELS: Record<TypologyTheme["accent"], string> = {
-  zellige: "Zellige cobalt",
-  rope: "Cordage & laiton",
-  none: "Métal noir & verre",
-};
-
-const ACCENT_DESCRIPTIONS: Record<TypologyTheme["accent"], string> = {
-  zellige: "Carreaux émaillés à la main, posés par touches éditoriales.",
-  rope: "Luminaires et détails tressés, clin d'œil à la corderie du port.",
-  none: "Menuiseries noires, verre trempé, lignes contemporaines assumées.",
-};
-
-const WALL_COPY: Record<
-  TypologyId,
-  { label: string; description: string }
-> = {
-  "harbour-t2": {
-    label: "Chaux minérale ivoire",
-    description: "Murs respirants, texture feutrée, lumière diffusée.",
-  },
-  "atlantic-t3": {
-    label: "Tadelakt sable chaud",
-    description: "Enduit ciré à la main, velouté, teintes de dune.",
-  },
-  "penthouse-duplex": {
-    label: "Enduit charbon mat",
-    description: "Surface profonde, absorbe la lumière, dramatise la vue.",
-  },
-};
-
-const SOFA_COPY: Record<
-  TypologyId,
-  { label: string; description: string }
-> = {
-  "harbour-t2": {
-    label: "Velours bleu marine",
-    description: "Assise basse, tissage dense, patine marine.",
-  },
-  "atlantic-t3": {
-    label: "Velours indigo nuit",
-    description: "Textile profond, piqûres sellier, confort enveloppant.",
-  },
-  "penthouse-duplex": {
-    label: "Velours charbon",
-    description: "Lignes architecturales, densité feutrée, élégance sobre.",
-  },
-};
-
-const TOUCH_COPY: Record<
-  TypologyId,
-  { label: string; description: string; swatch: string }
-> = {
-  "harbour-t2": {
-    label: "Laiton brossé",
-    description: "Poignées, appliques, robinetterie aux reflets mats.",
-    swatch: "#c9a961",
-  },
-  "atlantic-t3": {
-    label: "Laiton brossé & or patiné",
-    description: "Détails dorés, reflets chauds, mesure éditoriale.",
-    swatch: "#c9a961",
-  },
-  "penthouse-duplex": {
-    label: "Laiton brossé noirci",
-    description: "Touches discrètes, finition fumée, pointe de chaleur.",
-    swatch: "#a0843e",
-  },
-};
-
-function buildMaterials(typology: ApartmentTypology): readonly Material[] {
+function buildMaterials(
+  typology: ApartmentTypology,
+  t: TFn,
+): readonly Material[] {
   const { theme, id } = typology;
-  const wall = WALL_COPY[id];
-  const sofa = SOFA_COPY[id];
-  const touch = TOUCH_COPY[id];
+  const floorKey = theme.floor as TypologyTheme["floor"];
+  const accentKey = theme.accent as TypologyTheme["accent"];
 
   return [
     {
-      category: "Sol",
-      label: FLOOR_LABELS[theme.floor],
-      description: FLOOR_DESCRIPTIONS[theme.floor],
+      category: t("narrative.materials.categories.soil"),
+      label: t(`narrative.materials.floors.${floorKey}.label`),
+      description: t(`narrative.materials.floors.${floorKey}.description`),
       swatch: theme.floorColor,
     },
     {
-      category: "Murs",
-      label: wall.label,
-      description: wall.description,
+      category: t("narrative.materials.categories.walls"),
+      label: t(`narrative.materials.wall.${id}.label`),
+      description: t(`narrative.materials.wall.${id}.description`),
       swatch: theme.wallInterior,
     },
     {
-      category: "Accent",
-      label: ACCENT_LABELS[theme.accent],
-      description: ACCENT_DESCRIPTIONS[theme.accent],
+      category: t("narrative.materials.categories.accent"),
+      label: t(`narrative.materials.accents.${accentKey}.label`),
+      description: t(`narrative.materials.accents.${accentKey}.description`),
       swatch: theme.accent === "zellige" ? theme.kitchenBase : theme.sofa,
     },
     {
-      category: "Mobilier",
-      label: sofa.label,
-      description: sofa.description,
+      category: t("narrative.materials.categories.furniture"),
+      label: t(`narrative.materials.sofa.${id}.label`),
+      description: t(`narrative.materials.sofa.${id}.description`),
       swatch: theme.sofaBack,
     },
     {
-      category: "Touches",
-      label: touch.label,
-      description: touch.description,
-      swatch: touch.swatch,
+      category: t("narrative.materials.categories.touches"),
+      label: t(`narrative.materials.touches.${id}.label`),
+      description: t(`narrative.materials.touches.${id}.description`),
+      swatch: TOUCH_SWATCHES[id],
     },
-  ] as const;
+  ];
 }
 
 export function NarrativeAndMaterials({ typology }: NarrativeAndMaterialsProps) {
-  const narrative = NARRATIVE_BY_TYPOLOGY[typology.id];
-  const materials = buildMaterials(typology);
+  const { t } = useTranslation("apartmentDetail");
+  const paragraphs = t(`narrative.paragraphs.${typology.id}`, {
+    returnObjects: true,
+  }) as readonly string[];
+  const pullQuote = t(`narrative.pullQuotes.${typology.id}`);
+  const title = t(`narrative.titles.${typology.id}`);
+  const materials = buildMaterials(typology, t);
 
   return (
     <section
@@ -190,12 +86,14 @@ export function NarrativeAndMaterials({ typology }: NarrativeAndMaterialsProps) 
           <div className="lg:col-span-7">
             <div className="flex flex-wrap items-center gap-4">
               <span className="gold-rule" aria-hidden />
-              <span className="eyebrow text-gold-deep">L'art de vivre</span>
+              <span className="eyebrow text-gold-deep">
+                {t("narrative.eyebrow")}
+              </span>
               <span
                 className="arabic text-xl text-gold/80"
                 aria-hidden
               >
-                أناقة
+                {t("narrative.arabic")}
               </span>
             </div>
 
@@ -203,11 +101,11 @@ export function NarrativeAndMaterials({ typology }: NarrativeAndMaterialsProps) 
               id="narrative-heading"
               className="h-display mt-6 text-balance text-foreground"
             >
-              {narrative.title}
+              {title}
             </h2>
 
             <div className="mt-10 space-y-6">
-              {narrative.paragraphs.map((paragraph, index) => (
+              {paragraphs.map((paragraph, index) => (
                 <p
                   key={index}
                   className="max-w-prose text-base leading-relaxed text-foreground/85 md:text-lg md:leading-[1.75]"
@@ -222,7 +120,7 @@ export function NarrativeAndMaterials({ typology }: NarrativeAndMaterialsProps) 
                 cite={typology.name}
                 className="font-display italic text-2xl leading-snug text-gold md:text-3xl"
               >
-                « {narrative.pullQuote} »
+                « {pullQuote} »
               </blockquote>
             </figure>
           </div>
@@ -239,19 +137,18 @@ export function NarrativeAndMaterials({ typology }: NarrativeAndMaterialsProps) 
                   id="materials-heading"
                   className="eyebrow text-gold-deep"
                 >
-                  Matières signatures
+                  {t("narrative.materials.eyebrow")}
                 </h3>
                 <span
                   className="arabic text-lg text-gold/80"
                   aria-hidden
                 >
-                  المواد
+                  {t("narrative.materials.arabic")}
                 </span>
               </div>
 
               <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
-                Une palette pensée pour la typologie, matière par matière,
-                jusqu'au dernier reflet de laiton.
+                {t("narrative.materials.intro")}
               </p>
 
               <ul className="mt-8 divide-y divide-gold/15 border-y border-gold/15">

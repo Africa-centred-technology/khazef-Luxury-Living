@@ -1,0 +1,41 @@
+{
+  "seo": {
+    "title": "Ville de Safi",
+    "description": "Découvrez Safi, ville portuaire et capitale marocaine de la céramique."
+  },
+  "header": {
+    "eyebrow": "Ville de Safi",
+    "arabic": "آسفي",
+    "title": "Safi,",
+    "italicWord": "le bleu et le feu.",
+    "intro": "Ville portuaire millénaire, capitale marocaine de la poterie, Safi tisse depuis toujours un dialogue rare entre la terre, l'océan et le feu."
+  },
+  "history": {
+    "eyebrow": "Histoire",
+    "title": "Mille ans",
+    "italicWord": "de céramique.",
+    "p1": "Depuis le XIIe siècle, Safi est connue pour ses ateliers de potiers. Ses fours alignés sur la colline d'Asfi enseignent encore aujourd'hui un art devenu marque de fabrique du Maroc.",
+    "p2": "Le bleu cobalt de Safi — profond, intense — est devenu un emblème : c'est lui que l'on retrouve dans le logo et l'âme de Khazef."
+  },
+  "culture": {
+    "imageAlt": "Atelier de poterie à Safi",
+    "eyebrow": "Culture & artisanat",
+    "title": "La main qui pense.",
+    "text": "Dans les ateliers de la colline aux potiers, la matière prend forme sous des gestes transmis depuis huit générations. Une tradition vivante, intime, exigeante."
+  },
+  "coast": {
+    "imageAlt": "Côte atlantique de Safi",
+    "eyebrow": "Côte atlantique",
+    "title": "Le large,",
+    "italicWord": "à perte de vue.",
+    "text": "Falaises de grès doré, criques préservées, vagues légendaires : Safi offre 50 km de littoral parmi les plus authentiques du Maroc, à quelques minutes seulement de Khazef."
+  },
+  "stats": {
+    "items": [
+      { "n": "1100", "l": "Année de fondation" },
+      { "n": "350K", "l": "Habitants" },
+      { "n": "50", "l": "Km de côte" },
+      { "n": "8", "l": "Générations de potiers" }
+    ]
+  }
+}

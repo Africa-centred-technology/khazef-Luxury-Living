@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Ruler, Eraser } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { useTourStore } from "../hooks/useTourStore";
 
 const DEMO_SCALE = 0.5; // 1 px = 0.5 m in the demo scene
@@ -22,6 +23,7 @@ interface MeasurementToolProps {
  * The user clicks "Mesurer" to arm the tool, then places two points.
  */
 export function MeasurementTool({ canvasRef }: MeasurementToolProps) {
+  const { t } = useTranslation("virtualTour");
   const mode = useTourStore((s) => s.mode);
   const [active, setActive] = useState(false);
   const [points, setPoints] = useState<Point[]>([]);
@@ -103,7 +105,7 @@ export function MeasurementTool({ canvasRef }: MeasurementToolProps) {
           }}
         >
           <Ruler size={14} strokeWidth={1.6} />
-          Mesurer
+          {t("ui.measurement.arm")}
         </button>
         <button
           type="button"
@@ -112,7 +114,7 @@ export function MeasurementTool({ canvasRef }: MeasurementToolProps) {
           className="eyebrow inline-flex items-center gap-2 rounded-full px-3 py-1 text-[hsl(var(--gold-bright))] transition-colors hover:bg-[hsl(var(--gold)/0.12)] disabled:cursor-not-allowed disabled:opacity-40"
         >
           <Eraser size={14} strokeWidth={1.6} />
-          Effacer
+          {t("ui.measurement.clear")}
         </button>
       </div>
 
@@ -186,7 +188,7 @@ export function MeasurementTool({ canvasRef }: MeasurementToolProps) {
                   fontFamily="Outfit, sans-serif"
                   letterSpacing="0.08em"
                 >
-                  {`~ ${distanceMeters.toFixed(1)} m`}
+                  {`${t("ui.measurement.approx")} ${distanceMeters.toFixed(1)} ${t("ui.measurement.unit")}`}
                 </text>
               </g>
             </>

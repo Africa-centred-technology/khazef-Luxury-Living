@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { BedDouble, ChevronDown, X, FileText } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import { useTourStore } from "../hooks/useTourStore";
 import {
@@ -22,6 +23,7 @@ interface CardProps {
 }
 
 function TypologyCard({ typology, isActive, onSelect, layout = "row" }: CardProps) {
+  const { t } = useTranslation("virtualTour");
   const base =
     "group pointer-events-auto relative flex items-center gap-3 overflow-hidden rounded-sm border px-4 py-2.5 text-left transition-all duration-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/60";
   const activeStyle =
@@ -29,12 +31,17 @@ function TypologyCard({ typology, isActive, onSelect, layout = "row" }: CardProp
   const idleStyle =
     "border-border/60 bg-background/75 text-primary backdrop-blur-md hover:-translate-y-0.5 hover:border-gold/70";
 
+  const bedroomWord =
+    typology.bedrooms > 1
+      ? t("ui.selector.bedroomPlural")
+      : t("ui.selector.bedroomSingular");
+
   return (
     <button
       type="button"
       onClick={() => onSelect(typology.id)}
       aria-pressed={isActive}
-      aria-label={`Choisir la typologie ${typology.name}`}
+      aria-label={t("ui.selector.chooseAria", { name: typology.name })}
       className={[
         base,
         isActive ? activeStyle : idleStyle,
@@ -68,7 +75,7 @@ function TypologyCard({ typology, isActive, onSelect, layout = "row" }: CardProp
           "ml-2 inline-flex items-center gap-1 border-l pl-3",
           isActive ? "border-primary/30 text-primary" : "border-border/60 text-primary/80",
         ].join(" ")}
-        aria-label={`${typology.bedrooms} chambre${typology.bedrooms > 1 ? "s" : ""}`}
+        aria-label={`${typology.bedrooms} ${bedroomWord}`}
       >
         <BedDouble className="h-3.5 w-3.5" aria-hidden="true" />
         <span className="font-display text-sm leading-none">{typology.bedrooms}</span>
@@ -78,6 +85,7 @@ function TypologyCard({ typology, isActive, onSelect, layout = "row" }: CardProp
 }
 
 export function ApartmentSelector() {
+  const { t } = useTranslation("virtualTour");
   const currentTypology = useTourStore((s) => s.currentTypology);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -102,21 +110,22 @@ export function ApartmentSelector() {
   };
 
   const activeName =
-    TYPOLOGIES.find((t) => t.id === currentTypology)?.name ?? "Typologies";
+    TYPOLOGIES.find((t) => t.id === currentTypology)?.name ??
+    t("ui.selector.triggerFallback");
 
   return (
     <>
       {/* Desktop rail */}
       <nav
-        aria-label="Typologie d'appartement"
+        aria-label={t("ui.selector.desktopLabel")}
         className="pointer-events-none absolute left-1/2 top-6 z-30 hidden -translate-x-1/2 lg:block"
       >
         <ul className="pointer-events-auto flex items-stretch gap-2 rounded-sm border border-border/60 bg-background/65 p-1.5 backdrop-blur-md shadow-luxe-md">
-          {TYPOLOGIES.map((t) => (
-            <li key={t.id}>
+          {TYPOLOGIES.map((typo) => (
+            <li key={typo.id}>
               <TypologyCard
-                typology={t}
-                isActive={t.id === currentTypology}
+                typology={typo}
+                isActive={typo.id === currentTypology}
                 onSelect={handleSelect}
               />
             </li>
@@ -128,7 +137,7 @@ export function ApartmentSelector() {
             className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.22em] text-gold hover:text-primary transition-colors bg-background/70 backdrop-blur-md px-3 py-1.5 border border-gold/40"
           >
             <FileText className="h-3 w-3" aria-hidden="true" />
-            Voir la fiche complète
+            {t("ui.selector.viewFullSheet")}
           </Link>
         </div>
       </nav>
@@ -142,7 +151,7 @@ export function ApartmentSelector() {
           aria-controls="typology-sheet"
           className="pointer-events-auto inline-flex items-center gap-2 rounded-sm border border-gold/60 bg-background/80 px-4 py-2 text-primary backdrop-blur-md shadow-luxe-md"
         >
-          <span className="eyebrow text-gold">Typologies</span>
+          <span className="eyebrow text-gold">{t("ui.selector.trigger")}</span>
           <span className="font-display text-sm">{activeName}</span>
           <ChevronDown
             className={[
@@ -157,25 +166,25 @@ export function ApartmentSelector() {
           <div
             id="typology-sheet"
             role="dialog"
-            aria-label="Choisir une typologie"
+            aria-label={t("ui.selector.sheetLabel")}
             className="pointer-events-auto mt-3 flex w-[min(92vw,22rem)] flex-col gap-2 rounded-sm border border-border/60 bg-background/90 p-3 backdrop-blur-md shadow-luxe-xl"
           >
             <div className="mb-1 flex items-center justify-between">
-              <span className="eyebrow text-gold">Typologies</span>
+              <span className="eyebrow text-gold">{t("ui.selector.trigger")}</span>
               <button
                 type="button"
                 onClick={() => setMobileOpen(false)}
-                aria-label="Fermer"
+                aria-label={t("ui.selector.closeLabel")}
                 className="inline-flex h-7 w-7 items-center justify-center rounded-sm text-primary/70 transition-colors hover:text-primary"
               >
                 <X className="h-4 w-4" aria-hidden="true" />
               </button>
             </div>
-            {TYPOLOGIES.map((t) => (
+            {TYPOLOGIES.map((typo) => (
               <TypologyCard
-                key={t.id}
-                typology={t}
-                isActive={t.id === currentTypology}
+                key={typo.id}
+                typology={typo}
+                isActive={typo.id === currentTypology}
                 onSelect={handleSelect}
                 layout="stack"
               />
@@ -186,7 +195,7 @@ export function ApartmentSelector() {
               className="mt-2 inline-flex items-center justify-center gap-2 border border-gold/60 px-3 py-2 text-[10px] uppercase tracking-[0.22em] text-gold hover:bg-gold/10 transition-colors"
             >
               <FileText className="h-3 w-3" aria-hidden="true" />
-              Voir la fiche complète
+              {t("ui.selector.viewFullSheet")}
             </Link>
           </div>
         )}

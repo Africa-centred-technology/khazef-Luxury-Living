@@ -1,4 +1,5 @@
 import { ArrowUpRight, BedDouble, Ruler, Building2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 import { useTourStore } from "../hooks/useTourStore";
 import {
@@ -29,6 +30,7 @@ interface TypologyHeroCardProps {
 }
 
 function TypologyHeroCard({ typology, isActive, onVisit, index }: TypologyHeroCardProps) {
+  const { t } = useTranslation("virtualTour");
   return (
     <article
       className={[
@@ -44,7 +46,7 @@ function TypologyHeroCard({ typology, isActive, onVisit, index }: TypologyHeroCa
           {String(index + 1).padStart(2, "0")}
         </span>
         <span className="gold-rule" aria-hidden="true" />
-        <span className="eyebrow text-gold">Typologie</span>
+        <span className="eyebrow text-gold">{t("ui.typologyHero.cardEyebrow")}</span>
       </div>
 
       <p className="arabic mb-1 text-sm text-gold/80" aria-hidden="true">
@@ -65,7 +67,7 @@ function TypologyHeroCard({ typology, isActive, onVisit, index }: TypologyHeroCa
         <div className="flex flex-col items-start gap-1">
           <dt className="flex items-center gap-1 text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
             <BedDouble className="h-3 w-3 text-gold" aria-hidden="true" />
-            Chambres
+            {t("ui.typologyHero.bedroomsLabel")}
           </dt>
           <dd className="font-display text-lg text-primary">
             {typology.bedrooms}
@@ -74,7 +76,7 @@ function TypologyHeroCard({ typology, isActive, onVisit, index }: TypologyHeroCa
         <div className="flex flex-col items-start gap-1">
           <dt className="flex items-center gap-1 text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
             <Ruler className="h-3 w-3 text-gold" aria-hidden="true" />
-            Surface
+            {t("ui.typologyHero.surfaceLabel")}
           </dt>
           <dd className="font-display text-lg text-primary">
             {typology.surface}
@@ -83,7 +85,7 @@ function TypologyHeroCard({ typology, isActive, onVisit, index }: TypologyHeroCa
         <div className="flex flex-col items-start gap-1">
           <dt className="flex items-center gap-1 text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
             <Building2 className="h-3 w-3 text-gold" aria-hidden="true" />
-            Étage
+            {t("ui.typologyHero.floorLabel")}
           </dt>
           <dd className="font-display text-sm leading-tight text-primary">
             {typology.floor}
@@ -103,7 +105,7 @@ function TypologyHeroCard({ typology, isActive, onVisit, index }: TypologyHeroCa
           onClick={() => onVisit(typology.id)}
           className="group/btn inline-flex items-center gap-2 border-b border-gold pb-1 font-display text-sm text-primary transition-colors hover:text-gold"
         >
-          <span>Visiter cette typologie</span>
+          <span>{t("ui.typologyHero.visitButton")}</span>
           <ArrowUpRight
             className="h-4 w-4 text-gold transition-transform duration-300 group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5"
             aria-hidden="true"
@@ -115,6 +117,7 @@ function TypologyHeroCard({ typology, isActive, onVisit, index }: TypologyHeroCa
 }
 
 export function TypologyHero() {
+  const { t } = useTranslation("virtualTour");
   const currentTypology = useTourStore((s) => s.currentTypology);
 
   const handleVisit = (id: TypologyId) => {
@@ -127,19 +130,17 @@ export function TypologyHero() {
   };
 
   return (
-    <section className="container-luxe py-24" aria-label="Les trois typologies">
+    <section className="container-luxe py-24" aria-label={t("ui.typologyHero.sectionLabel")}>
       <header className="mb-12 flex flex-col gap-4">
         <div className="flex items-center gap-4">
           <span className="gold-rule" aria-hidden="true" />
-          <span className="eyebrow text-gold">Trois écritures, trois vues</span>
+          <span className="eyebrow text-gold">{t("ui.typologyHero.eyebrow")}</span>
         </div>
         <h2 className="h-section font-display text-primary">
-          Choisissez votre <em className="text-gold">appartement témoin</em>
+          {t("ui.typologyHero.titlePart1")} <em className="text-gold">{t("ui.typologyHero.titleAccent")}</em>
         </h2>
         <p className="max-w-2xl font-light text-muted-foreground">
-          Du refuge compact tourné vers le port au duplex panoramique, chaque
-          typologie propose une lecture différente de Safi — une matière, une
-          lumière, un horizon.
+          {t("ui.typologyHero.paragraph")}
         </p>
       </header>
 

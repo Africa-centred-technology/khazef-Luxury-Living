@@ -1,0 +1,64 @@
+{
+  "seo": {
+    "title": "تواصل",
+    "description": "احجزوا زيارةً خاصّةً لإقامة Luxury Living بآسفي."
+  },
+  "header": {
+    "eyebrow": "تواصل",
+    "arabic": "تواصل",
+    "title": "زيارةٌ خاصّة،",
+    "italicWord": "بطلبٍ واحد.",
+    "intro": "يرافقكم مستشارُنا في اكتشاف Luxury Living واختيار عنوانكم المقبل."
+  },
+  "form": {
+    "name": {
+      "label": "الاسم الكامل",
+      "placeholder": "اسمكم"
+    },
+    "phone": {
+      "label": "الهاتف",
+      "placeholder": "+212 …"
+    },
+    "email": {
+      "label": "البريد الإلكتروني",
+      "placeholder": "you@example.com"
+    },
+    "interest": {
+      "label": "اهتمامكم",
+      "placeholder": "اختاروا…",
+      "options": {
+        "visit": "زيارة خاصّة",
+        "apartments": "معلومات عن الشقق",
+        "documentation": "وثائق تجاريّة",
+        "commercial": "فضاءات تجاريّة"
+      }
+    },
+    "message": {
+      "label": "رسالة",
+      "placeholder": "بضعُ كلماتٍ عن مشروعكم…"
+    },
+    "submit": "إرسال الطلب",
+    "submitting": "جارٍ الإرسال…",
+    "disclaimer": "بإرسالكم لهذا النموذج، تقبلون أن يتواصل معكم مستشارٌ من Luxury Living.",
+    "toast": {
+      "title": "تمّ إرسال الطلب",
+      "description": "سيردّ عليكم مستشارُنا في غضون أربعٍ وعشرين ساعة."
+    }
+  },
+  "info": {
+    "eyebrow": "مكتب البيع",
+    "title": "لخدمتكم،",
+    "italicWord": "كلّ يوم.",
+    "address": {
+      "line1": "شارع الأطلسي",
+      "line2": "آسفي 46000، المغرب"
+    },
+    "phone": {
+      "hours": "الاثنين – السبت · 9ص–7م"
+    },
+    "email": {
+      "reply": "ردٌّ خلال 24 ساعة"
+    },
+    "mapTitle": "خارطة الوصول إلى Luxury Living"
+  }
+}

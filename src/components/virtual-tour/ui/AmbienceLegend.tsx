@@ -1,13 +1,8 @@
 import { Radio } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 import { TOUR_ROOMS } from "../data/tour-data";
 import { useTourStore } from "../hooks/useTourStore";
-
-const AMBIENCE_LABEL: Record<string, string> = {
-  living: "Crépitement de cheminée",
-  kitchen: "Eau & porcelaine",
-  bedroom: "Brise atlantique",
-};
 
 /**
  * Small editorial overlay that names the ambient sound currently playing.
@@ -16,13 +11,16 @@ const AMBIENCE_LABEL: Record<string, string> = {
  * Positioned above the MiniMap so it never fights it for real-estate.
  */
 export function AmbienceLegend() {
+  const { t } = useTranslation("virtualTour");
   const audioEnabled = useTourStore((s) => s.audioEnabled);
   const currentRoom = useTourStore((s) => s.currentRoom);
 
   if (!audioEnabled) return null;
 
   const room = TOUR_ROOMS[currentRoom];
-  const label = AMBIENCE_LABEL[currentRoom] ?? "Ambiance";
+  const roomKey = `ui.ambienceLegend.rooms.${currentRoom}`;
+  const fallback = t("ui.ambienceLegend.fallback");
+  const label = t(roomKey, { defaultValue: fallback });
 
   return (
     <aside
@@ -36,7 +34,7 @@ export function AmbienceLegend() {
           <span className="relative block h-2 w-2 rounded-full bg-primary" />
         </div>
         <span className="uppercase text-[10px] tracking-[0.22em] font-medium text-primary/70">
-          Ambiance
+          {t("ui.ambienceLegend.eyebrow")}
         </span>
         <Radio className="ml-auto h-4 w-4 text-primary/70" aria-hidden />
       </div>

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import {
   TYPOLOGIES,
   type ApartmentTypology,
@@ -13,24 +14,17 @@ interface RelatedTypologiesProps {
   typology: ApartmentTypology;
 }
 
+type TFn = (key: string, options?: Record<string, unknown>) => string;
+
 const TEXT_SHADOW =
   "0 2px 14px hsl(var(--primary) / 0.6), 0 1px 3px hsl(var(--primary) / 0.8)";
 
 const SOFT_SHADOW = "0 1px 4px hsl(var(--primary) / 0.7)";
 
-const IMAGE_BY_TYPOLOGY: Record<TypologyId, { src: string; alt: string }> = {
-  "harbour-t2": {
-    src: safiCoast,
-    alt: "Vue sur la côte de Safi depuis un appartement Port de Khazef",
-  },
-  "atlantic-t3": {
-    src: interiorLiving,
-    alt: "Salon traversant d'un appartement Atlantique de Khazef, lumière océane",
-  },
-  "penthouse-duplex": {
-    src: heroBuilding,
-    alt: "Façade du duplex Ciel de Khazef, dernier étage avec terrasse panoramique",
-  },
+const IMAGE_SRC_BY_TYPOLOGY: Record<TypologyId, string> = {
+  "harbour-t2": safiCoast,
+  "atlantic-t3": interiorLiving,
+  "penthouse-duplex": heroBuilding,
 };
 
 interface CardStat {
@@ -38,19 +32,20 @@ interface CardStat {
   value: string;
 }
 
-function buildStats(other: ApartmentTypology): CardStat[] {
+function buildStats(other: ApartmentTypology, t: TFn): CardStat[] {
   return [
-    { label: "Surface", value: other.surface },
+    { label: t("related.stats.surface"), value: other.surface },
     {
-      label: "Chambres",
-      value: `${other.bedrooms} ch.`,
+      label: t("related.stats.bedrooms"),
+      value: `${other.bedrooms} ${t("related.stats.bedroomsShort")}`,
     },
-    { label: "Étage", value: other.floor },
+    { label: t("related.stats.floor"), value: other.floor },
   ];
 }
 
 export function RelatedTypologies({ typology }: RelatedTypologiesProps) {
-  const others = TYPOLOGIES.filter((t) => t.id !== typology.id);
+  const { t } = useTranslation("apartmentDetail");
+  const others = TYPOLOGIES.filter((otherTypology) => otherTypology.id !== typology.id);
 
   return (
     <section
@@ -60,9 +55,9 @@ export function RelatedTypologies({ typology }: RelatedTypologiesProps) {
       {/* Eyebrow row */}
       <div className="flex flex-wrap items-center gap-4 mb-6">
         <span className="gold-rule" />
-        <span className="eyebrow text-primary/80">Autres typologies</span>
+        <span className="eyebrow text-primary/80">{t("related.eyebrow")}</span>
         <span className="arabic text-2xl text-gold" aria-hidden>
-          أخرى
+          {t("related.arabic")}
         </span>
       </div>
 
@@ -70,25 +65,25 @@ export function RelatedTypologies({ typology }: RelatedTypologiesProps) {
         id="related-typologies-heading"
         className="h-display text-primary text-balance max-w-3xl"
       >
-        Explorez toutes les typologies
+        {t("related.title")}
       </h2>
 
       <p className="mt-5 max-w-2xl text-base md:text-lg text-muted-foreground font-light leading-relaxed">
-        Trois écritures pour un même immeuble — chacune taillée pour un art de
-        vivre singulier à Safi.
+        {t("related.intro")}
       </p>
 
       {/* Grid of others */}
       <div className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-8">
         {others.map((other) => {
-          const { src, alt } = IMAGE_BY_TYPOLOGY[other.id];
-          const stats = buildStats(other);
+          const src = IMAGE_SRC_BY_TYPOLOGY[other.id];
+          const alt = t(`related.imageAlt.${other.id}`);
+          const stats = buildStats(other, t);
 
           return (
             <Link
               key={other.id}
               to={`/apartments/${other.id}`}
-              aria-label={`Découvrir la typologie ${other.name}`}
+              aria-label={t("related.cardAriaLabel", { name: other.name })}
               className="group relative overflow-hidden border border-border/60 bg-background shadow-luxe-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-luxe-xl hover:border-gold/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2"
             >
               {/* Image block */}
@@ -110,7 +105,7 @@ export function RelatedTypologies({ typology }: RelatedTypologiesProps) {
                   className="absolute top-5 left-6 text-[10px] uppercase tracking-[0.22em] font-medium text-white/85"
                   style={{ textShadow: SOFT_SHADOW }}
                 >
-                  Typologie
+                  {t("related.cardEyebrow")}
                 </span>
                 {/* Arabic name top-right */}
                 <span
@@ -156,7 +151,7 @@ export function RelatedTypologies({ typology }: RelatedTypologiesProps) {
                 {/* Action row */}
                 <div className="mt-7 flex items-center justify-between border-t border-border/50 pt-5">
                   <span className="link-luxe text-sm tracking-[0.2em] uppercase text-gold">
-                    Découvrir la typologie
+                    {t("related.discover")}
                   </span>
                   <ArrowUpRight
                     className="h-5 w-5 text-gold transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
@@ -171,23 +166,25 @@ export function RelatedTypologies({ typology }: RelatedTypologiesProps) {
 
       {/* Pill bar navigator — all 3 typologies with current highlighted */}
       <nav
-        aria-label="Navigation entre les typologies"
+        aria-label={t("related.navAria")}
         className="mt-16 flex flex-wrap items-center justify-center gap-3"
       >
-        <span className="eyebrow text-primary/60 mr-2">Raccourci</span>
-        {TYPOLOGIES.map((t) => {
-          const isCurrent = t.id === typology.id;
+        <span className="eyebrow text-primary/60 mr-2">
+          {t("related.shortcut")}
+        </span>
+        {TYPOLOGIES.map((item) => {
+          const isCurrent = item.id === typology.id;
 
           if (isCurrent) {
             return (
               <span
-                key={t.id}
+                key={item.id}
                 aria-current="page"
                 className="inline-flex items-center gap-2 rounded-full bg-gradient-gold-bright px-5 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-primary shadow-lg shadow-gold/20"
               >
-                <span>{t.name}</span>
+                <span>{item.name}</span>
                 <span className="arabic text-base font-normal" aria-hidden>
-                  {t.arabic}
+                  {item.arabic}
                 </span>
               </span>
             );
@@ -195,13 +192,13 @@ export function RelatedTypologies({ typology }: RelatedTypologiesProps) {
 
           return (
             <Link
-              key={t.id}
-              to={`/apartments/${t.id}`}
+              key={item.id}
+              to={`/apartments/${item.id}`}
               className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-background px-5 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-primary/80 transition-colors hover:border-gold hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2"
             >
-              <span>{t.name}</span>
+              <span>{item.name}</span>
               <span className="arabic text-base font-normal text-gold" aria-hidden>
-                {t.arabic}
+                {item.arabic}
               </span>
             </Link>
           );
@@ -210,9 +207,9 @@ export function RelatedTypologies({ typology }: RelatedTypologiesProps) {
 
       {/* Final anchor line */}
       <p className="mt-12 text-center text-sm text-muted-foreground font-light">
-        ou revenez à la{" "}
+        {t("related.back")}{" "}
         <Link to="/apartments" className="link-luxe text-gold">
-          liste complète
+          {t("related.backLink")}
         </Link>
       </p>
     </section>

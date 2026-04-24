@@ -1,29 +1,30 @@
 import { useEffect, useRef, useState } from "react";
 import { MousePointer2, CircleDot, Maximize2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const STORAGE_KEY = "khazef-tour-seen";
 
 interface HelpStep {
   icon: typeof MousePointer2;
-  title: string;
-  description: string;
+  titleKey: string;
+  descriptionKey: string;
 }
 
 const STEPS: HelpStep[] = [
   {
     icon: MousePointer2,
-    title: "Glissez pour explorer",
-    description: "Maintenez le clic, déplacez la vue à votre rythme.",
+    titleKey: "ui.helpOverlay.steps.drag.title",
+    descriptionKey: "ui.helpOverlay.steps.drag.description",
   },
   {
     icon: CircleDot,
-    title: "Cliquez les points dorés",
-    description: "Chaque halo dévoile un matériau et sa provenance.",
+    titleKey: "ui.helpOverlay.steps.hotspots.title",
+    descriptionKey: "ui.helpOverlay.steps.hotspots.description",
   },
   {
     icon: Maximize2,
-    title: "Passez en mode 3D ou VR",
-    description: "Plan volumique, ou immersion complète au casque.",
+    titleKey: "ui.helpOverlay.steps.modes.title",
+    descriptionKey: "ui.helpOverlay.steps.modes.description",
   },
 ];
 
@@ -55,6 +56,7 @@ function writeSeenFlag(): void {
  * Dismissed via "Entrer" button; decision persists in localStorage.
  */
 function HelpOverlay(): JSX.Element | null {
+  const { t } = useTranslation("virtualTour");
   const [visible, setVisible] = useState<boolean>(false);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
@@ -109,16 +111,16 @@ function HelpOverlay(): JSX.Element | null {
             className="arabic text-2xl text-gold mb-2"
             aria-hidden="true"
           >
-            أهلاً بكم
+            {t("ui.helpOverlay.welcomeArabic")}
           </span>
           <span className="eyebrow text-foreground/70">
-            Visite immersive
+            {t("ui.helpOverlay.eyebrow")}
           </span>
           <h2
             id="khazef-help-title"
             className="font-display text-3xl md:text-4xl mt-3 text-primary"
           >
-            Bienvenue dans la visite
+            {t("ui.helpOverlay.title")}
           </h2>
           <span
             className="gold-rule my-5"
@@ -128,7 +130,7 @@ function HelpOverlay(): JSX.Element | null {
             id="khazef-help-description"
             className="font-sans text-sm md:text-base text-foreground/75 max-w-md"
           >
-            Trois pièces, trois lumières. Prenez le temps du regard.
+            {t("ui.helpOverlay.subtitle")}
           </p>
         </div>
 
@@ -137,7 +139,7 @@ function HelpOverlay(): JSX.Element | null {
             const Icon = step.icon;
             return (
               <li
-                key={step.title}
+                key={step.titleKey}
                 className="flex items-start gap-4"
               >
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gold/40 text-gold">
@@ -148,10 +150,10 @@ function HelpOverlay(): JSX.Element | null {
                 </span>
                 <div className="text-left">
                   <p className="font-display text-lg text-primary">
-                    {step.title}
+                    {t(step.titleKey)}
                   </p>
                   <p className="font-sans text-sm text-foreground/70">
-                    {step.description}
+                    {t(step.descriptionKey)}
                   </p>
                 </div>
               </li>
@@ -166,7 +168,7 @@ function HelpOverlay(): JSX.Element | null {
             onClick={handleDismiss}
             className="group inline-flex items-center gap-3 rounded-full border border-gold px-8 py-3 font-sans text-sm uppercase tracking-[0.25em] text-primary transition-colors hover:bg-gold hover:text-background focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-4 focus-visible:ring-offset-background"
           >
-            Entrer
+            {t("ui.helpOverlay.enterButton")}
           </button>
         </div>
       </div>

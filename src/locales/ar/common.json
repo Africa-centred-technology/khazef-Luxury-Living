@@ -42,5 +42,15 @@
   },
   "misc": {
     "scrollIndicator": "اكتشف"
+  },
+  "pageHeader": {
+    "brandCrumb": "لاكشري ليفينغ",
+    "illustrationAlt": "صورةٌ توضيحيةٌ للصفحة",
+    "scrollIndicator": "اكتشف",
+    "discover": "انتقل إلى المحتوى",
+    "breadcrumbLabel": "مسار التنقل"
+  },
+  "seo": {
+    "suffix": " · لاكشري ليفينغ — آسفي، المغرب"
   }
 }

@@ -1,0 +1,28 @@
+{
+  "seo": {
+    "title": "Galerie",
+    "description": "Galerie d'images et de vidéos de la résidence Luxury Living à Safi."
+  },
+  "header": {
+    "eyebrow": "Galerie",
+    "arabic": "المعرض",
+    "title": "Luxury Living,",
+    "italicWord": "image après image."
+  },
+  "mosaic": {
+    "alts": [
+      "Façade de la résidence au coucher du soleil",
+      "Salon luxueux",
+      "Chambre parentale",
+      "Cuisine en marbre",
+      "Vue aérienne de Safi",
+      "Côte atlantique de Safi",
+      "Artisanat de la poterie",
+      "Zellige bleu cobalt",
+      "Marbre veiné d'or"
+    ]
+  },
+  "lightbox": {
+    "close": "Fermer"
+  }
+}

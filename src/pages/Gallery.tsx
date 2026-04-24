@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import Seo from "@/components/Seo";
 import PageHeader from "@/components/PageHeader";
 import CtaBanner from "@/components/CtaBanner";
@@ -13,29 +14,40 @@ import pottery from "@/assets/safi-pottery.jpg";
 import zellige from "@/assets/material-zellige.jpg";
 import marble from "@/assets/material-marble.jpg";
 
-const images = [
-  { src: hero, alt: "Façade de la résidence au coucher du soleil", span: "md:col-span-2 md:row-span-2" },
-  { src: living, alt: "Salon luxueux", span: "" },
-  { src: bedroom, alt: "Chambre parentale", span: "" },
-  { src: kitchen, alt: "Cuisine en marbre", span: "md:col-span-2" },
-  { src: safi, alt: "Vue aérienne de Safi", span: "" },
-  { src: coast, alt: "Côte atlantique de Safi", span: "md:col-span-2" },
-  { src: pottery, alt: "Artisanat de la poterie", span: "" },
-  { src: zellige, alt: "Zellige bleu cobalt", span: "" },
-  { src: marble, alt: "Marbre veiné d'or", span: "" },
+interface GalleryImage {
+  src: string;
+  span: string;
+}
+
+const imageSources: GalleryImage[] = [
+  { src: hero, span: "md:col-span-2 md:row-span-2" },
+  { src: living, span: "" },
+  { src: bedroom, span: "" },
+  { src: kitchen, span: "md:col-span-2" },
+  { src: safi, span: "" },
+  { src: coast, span: "md:col-span-2" },
+  { src: pottery, span: "" },
+  { src: zellige, span: "" },
+  { src: marble, span: "" },
 ];
 
 const Gallery = () => {
+  const { t } = useTranslation("gallery");
   const [open, setOpen] = useState<number | null>(null);
+  const alts = t("mosaic.alts", { returnObjects: true }) as string[];
+  const images = imageSources.map((img, index) => ({
+    ...img,
+    alt: alts[index] ?? "",
+  }));
 
   return (
     <>
-      <Seo title="Galerie" description="Galerie d'images et de vidéos de la résidence Luxury Living à Safi." />
+      <Seo title={t("seo.title")} description={t("seo.description")} />
       <PageHeader
-        eyebrow="Galerie"
-        arabic="المعرض"
-        title="Luxury Living,"
-        italicWord="image après image."
+        eyebrow={t("header.eyebrow")}
+        arabic={t("header.arabic")}
+        title={t("header.title")}
+        italicWord={t("header.italicWord")}
         image={hero}
       />
 
@@ -72,7 +84,7 @@ const Gallery = () => {
         >
           <button
             className="absolute top-6 right-6 h-12 w-12 rounded-full border border-gold/40 text-secondary flex items-center justify-center hover:bg-gold/10"
-            aria-label="Fermer"
+            aria-label={t("lightbox.close")}
           >
             <X className="h-6 w-6" />
           </button>

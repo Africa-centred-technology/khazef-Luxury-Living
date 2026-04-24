@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import type { ApartmentTypology } from "@/components/virtual-tour/data/apartment-typologies";
 import { useTourStore } from "@/components/virtual-tour/hooks/useTourStore";
 
@@ -14,16 +15,16 @@ interface Live3DPreviewProps {
   typology: ApartmentTypology;
 }
 
-const LEGEND_CHIPS: ReadonlyArray<string> = [
-  "Clic-glisser · Orbiter",
-  "Molette · Zoomer",
-  "Clic pièce · Téléporter",
-];
-
 export function Live3DPreview({ typology }: Live3DPreviewProps) {
+  const { t } = useTranslation("apartmentDetail");
+
   useEffect(() => {
     useTourStore.getState().setTypology(typology.id);
   }, [typology.id]);
+
+  const legend = t("preview3d.legend", {
+    returnObjects: true,
+  }) as readonly string[];
 
   return (
     <section
@@ -46,8 +47,10 @@ export function Live3DPreview({ typology }: Live3DPreviewProps) {
         {/* Eyebrow row */}
         <div className="flex flex-wrap items-center gap-4">
           <span className="gold-rule" />
-          <span className="eyebrow text-gold">Aperçu 3D</span>
-          <span className="arabic text-2xl text-gold/80">رؤية ثلاثية الأبعاد</span>
+          <span className="eyebrow text-gold">{t("preview3d.eyebrow")}</span>
+          <span className="arabic text-2xl text-gold/80">
+            {t("preview3d.arabic")}
+          </span>
         </div>
 
         {/* Heading */}
@@ -55,14 +58,12 @@ export function Live3DPreview({ typology }: Live3DPreviewProps) {
           id="live-3d-preview-heading"
           className="h-display text-balance text-secondary mt-6 max-w-3xl"
         >
-          Explorez l'appartement en volume
+          {t("preview3d.title")}
         </h2>
 
         {/* Intro */}
         <p className="mt-6 max-w-2xl text-base md:text-lg font-light leading-relaxed text-secondary/80">
-          Faites pivoter la maquette à {360}° pour saisir les proportions, la
-          circulation et la lumière du {typology.name}. Un geste suffit pour
-          tourner autour du plan et plonger dans chaque pièce.
+          {t("preview3d.intro", { name: typology.name })}
         </p>
 
         {/* 3D viewer */}
@@ -70,7 +71,7 @@ export function Live3DPreview({ typology }: Live3DPreviewProps) {
           <Suspense
             fallback={
               <div className="flex items-center justify-center h-full text-gold/70 eyebrow">
-                Chargement de l'aperçu 3D…
+                {t("preview3d.loading")}
               </div>
             }
           >
@@ -87,9 +88,9 @@ export function Live3DPreview({ typology }: Live3DPreviewProps) {
         {/* Legend chips */}
         <ul
           className="mt-8 flex flex-wrap items-center gap-3"
-          aria-label="Commandes de navigation 3D"
+          aria-label={t("preview3d.legendAria")}
         >
-          {LEGEND_CHIPS.map((chip) => (
+          {legend.map((chip) => (
             <li
               key={chip}
               className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-white/5 px-4 py-2 text-xs font-medium tracking-wide text-secondary/90 backdrop-blur-md"
@@ -104,10 +105,10 @@ export function Live3DPreview({ typology }: Live3DPreviewProps) {
         <div className="mt-12 flex justify-center">
           <Link
             to="/virtual-tour"
-            aria-label="Lancer la visite virtuelle complète de l'appartement"
+            aria-label={t("preview3d.launchTourAria")}
             className="group inline-flex items-center gap-2 rounded-full bg-gradient-gold-bright px-8 py-4 text-sm font-semibold uppercase tracking-[0.22em] text-primary shadow-lg shadow-black/30 transition-transform duration-300 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
           >
-            Lancer la visite complète
+            {t("preview3d.launchTour")}
             <ArrowUpRight
               className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
               aria-hidden

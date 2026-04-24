@@ -1,10 +1,14 @@
+import { useTranslation } from "react-i18next";
 import logo from "@/assets/logo.png";
 
 interface PanoramaLoadingProps {
   label?: string;
 }
 
-export function PanoramaLoading({ label = "Chargement immersif" }: PanoramaLoadingProps) {
+export function PanoramaLoading({ label }: PanoramaLoadingProps) {
+  const { t } = useTranslation("virtualTour");
+  const resolvedLabel = label ?? t("ui.loading.label");
+
   return (
     <div
       className="pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-center gap-6 bg-primary/95 backdrop-blur-md"
@@ -26,15 +30,15 @@ export function PanoramaLoading({ label = "Chargement immersif" }: PanoramaLoadi
         />
         <img
           src={logo}
-          alt="Khazef"
+          alt={t("ui.loading.logoAlt")}
           className="relative h-16 w-16 object-contain opacity-95"
         />
       </div>
 
       <div className="flex flex-col items-center gap-3 text-center">
-        <span className="eyebrow text-gold">{label}</span>
+        <span className="eyebrow text-gold">{resolvedLabel}</span>
         <span className="arabic text-2xl text-primary-foreground/80">
-          جاري التحميل
+          {t("ui.loading.arabic")}
         </span>
       </div>
 

@@ -1,7 +1,10 @@
+import { useTranslation } from "react-i18next";
+
 import { ROOM_ORDER, TOUR_ROOMS } from "../data/tour-data";
 import { useTourStore } from "../hooks/useTourStore";
 
 export function RoomCarousel() {
+  const { t } = useTranslation("virtualTour");
   const currentRoom = useTourStore((s) => s.currentRoom);
   const setRoom = useTourStore((s) => s.setRoom);
 
@@ -9,7 +12,7 @@ export function RoomCarousel() {
 
   return (
     <nav
-      aria-label="Sélection de pièce"
+      aria-label={t("ui.roomCarousel.label")}
       className="pointer-events-auto absolute bottom-6 left-1/2 z-30 -translate-x-1/2"
     >
       <ul className="flex items-end gap-3 rounded-sm border border-border/60 bg-background/70 px-4 py-3 backdrop-blur-md shadow-luxe-md">
@@ -20,7 +23,7 @@ export function RoomCarousel() {
               <button
                 type="button"
                 onClick={() => setRoom(room.id)}
-                aria-label={`Voir ${room.name}`}
+                aria-label={t("ui.roomCarousel.viewAria", { name: room.name })}
                 aria-current={isActive ? "true" : undefined}
                 className={[
                   "group relative flex flex-col items-center gap-2 overflow-hidden rounded-sm transition-all duration-500",

@@ -1,0 +1,68 @@
+{
+  "seo": {
+    "title": "Luxury Living — Résidence de prestige à Safi",
+    "description": "Luxury Living · L'art de vivre, ciselé dans la pierre. Résidence R+6 de 25 appartements à Safi, Maroc."
+  },
+  "hero": {
+    "imageAlt": "Façade luxueuse de la résidence Khazef à Safi au coucher du soleil",
+    "eyebrow": "Safi · Maroc · 2025",
+    "titleLine1": "L'art de vivre,",
+    "titleItalic": "ciselé dans la pierre.",
+    "intro": "Khazef — <1>خَزَف</1> — est une résidence confidentielle de 25 appartements, signée par l'élégance méditerranéenne et le savoir-faire de la porcelaine.",
+    "ctaVisit": "Réserver une visite",
+    "ctaProject": "Découvrir le projet",
+    "scroll": "Défiler"
+  },
+  "manifesto": {
+    "eyebrow": "Le manifeste",
+    "titleLine1": "Une résidence pensée comme",
+    "titleLine2Prefix": "une ",
+    "titleItalic": "pièce d'orfèvrerie.",
+    "paragraph1": "Khazef puise son nom dans la <1>céramique</1> — cette matière fragile que les artisans de Safi transforment, depuis des siècles, en éclats de bleu et d'or.",
+    "paragraph2": "Chaque appartement, chaque détail, chaque seuil porte cette même exigence : une beauté lente, ciselée, durable. Un hommage contemporain au minéral marocain.",
+    "link": "Lire le manifeste"
+  },
+  "stats": {
+    "items": [
+      { "n": "25", "l": "Appartements" },
+      { "n": "02", "l": "Commerces" },
+      { "n": "R+6", "l": "Étages" },
+      { "n": "450", "l": "m² de foncier" }
+    ]
+  },
+  "highlights": {
+    "eyebrow": "L'essentiel",
+    "titlePrefix": "Trois promesses, ",
+    "titleItalic": "tenues.",
+    "items": [
+      {
+        "title": "Architecture R+6",
+        "text": "25 appartements et 2 commerces, ciselés sur 450 m² face à l'Atlantique."
+      },
+      {
+        "title": "Matières nobles",
+        "text": "Tadelakt chaud, marbre veiné d'or, zellige bleu cobalt — un hommage à la porcelaine de Safi."
+      },
+      {
+        "title": "Adresse rare",
+        "text": "Au cœur de Safi, entre médina millénaire, océan et collines minérales."
+      }
+    ]
+  },
+  "quote": {
+    "imageAlt": "Salon luxueux d'un appartement Khazef avec canapé en velours indigo et finitions dorées",
+    "text": "« La porcelaine vit deux fois : sous les mains de l'artisan, puis sous le regard de celui qui s'y reconnaît. »",
+    "attribution": "Le manifeste Khazef"
+  },
+  "previews": {
+    "eyebrow": "Explorer",
+    "titlePrefix": "Le voyage ",
+    "titleItalic": "commence ici.",
+    "discover": "Découvrir",
+    "items": [
+      { "label": "Le projet", "title": "Une vision architecturale" },
+      { "label": "Appartements", "title": "Typologies & finitions" },
+      { "label": "Ville de Safi", "title": "Le berceau de la céramique" }
+    ]
+  }
+}

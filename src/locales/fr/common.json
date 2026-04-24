@@ -42,5 +42,15 @@
   },
   "misc": {
     "scrollIndicator": "Découvrir"
+  },
+  "pageHeader": {
+    "brandCrumb": "Luxury Living",
+    "illustrationAlt": "Illustration de page",
+    "scrollIndicator": "Découvrir",
+    "discover": "Défiler vers le contenu",
+    "breadcrumbLabel": "Fil d'Ariane"
+  },
+  "seo": {
+    "suffix": " · Luxury Living — Safi, Maroc"
   }
 }

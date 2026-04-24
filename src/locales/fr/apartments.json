@@ -1,0 +1,38 @@
+{
+  "seo": {
+    "title": "Appartements",
+    "description": "Découvrez les 25 appartements Luxury Living — du T2 au penthouse, avec vues mer et terrasses."
+  },
+  "header": {
+    "eyebrow": "Appartements",
+    "arabic": "الشقق",
+    "title": "Vingt-cinq écrins,",
+    "italicWord": "vingt-cinq histoires.",
+    "intro": "Du T2 confidentiel au penthouse sur les toits, chaque appartement Luxury Living a été dessiné comme une pièce unique."
+  },
+  "card": {
+    "units": "unités",
+    "surface": "Surface",
+    "bedrooms": "Chambres",
+    "bedroomSingular": "chambre",
+    "bedroomPlural": "chambres",
+    "exterior": "Extérieur",
+    "price": "Tarif",
+    "priceOnRequest": "Sur demande",
+    "discover": "Découvrir",
+    "interiorAlt": "Intérieur {{name}} — typologie {{id}}"
+  },
+  "features": {
+    "eyebrow": "Prestations premium",
+    "title": "L'évidence,",
+    "italicWord": "dans le détail.",
+    "items": [
+      "Cuisine équipée premium en marbre",
+      "Salles de bain en tadelakt et marbre",
+      "Climatisation réversible silencieuse",
+      "Domotique intégrée (lumière, volets)",
+      "Parking sous-sol sécurisé",
+      "Conciergerie privée"
+    ]
+  }
+}

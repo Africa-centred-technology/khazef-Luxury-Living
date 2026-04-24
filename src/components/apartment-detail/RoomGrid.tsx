@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import type {
   ApartmentTypology,
   RoomKind,
@@ -11,6 +12,8 @@ interface RoomGridProps {
   typology: ApartmentTypology;
 }
 
+type TFn = (key: string, options?: Record<string, unknown>) => string;
+
 const ROOM_SWATCH: Record<RoomKind, string> = {
   living: "#2d4a9a",
   kitchen: "#c9a961",
@@ -21,37 +24,16 @@ const ROOM_SWATCH: Record<RoomKind, string> = {
   terrace: "#6a8a5a",
 };
 
-const ROOM_KIND_LABEL: Record<RoomKind, string> = {
-  living: "Séjour",
-  kitchen: "Cuisine",
-  bedroom: "Chambre",
-  "bedroom-2": "Chambre",
-  dressing: "Dressing",
-  bathroom: "Salle d'eau",
-  terrace: "Terrasse",
-};
-
-const ROOM_DESCRIPTION: Record<RoomKind, string> = {
-  living: "Volume traversant, ouverture sur l'océan et jardin clos.",
-  kitchen: "Îlot central en marbre veiné, plan ouvert sur le séjour.",
-  bedroom: "Suite parentale avec tadelakt, zellige accent et vue dégagée.",
-  "bedroom-2": "Chambre secondaire, linge écru et parquet chaud.",
-  dressing: "Dressing pleine hauteur, matières sobres, miroir cadré laiton.",
-  bathroom: "Baignoire îlot, marbre poli, robinetterie laiton brossé.",
-  terrace:
-    "Deck en bois exotique, vue panoramique sur l'Atlantique et la médina.",
-};
-
 function formatDimensions(size: TypologyRoom["size"]): string {
   const [w, d] = size;
   return `${w.toFixed(1)} × ${d.toFixed(1)} m`;
 }
 
-function orientationLabel(center: TypologyRoom["center"]): string {
+function orientationLabel(center: TypologyRoom["center"], t: TFn): string {
   const z = center[1];
-  if (z < 0) return "Exposition sud";
-  if (z > 0) return "Exposition nord";
-  return "Double orientation";
+  if (z < 0) return t("rooms.orientation.south");
+  if (z > 0) return t("rooms.orientation.north");
+  return t("rooms.orientation.double");
 }
 
 interface RoomCardProps {
@@ -60,9 +42,10 @@ interface RoomCardProps {
 }
 
 function RoomCard({ room, onExplore }: RoomCardProps) {
+  const { t } = useTranslation("apartmentDetail");
   const swatch = ROOM_SWATCH[room.kind];
-  const kindLabel = ROOM_KIND_LABEL[room.kind];
-  const description = ROOM_DESCRIPTION[room.kind];
+  const kindLabel = t(`rooms.kindLabels.${room.kind}`);
+  const description = t(`rooms.descriptions.${room.kind}`);
 
   return (
     <article className="group relative flex flex-col border border-border/60 bg-background/60 p-6 md:p-8 shadow-luxe-sm hover:shadow-luxe-md hover:-translate-y-1 transition-all duration-500">
@@ -78,7 +61,9 @@ function RoomCard({ room, onExplore }: RoomCardProps) {
         />
       </div>
 
-      <p className="eyebrow mt-6">Pièce · {kindLabel}</p>
+      <p className="eyebrow mt-6">
+        {t("rooms.cardLabel")} · {kindLabel}
+      </p>
       <p className="arabic text-gold mt-2 text-lg">{room.arabic}</p>
       <h3 className="font-display text-2xl md:text-[1.75rem] leading-tight mt-1 text-primary">
         {room.name}
@@ -86,21 +71,21 @@ function RoomCard({ room, onExplore }: RoomCardProps) {
 
       <dl className="mt-6 grid grid-cols-3 gap-3 text-xs uppercase tracking-[0.14em] text-muted-foreground">
         <div>
-          <dt className="opacity-70">Surface</dt>
+          <dt className="opacity-70">{t("rooms.surface")}</dt>
           <dd className="mt-1 text-foreground font-medium normal-case tracking-normal">
             {room.surface}
           </dd>
         </div>
         <div>
-          <dt className="opacity-70">Dimensions</dt>
+          <dt className="opacity-70">{t("rooms.dimensions")}</dt>
           <dd className="mt-1 text-foreground font-medium normal-case tracking-normal">
             {formatDimensions(room.size)}
           </dd>
         </div>
         <div>
-          <dt className="opacity-70">Orientation</dt>
+          <dt className="opacity-70">{t("rooms.orientationLabel")}</dt>
           <dd className="mt-1 text-foreground font-medium normal-case tracking-normal">
-            {orientationLabel(room.center)}
+            {orientationLabel(room.center, t)}
           </dd>
         </div>
       </dl>
@@ -115,7 +100,7 @@ function RoomCard({ room, onExplore }: RoomCardProps) {
           onClick={() => onExplore(room.kind)}
           className="link-luxe inline-flex items-center gap-2 text-sm tracking-[0.18em] uppercase text-primary hover:text-gold transition-colors"
         >
-          Explorer
+          {t("rooms.explore")}
           <ArrowUpRight
             className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
             aria-hidden
@@ -128,6 +113,7 @@ function RoomCard({ room, onExplore }: RoomCardProps) {
 
 export function RoomGrid({ typology }: RoomGridProps) {
   const navigate = useNavigate();
+  const { t } = useTranslation("apartmentDetail");
 
   const handleExplore = (kind: RoomKind): void => {
     useTourStore.getState().setRoom(kind);
@@ -139,18 +125,16 @@ export function RoomGrid({ typology }: RoomGridProps) {
     <section className="container-luxe py-20 md:py-28">
       <div className="flex items-center gap-4">
         <span aria-hidden className="gold-rule" />
-        <p className="eyebrow">Les pièces</p>
-        <span className="arabic text-gold text-sm">الغرف</span>
+        <p className="eyebrow">{t("rooms.eyebrow")}</p>
+        <span className="arabic text-gold text-sm">{t("rooms.arabic")}</span>
       </div>
 
       <h2 className="h-display mt-4 text-primary max-w-3xl">
-        Chaque pièce, un geste
+        {t("rooms.title")}
       </h2>
 
       <p className="mt-6 max-w-2xl text-muted-foreground leading-relaxed">
-        Chaque pièce est pensée pour une matière et une orientation précises —
-        le marbre pour l'éclat du matin, le tadelakt pour la douceur du soir, le
-        bois pour tenir l'air de l'Atlantique.
+        {t("rooms.intro")}
       </p>
 
       <div className="mt-12 md:mt-16 grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">

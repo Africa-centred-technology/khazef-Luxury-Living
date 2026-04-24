@@ -1,0 +1,75 @@
+{
+  "seo": {
+    "title": "Le projet",
+    "description": "Luxury Living — concept architectural, matières et engagements du promoteur."
+  },
+  "header": {
+    "eyebrow": "Le projet",
+    "arabic": "المشروع",
+    "title": "Une architecture",
+    "italicWord": "comme une calligraphie.",
+    "intro": "R+6, 25 appartements, 2 commerces. Une silhouette ciselée pensée pour épouser la lumière atlantique."
+  },
+  "concept": {
+    "eyebrow": "Concept",
+    "titleLead": "Le minéral,",
+    "titleItalic": "en mouvement.",
+    "paragraph1": "L'architecture de Khazef joue sur deux registres : la masse minérale, héritée des remparts de Safi, et la finesse du zellige, qui ouvre les façades comme une dentelle.",
+    "paragraph2": "À chaque étage, les balcons s'avancent ou se retirent selon l'orientation du soleil — un dialogue précis entre intimité et panorama.",
+    "paragraph3": "Au pied de l'immeuble, deux commerces de charme animent l'avenue, prolongeant l'esprit de la médina dans une scénographie contemporaine."
+  },
+  "materials": {
+    "eyebrow": "Matériaux & finitions",
+    "titleLead": "Trois matières,",
+    "titleItalic": "une grammaire.",
+    "items": {
+      "tadelakt": {
+        "name": "Tadelakt",
+        "desc": "Enduit chaulé, lissé à la pierre, pour une lumière douce et minérale."
+      },
+      "zellige": {
+        "name": "Zellige cobalt",
+        "desc": "Mosaïque émaillée, taillée à la main par les maîtres de Safi."
+      },
+      "marble": {
+        "name": "Marbre veiné d'or",
+        "desc": "Carrare blanc, traversé d'éclats dorés — surfaces et sols nobles."
+      }
+    }
+  },
+  "vision": {
+    "eyebrow": "Vision architecturale",
+    "titleLead": "Le silence",
+    "titleItalic": "comme luxe.",
+    "paragraph": "Plafonds hauts, murs épais, ouvertures généreuses. Khazef est conçu pour le silence, la lumière et la durée.",
+    "features": {
+      "ceiling": "Hauteur sous plafond 3,10 m",
+      "glazing": "Double vitrage acoustique 44.2",
+      "hvac": "Climatisation invisible par gaines",
+      "elevator": "Ascenseur silencieux dernière génération"
+    }
+  },
+  "commitments": {
+    "eyebrow": "Engagements du promoteur",
+    "titleLead": "Des promesses,",
+    "titleItalic": "écrites dans la pierre.",
+    "items": {
+      "01": {
+        "title": "Le geste juste",
+        "desc": "Chaque finition validée par un comité d'architectes et d'artisans locaux."
+      },
+      "02": {
+        "title": "Matériaux sourcés",
+        "desc": "Pierre, tadelakt et zellige : 80% des matériaux issus du Maroc."
+      },
+      "03": {
+        "title": "Performance énergétique",
+        "desc": "Isolation renforcée, double vitrage acoustique, ventilation maîtrisée."
+      },
+      "04": {
+        "title": "Garantie décennale",
+        "desc": "Suivi post-livraison de dix ans assuré par le promoteur."
+      }
+    }
+  }
+}

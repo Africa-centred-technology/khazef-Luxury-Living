@@ -1,29 +1,43 @@
+import { useTranslation } from "react-i18next";
 import Seo from "@/components/Seo";
 import PageHeader from "@/components/PageHeader";
 import CtaBanner from "@/components/CtaBanner";
 import { Check } from "lucide-react";
 import hero from "@/assets/hero-building.jpg";
 
-const phases = [
-  { date: "T1 2024", title: "Étude & permis", desc: "Conception architecturale, dépôt et obtention du permis de construire.", done: true },
-  { date: "T3 2024", title: "Fondations", desc: "Terrassements et fondations spéciales en sous-sol.", done: true },
-  { date: "T2 2025", title: "Gros œuvre", desc: "Élévation des sept niveaux et structure du bâtiment.", done: true },
-  { date: "T4 2025", title: "Façades & toiture", desc: "Pose des parements minéraux, balcons et toit-terrasse.", done: false, current: true },
-  { date: "T2 2026", title: "Second œuvre", desc: "Cloisons, plomberie, électricité, finitions intérieures.", done: false },
-  { date: "T4 2026", title: "Aménagements & VRD", desc: "Lobby, espaces communs, voirie et plantations.", done: false },
-  { date: "T1 2027", title: "Livraison", desc: "Remise des clés aux acquéreurs Khazef.", done: false },
+interface Phase {
+  date: string;
+  title: string;
+  desc: string;
+}
+
+const phaseFlags: Array<{ done: boolean; current?: boolean }> = [
+  { done: true },
+  { done: true },
+  { done: true },
+  { done: false, current: true },
+  { done: false },
+  { done: false },
+  { done: false },
 ];
 
 const Timeline = () => {
+  const { t } = useTranslation("timeline");
+  const phaseItems = t("phases.items", { returnObjects: true }) as Phase[];
+  const phases = phaseItems.map((phase, index) => ({
+    ...phase,
+    ...phaseFlags[index],
+  }));
+
   return (
     <>
-      <Seo title="Construction & Livraison" description="Calendrier de construction et planning de livraison de la résidence Luxury Living." />
+      <Seo title={t("seo.title")} description={t("seo.description")} />
       <PageHeader
-        eyebrow="Construction & Livraison"
-        arabic="الإنجاز"
-        title="Le chantier,"
-        italicWord="comme une partition tenue."
-        intro="Étape après étape, Khazef avance avec rigueur. Suivez le rythme de sa construction."
+        eyebrow={t("header.eyebrow")}
+        arabic={t("header.arabic")}
+        title={t("header.title")}
+        italicWord={t("header.italicWord")}
+        intro={t("header.intro")}
         image={hero}
       />
 
@@ -31,8 +45,8 @@ const Timeline = () => {
         {/* Progress bar */}
         <div className="mb-16">
           <div className="flex items-end justify-between mb-3">
-            <div className="eyebrow text-gold">Avancement global</div>
-            <div className="font-display text-3xl text-primary">52%</div>
+            <div className="eyebrow text-gold">{t("progress.eyebrow")}</div>
+            <div className="font-display text-3xl text-primary">{t("progress.value")}</div>
           </div>
           <div className="h-1 bg-border overflow-hidden">
             <div className="h-full bg-gradient-gold" style={{ width: "52%" }} />
@@ -68,7 +82,7 @@ const Timeline = () => {
                 <div className={`pl-12 md:pl-0 ${i % 2 ? "md:pr-12 md:text-right" : "md:pl-12"}`}>
                   <p className="text-muted-foreground font-light leading-relaxed">{p.desc}</p>
                   {p.current && (
-                    <div className="mt-3 inline-block eyebrow text-gold border border-gold/40 px-3 py-1.5">En cours</div>
+                    <div className="mt-3 inline-block eyebrow text-gold border border-gold/40 px-3 py-1.5">{t("status.current")}</div>
                   )}
                 </div>
               </div>

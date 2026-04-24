@@ -1,0 +1,41 @@
+{
+  "seo": {
+    "title": "Emplacement",
+    "description": "Luxury Living — au cœur de Safi, entre océan, médina et collines minérales."
+  },
+  "header": {
+    "eyebrow": "Emplacement",
+    "arabic": "الموقع",
+    "title": "Au croisement",
+    "italicWord": "de l'océan et de la médina.",
+    "intro": "Une adresse rare, à quelques pas de l'Atlantique et des artères les plus vivantes de Safi."
+  },
+  "map": {
+    "iframeTitle": "Plan d'accès Khazef à Safi",
+    "address": "Avenue Atlantique, Safi 46000",
+    "separator": "—",
+    "fullMapLink": "Voir le plan en grand"
+  },
+  "amenities": {
+    "eyebrow": "À deux pas",
+    "titleBefore": "Tout,",
+    "titleItalic": "à portée de regard.",
+    "items": [
+      { "key": "beach", "name": "Plage de Safi", "dist": "5 min" },
+      { "key": "medina", "name": "Médina & souks", "dist": "7 min" },
+      { "key": "schools", "name": "Écoles internationales", "dist": "10 min" },
+      { "key": "hospital", "name": "Hôpital Mohammed V", "dist": "8 min" },
+      { "key": "gardens", "name": "Jardins publics", "dist": "3 min" },
+      { "key": "airport", "name": "Aéroport Essaouira", "dist": "1 h 20" }
+    ]
+  },
+  "lifestyle": {
+    "eyebrow": "Art de vivre",
+    "titleBefore": "Une ville",
+    "titleItalic": "à hauteur d'homme.",
+    "paragraphs": [
+      "Safi cultive un rythme rare : celui d'une ville d'art, lente, méditative, ouverte sur l'océan.",
+      "Les terrasses des cafés y voisinent avec les ateliers de potiers, les criques sauvages avec les places ombragées. Vivre à Luxury Living, c'est habiter ce tempo."
+    ]
+  }
+}

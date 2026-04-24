@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { ChevronRight, ChevronDown } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface PageHeaderProps {
   eyebrow: string;
@@ -11,6 +12,7 @@ interface PageHeaderProps {
 }
 
 const PageHeader = ({ eyebrow, title, italicWord, intro, arabic, image }: PageHeaderProps) => {
+  const { t } = useTranslation("common");
   const hasImage = Boolean(image);
 
   const sectionClass = [
@@ -25,7 +27,7 @@ const PageHeader = ({ eyebrow, title, italicWord, intro, arabic, image }: PageHe
         <>
           <img
             src={image}
-            alt="Illustration de page"
+            alt={t("pageHeader.illustrationAlt")}
             className="absolute inset-0 h-full w-full object-cover animate-slow-pan will-change-transform"
             loading="eager"
             decoding="async"
@@ -53,7 +55,7 @@ const PageHeader = ({ eyebrow, title, italicWord, intro, arabic, image }: PageHe
       <div className="container-luxe relative flex min-h-[55vh] md:min-h-[72vh] flex-col justify-center pt-40 pb-24 md:pt-48 md:pb-32">
         {/* Breadcrumb */}
         <nav
-          aria-label="Fil d'Ariane"
+          aria-label={t("pageHeader.breadcrumbLabel")}
           className={`mb-8 flex items-center gap-2 text-[10px] uppercase tracking-[0.22em] font-medium ${
             hasImage ? "text-white/85" : "text-muted-foreground"
           }`}
@@ -63,7 +65,7 @@ const PageHeader = ({ eyebrow, title, italicWord, intro, arabic, image }: PageHe
             to="/"
             className={`transition-colors hover:text-gold ${hasImage ? "text-white/85" : "text-muted-foreground"}`}
           >
-            Luxury Living
+            {t("pageHeader.brandCrumb")}
           </Link>
           <ChevronRight className="h-3 w-3 text-gold" aria-hidden />
           <span className={hasImage ? "text-gold" : "text-primary"}>{eyebrow}</span>
@@ -135,7 +137,7 @@ const PageHeader = ({ eyebrow, title, italicWord, intro, arabic, image }: PageHe
       {hasImage && (
         <a
           href="#main"
-          aria-label="Défiler vers le contenu"
+          aria-label={t("pageHeader.discover")}
           className="group absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-white/70 hover:text-gold transition-colors"
           onClick={(e) => {
             // Let native smooth-scroll handle if a #main anchor exists, else prevent jump
@@ -143,7 +145,7 @@ const PageHeader = ({ eyebrow, title, italicWord, intro, arabic, image }: PageHe
             if (!target) e.preventDefault();
           }}
         >
-          <span className="text-[9px] uppercase tracking-[0.3em]">Découvrir</span>
+          <span className="text-[9px] uppercase tracking-[0.3em]">{t("pageHeader.scrollIndicator")}</span>
           <span className="relative flex h-7 w-[1px] overflow-hidden">
             <span className="absolute inset-x-0 top-0 h-3 bg-gold animate-[scroll-indicator_2.2s_ease-in-out_infinite]" />
           </span>

@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 import { ROOM_ORDER, TOUR_ROOMS, type RoomId } from "../data/tour-data";
 import { useTourStore } from "../hooks/useTourStore";
 
@@ -8,17 +10,18 @@ const FLOORPLAN_ROOMS = [
 ];
 
 export function MiniMap() {
+  const { t } = useTranslation("virtualTour");
   const currentRoom = useTourStore((s) => s.currentRoom);
   const setRoom = useTourStore((s) => s.setRoom);
 
   return (
     <aside
-      aria-label="Plan de navigation"
+      aria-label={t("ui.minimap.label")}
       className="pointer-events-auto absolute bottom-6 right-6 z-30 flex w-[240px] flex-col gap-2 rounded-sm border border-border/60 bg-background/70 p-3 backdrop-blur-md shadow-luxe-md"
     >
       <div className="flex items-center justify-between">
-        <span className="eyebrow text-primary/80">Plan</span>
-        <span className="arabic text-xs text-gold">مخطط</span>
+        <span className="eyebrow text-primary/80">{t("ui.minimap.eyebrow")}</span>
+        <span className="arabic text-xs text-gold">{t("ui.minimap.arabic")}</span>
       </div>
 
       <div className="relative h-[140px] w-full overflow-hidden rounded-sm bg-primary/5">
@@ -49,7 +52,7 @@ export function MiniMap() {
               onClick={() => setRoom(id)}
               className="group absolute -translate-x-1/2 -translate-y-1/2 focus:outline-none"
               style={{ left: `${room.mapPosition.x}%`, top: `${room.mapPosition.y}%` }}
-              aria-label={`Aller à ${room.name}`}
+              aria-label={t("ui.minimap.goToAria", { name: room.name })}
               aria-current={isActive ? "true" : undefined}
             >
               <span

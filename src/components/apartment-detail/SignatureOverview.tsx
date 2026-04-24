@@ -1,4 +1,5 @@
 import { BellRing, Car, Key } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 import type { ApartmentTypology } from "@/components/virtual-tour/data/apartment-typologies";
 
@@ -17,30 +18,18 @@ interface MetricCell {
   readonly caption: string;
 }
 
-interface InlineFeature {
-  readonly icon: typeof Key;
-  readonly label: string;
-}
+type TFn = (key: string, options?: Record<string, unknown>) => string;
 
-const FALLBACK_FLOOR: FloorParts = {
-  badge: "—",
-  caption: "Étage",
-};
-
-const INLINE_FEATURES: readonly InlineFeature[] = [
-  { icon: Key, label: "Livraison clés en main 2026" },
-  { icon: Car, label: "Parking privatif" },
-  { icon: BellRing, label: "Concierge 7j/7" },
-] as const;
+const INLINE_FEATURE_ICONS = [Key, Car, BellRing] as const;
 
 /**
  * Parses a floor label such as `"4ᵉ étage · Vue Atlantique"` into a compact
  * badge (`"4ᵉ"`) and a residual caption (`"Vue Atlantique"`). Falls back
  * gracefully when the label does not match the expected shape.
  */
-function parseFloorLabel(floor: string): FloorParts {
+function parseFloorLabel(floor: string, fallbackCaption: string): FloorParts {
   if (!floor) {
-    return FALLBACK_FLOOR;
+    return { badge: "—", caption: fallbackCaption };
   }
 
   const [rawBadgeCandidate, ...rest] = floor.split(/[·•|–-]/);
@@ -49,8 +38,8 @@ function parseFloorLabel(floor: string): FloorParts {
   const badgeMatch = rawBadgeCandidate.match(/(\d+)\s*([ᵉᵉèe]{0,2}|er)?/i);
   if (!badgeMatch) {
     return {
-      badge: rawBadgeCandidate.trim() || FALLBACK_FLOOR.badge,
-      caption: residualCaption || "Étage",
+      badge: rawBadgeCandidate.trim() || "—",
+      caption: residualCaption || fallbackCaption,
     };
   }
 
@@ -62,40 +51,59 @@ function parseFloorLabel(floor: string): FloorParts {
 
   return {
     badge,
-    caption: caption.length > 0 ? caption : "Étage",
+    caption: caption.length > 0 ? caption : fallbackCaption,
   };
 }
 
-function buildMetrics(typology: ApartmentTypology): readonly MetricCell[] {
-  const floorParts = parseFloorLabel(typology.floor);
-  const priceValue = typology.priceRange ?? "Sur demande";
+function buildMetrics(
+  typology: ApartmentTypology,
+  t: TFn,
+): readonly MetricCell[] {
+  const floorParts = parseFloorLabel(
+    typology.floor,
+    t("signature.metrics.floorCaption"),
+  );
+  const priceValue =
+    typology.priceRange ?? t("signature.metrics.priceFallback");
 
   return [
     {
-      label: "Surface",
+      label: t("signature.metrics.surfaceLabel"),
       value: typology.surface,
-      caption: "Surface utile",
+      caption: t("signature.metrics.surfaceCaption"),
     },
     {
-      label: "Chambres",
+      label: t("signature.metrics.bedroomsLabel"),
       value: String(typology.bedrooms),
-      caption: typology.bedrooms > 1 ? "Chambres" : "Chambre",
+      caption:
+        typology.bedrooms > 1
+          ? t("signature.metrics.bedroomsCaptionPlural")
+          : t("signature.metrics.bedroomsCaptionSingular"),
     },
     {
-      label: "Étage",
+      label: t("signature.metrics.floorLabel"),
       value: floorParts.badge,
       caption: floorParts.caption,
     },
     {
-      label: "Dès",
+      label: t("signature.metrics.priceLabel"),
       value: priceValue,
-      caption: "Prix à partir de",
+      caption: t("signature.metrics.priceCaption"),
     },
   ];
 }
 
 export function SignatureOverview({ typology }: SignatureOverviewProps) {
-  const metrics = buildMetrics(typology);
+  const { t } = useTranslation("apartmentDetail");
+  const metrics = buildMetrics(typology, t);
+  const features = t("signature.features", {
+    returnObjects: true,
+  }) as readonly string[];
+
+  const bedroomWord =
+    typology.bedrooms > 1
+      ? t("signature.bedroomPlural")
+      : t("signature.bedroomSingular");
 
   return (
     <section
@@ -104,13 +112,13 @@ export function SignatureOverview({ typology }: SignatureOverviewProps) {
     >
       <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
         <span className="gold-rule" aria-hidden="true" />
-        <span className="eyebrow text-primary/70">Signature</span>
+        <span className="eyebrow text-primary/70">{t("signature.eyebrow")}</span>
         <span
           className="arabic text-lg md:text-xl text-gold"
           lang="ar"
           dir="rtl"
         >
-          صفات مميزة
+          {t("signature.arabic")}
         </span>
       </div>
 
@@ -119,13 +127,16 @@ export function SignatureOverview({ typology }: SignatureOverviewProps) {
           id="signature-overview-heading"
           className="h-display text-primary max-w-3xl md:col-span-7"
         >
-          Taillé pour l&rsquo;art de vivre marocain contemporain.
+          {t("signature.title")}
         </h2>
 
         <p className="text-muted-foreground leading-relaxed md:col-span-5 md:pt-3">
-          {`${typology.surface} de surface utile, ${typology.bedrooms} ${
-            typology.bedrooms > 1 ? "chambres" : "chambre"
-          }, ${typology.floor.toLowerCase()}. Une composition pensée pour la lumière, la matière et les usages quotidiens — sans compromis sur la générosité des volumes.`}
+          {t("signature.intro", {
+            surface: typology.surface,
+            bedrooms: typology.bedrooms,
+            bedroomWord,
+            floor: typology.floor.toLowerCase(),
+          })}
         </p>
       </div>
 
@@ -147,19 +158,22 @@ export function SignatureOverview({ typology }: SignatureOverviewProps) {
       </dl>
 
       <div className="mt-14 flex flex-wrap items-center gap-x-10 gap-y-4 border-t border-border/60 pt-8">
-        {INLINE_FEATURES.map(({ icon: Icon, label }) => (
-          <div
-            key={label}
-            className="flex items-center gap-3 text-sm text-primary/85"
-          >
-            <Icon
-              className="h-4 w-4 text-gold"
-              strokeWidth={1.5}
-              aria-hidden="true"
-            />
-            <span>{label}</span>
-          </div>
-        ))}
+        {features.map((label, index) => {
+          const Icon = INLINE_FEATURE_ICONS[index] ?? Key;
+          return (
+            <div
+              key={label}
+              className="flex items-center gap-3 text-sm text-primary/85"
+            >
+              <Icon
+                className="h-4 w-4 text-gold"
+                strokeWidth={1.5}
+                aria-hidden="true"
+              />
+              <span>{label}</span>
+            </div>
+          );
+        })}
       </div>
     </section>
   );

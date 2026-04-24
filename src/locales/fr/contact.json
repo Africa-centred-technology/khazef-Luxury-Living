@@ -1,0 +1,64 @@
+{
+  "seo": {
+    "title": "Contact",
+    "description": "Réservez une visite privée de la résidence Luxury Living à Safi."
+  },
+  "header": {
+    "eyebrow": "Contact",
+    "arabic": "تواصل",
+    "title": "Une visite privée,",
+    "italicWord": "sur simple demande.",
+    "intro": "Notre conseiller vous accompagne dans la découverte de Luxury Living et la sélection de votre future adresse."
+  },
+  "form": {
+    "name": {
+      "label": "Nom complet",
+      "placeholder": "Votre nom"
+    },
+    "phone": {
+      "label": "Téléphone",
+      "placeholder": "+212 …"
+    },
+    "email": {
+      "label": "E-mail",
+      "placeholder": "vous@exemple.com"
+    },
+    "interest": {
+      "label": "Votre intérêt",
+      "placeholder": "Sélectionnez…",
+      "options": {
+        "visit": "Visite privée",
+        "apartments": "Information sur les appartements",
+        "documentation": "Documentation commerciale",
+        "commercial": "Espaces commerciaux"
+      }
+    },
+    "message": {
+      "label": "Message",
+      "placeholder": "Quelques mots sur votre projet…"
+    },
+    "submit": "Envoyer la demande",
+    "submitting": "Envoi en cours…",
+    "disclaimer": "En soumettant ce formulaire, vous acceptez d'être contacté par un conseiller Luxury Living.",
+    "toast": {
+      "title": "Demande envoyée",
+      "description": "Notre conseiller vous répondra sous 24h."
+    }
+  },
+  "info": {
+    "eyebrow": "Bureau de vente",
+    "title": "À votre écoute,",
+    "italicWord": "chaque jour.",
+    "address": {
+      "line1": "Avenue Atlantique",
+      "line2": "Safi 46000, Maroc"
+    },
+    "phone": {
+      "hours": "Lun. – Sam. · 9h–19h"
+    },
+    "email": {
+      "reply": "Réponse sous 24h"
+    },
+    "mapTitle": "Plan d'accès Luxury Living"
+  }
+}
