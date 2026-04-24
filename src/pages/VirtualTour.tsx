@@ -1,53 +1,138 @@
+import { Suspense, useRef } from "react";
+
 import Seo from "@/components/Seo";
 import PageHeader from "@/components/PageHeader";
 import CtaBanner from "@/components/CtaBanner";
-import { Play } from "lucide-react";
-import living from "@/assets/interior-living.jpg";
+import hero from "@/assets/interior-living.jpg";
+
+import { useTourStore } from "@/components/virtual-tour/hooks/useTourStore";
+import {
+  LazyPanorama360,
+  LazyApartment3DScene,
+  TourSuspenseFallback,
+} from "@/components/virtual-tour/LazyVirtualTour";
+import VirtualTourSchema from "@/components/virtual-tour/seo/VirtualTourSchema";
+import VirtualTourAccessibility from "@/components/virtual-tour/VirtualTourAccessibility";
+import XRProvider from "@/components/virtual-tour/scenes/XRProvider";
+
+import { MiniMap } from "@/components/virtual-tour/ui/MiniMap";
+import { RoomCarousel } from "@/components/virtual-tour/ui/RoomCarousel";
+import { ModeSwitcher } from "@/components/virtual-tour/ui/ModeSwitcher";
+import { CrosshairCompass } from "@/components/virtual-tour/ui/CrosshairCompass";
+import { AmbienceToggle } from "@/components/virtual-tour/ui/AmbienceToggle";
+import { InfoPanel } from "@/components/virtual-tour/ui/InfoPanel";
+import { MeasurementTool } from "@/components/virtual-tour/ui/MeasurementTool";
+import { XRButton } from "@/components/virtual-tour/ui/XRButton";
+import HelpOverlay from "@/components/virtual-tour/ui/HelpOverlay";
+import { ControlsHint } from "@/components/virtual-tour/ui/ControlsHint";
+import { StageWheelGuard } from "@/components/virtual-tour/ui/StageWheelGuard";
+import { ApartmentSelector } from "@/components/virtual-tour/ui/ApartmentSelector";
+import { TypologyDetailPanel } from "@/components/virtual-tour/ui/TypologyDetailPanel";
+import { TypologyHero } from "@/components/virtual-tour/ui/TypologyHero";
+import { AmbienceLegend } from "@/components/virtual-tour/ui/AmbienceLegend";
+
+import { TOUR_INTRO, TOUR_TIPS } from "@/components/virtual-tour/data/editorial-copy";
+import * as LucideIcons from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+
+function resolveIcon(name: string): LucideIcon {
+  const icons = LucideIcons as unknown as Record<string, LucideIcon>;
+  return icons[name] ?? LucideIcons.Sparkles;
+}
 
 const VirtualTour = () => {
+  const currentRoom = useTourStore((s) => s.currentRoom);
+  const mode = useTourStore((s) => s.mode);
+  const stageRef = useRef<HTMLDivElement | null>(null);
+
   return (
     <>
-      <Seo title="Visite 360°" description="Explorez Khazef en immersion virtuelle 360°." />
-      <PageHeader
-        eyebrow="Visite immersive"
-        arabic="جولة افتراضية"
-        title="Franchissez le seuil,"
-        italicWord="à 360°."
+      <Seo
+        title="Visite 360°"
+        description="Explorez Luxury Living en immersion virtuelle 360° — panoramas, mode 3D et support casque VR."
+      />
+      <VirtualTourSchema
+        name="Luxury Living — Visite immersive"
+        description="Visite virtuelle 360° d'un appartement témoin de la résidence Luxury Living à Safi."
       />
 
-      <section className="container-luxe py-16">
-        <div className="relative aspect-video w-full overflow-hidden bg-primary shadow-luxe-xl group">
-          <img src={living} alt="Aperçu visite virtuelle" className="absolute inset-0 h-full w-full object-cover opacity-70" />
-          <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/30 to-transparent" />
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-secondary">
-            <button className="h-24 w-24 rounded-full bg-gold text-primary flex items-center justify-center shadow-luxe-lg hover:scale-110 transition-transform duration-500 animate-pulse-gold mb-8">
-              <Play className="h-9 w-9 ml-1" fill="currentColor" />
-            </button>
-            <div className="eyebrow text-gold mb-3">Expérience immersive</div>
-            <h2 className="font-display text-3xl md:text-5xl text-secondary text-center max-w-2xl px-4">
-              Lancez la visite à <em className="text-gold-bright">360°</em>
-            </h2>
-            <p className="mt-4 text-secondary/80 text-sm max-w-md text-center px-4">
-              Naviguez librement dans un appartement témoin Khazef. Casque VR compatible.
-            </p>
-          </div>
-        </div>
+      <VirtualTourAccessibility />
 
-        <div className="mt-16 grid md:grid-cols-3 gap-6">
-          {[
-            { t: "Salon traversant", d: "Volume cathédrale, vue mer." },
-            { t: "Cuisine & îlot", d: "Marbre, brass et lumière naturelle." },
-            { t: "Suite parentale", d: "Tadelakt, dressing, salle de bain privée." },
-          ].map((s) => (
-            <div key={s.t} className="bg-secondary/40 p-8 border border-border/60">
-              <div className="eyebrow text-gold mb-3">Espace</div>
-              <h3 className="font-display text-2xl text-primary mb-2">{s.t}</h3>
-              <p className="text-muted-foreground font-light">{s.d}</p>
+      <PageHeader
+        eyebrow={TOUR_INTRO.eyebrow}
+        arabic={TOUR_INTRO.arabic}
+        title={TOUR_INTRO.title}
+        italicWord={TOUR_INTRO.italicWord}
+        image={hero}
+      />
+
+      {/* Immersive stage — panorama OR 3D scene */}
+      <section className="container-luxe py-10">
+        <XRProvider>
+          <div
+            id="immersive-stage"
+            ref={stageRef}
+            tabIndex={-1}
+            className="relative h-[calc(100vh-180px)] min-h-[560px] w-full overflow-hidden bg-primary shadow-luxe-xl touch-none select-none [overscroll-behavior:contain] focus:outline-none"
+          >
+            <StageWheelGuard stageRef={stageRef} />
+            <Suspense fallback={<TourSuspenseFallback />}>
+              {mode === "panorama" ? (
+                <LazyPanorama360 roomId={currentRoom} />
+              ) : (
+                <LazyApartment3DScene />
+              )}
+            </Suspense>
+
+            {/* Editorial overlays — fixed within the stage */}
+            <ApartmentSelector />
+            <ModeSwitcher />
+            <AmbienceToggle />
+            <CrosshairCompass />
+            <MiniMap />
+            <RoomCarousel />
+            <MeasurementTool />
+            <InfoPanel />
+            <TypologyDetailPanel />
+            <ControlsHint />
+            <AmbienceLegend />
+
+            {/* VR entry point, bottom-left corner */}
+            <div className="absolute bottom-6 left-6 z-30">
+              <XRButton />
             </div>
-          ))}
+          </div>
+        </XRProvider>
+      </section>
+
+      <TypologyHero />
+
+      {/* Tips — editorial rail beneath the viewer */}
+      <section className="container-luxe pb-24">
+        <div className="mb-10 flex items-center gap-4">
+          <span className="gold-rule" aria-hidden="true" />
+          <span className="eyebrow text-gold">{TOUR_TIPS.eyebrow}</span>
+        </div>
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {TOUR_TIPS.items.map((tip) => {
+            const Icon = resolveIcon(tip.icon);
+            return (
+              <article
+                key={tip.title}
+                className="group border border-border/60 bg-secondary/40 p-8 transition-shadow duration-500 hover:shadow-luxe-md"
+              >
+                <div className="mb-5 inline-flex h-10 w-10 items-center justify-center bg-gradient-gold text-primary">
+                  <Icon className="h-5 w-5" aria-hidden="true" />
+                </div>
+                <h3 className="mb-2 font-display text-2xl text-primary">{tip.title}</h3>
+                <p className="font-light text-muted-foreground">{tip.description}</p>
+              </article>
+            );
+          })}
         </div>
       </section>
 
+      <HelpOverlay />
       <CtaBanner />
     </>
   );
