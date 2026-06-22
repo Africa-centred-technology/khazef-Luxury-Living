@@ -14,7 +14,7 @@ export default {
     extend: {
       fontFamily: {
         display: ['"Cormorant Garamond"', "serif"],
-        sans: ["Outfit", "ui-sans-serif", "system-ui", "sans-serif"],
+        sans: ["Inter", "Outfit", "ui-sans-serif", "system-ui", "sans-serif"],
         arabic: ["Amiri", "serif"],
       },
       colors: {
@@ -59,6 +59,8 @@ export default {
           deep: "hsl(var(--gold-deep))",
         },
         turquoise: "hsl(var(--turquoise))",
+        jade: "hsl(var(--jade))",
+        citrus: "hsl(var(--citrus))",
         charcoal: "hsl(var(--charcoal))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",

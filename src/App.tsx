@@ -7,6 +7,7 @@ import Layout from "@/components/layout/Layout";
 import Home from "./pages/Home";
 import Project from "./pages/Project";
 import Location from "./pages/Location";
+import Lots from "./pages/Lots";
 import Apartments from "./pages/Apartments";
 import ApartmentDetail from "./pages/ApartmentDetail";
 import Plans from "./pages/Plans";
@@ -30,6 +31,7 @@ const App = () => (
             <Route path="/" element={<Home />} />
             <Route path="/project" element={<Project />} />
             <Route path="/location" element={<Location />} />
+            <Route path="/lots" element={<Lots />} />
             <Route path="/apartments" element={<Apartments />} />
             <Route path="/apartments/:typologyId" element={<ApartmentDetail />} />
             <Route path="/plans" element={<Plans />} />

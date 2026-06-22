@@ -15,7 +15,7 @@ interface NavItem {
 const PRIMARY: NavItem[] = [
   { to: "/", labelKey: "nav.home" },
   { to: "/project", labelKey: "nav.project" },
-  { to: "/apartments", labelKey: "nav.apartments" },
+  { to: "/lots", labelKey: "nav.apartments" },
   { to: "/plans", labelKey: "nav.plans" },
   { to: "/virtual-tour", labelKey: "nav.virtualTour" },
   { to: "/gallery", labelKey: "nav.gallery" },
@@ -157,7 +157,7 @@ const Navbar = () => {
             {/* Logo */}
             <img
               src={logo}
-              alt="Luxury Living"
+              alt="Les Villas Ahlam"
               className="relative z-10 h-20 w-20 md:h-24 md:w-24 object-contain transition-all duration-700 group-hover:scale-110 group-hover:rotate-6 drop-shadow-[0_2px_12px_hsl(var(--gold)/0.35)]"
               width={96}
               height={96}
@@ -315,7 +315,7 @@ const Navbar = () => {
             className="pointer-events-none absolute -right-6 top-1/2 -translate-y-1/2 arabic text-primary/5 select-none"
             style={{ fontSize: "clamp(10rem, 38vw, 18rem)", lineHeight: 1 }}
           >
-            خَزَف
+            أحلام
           </span>
 
           <header className="relative flex items-center justify-between px-6 pt-6 pb-4 border-b border-border/60">
@@ -424,22 +424,24 @@ const Navbar = () => {
                 <span className="eyebrow text-gold text-[10px]">{t("cta.directContact")}</span>
               </div>
               <a
-                href="tel:+212000000000"
+                href="tel:+212661228619"
                 className="group flex items-center gap-3 py-2 text-sm text-primary hover:text-gold hover:translate-x-1 transition-all duration-500"
               >
                 <span className="inline-flex h-7 w-7 items-center justify-center border border-gold/40 group-hover:bg-gold/10 transition-colors">
                   <Phone className="h-3.5 w-3.5 text-gold" />
                 </span>
-                +212 0 00 00 00 00
+                06 61 22 86 19
               </a>
               <a
-                href="mailto:contact@luxuryliving.ma"
+                href="https://wa.me/212661228619"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group flex items-center gap-3 py-2 text-sm text-primary hover:text-gold hover:translate-x-1 transition-all duration-500"
               >
                 <span className="inline-flex h-7 w-7 items-center justify-center border border-gold/40 group-hover:bg-gold/10 transition-colors">
                   <Mail className="h-3.5 w-3.5 text-gold" />
                 </span>
-                contact@luxuryliving.ma
+                WhatsApp · Yatib Sakan
               </a>
             </div>
           </nav>

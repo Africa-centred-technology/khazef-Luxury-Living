@@ -28,7 +28,7 @@ const Footer = () => {
           <div className="eyebrow text-gold mb-5">{t("columns.project.title")}</div>
           <ul className="space-y-3 text-sm text-secondary/85">
             <li><Link to="/project" className="link-luxe">{t("columns.project.links.concept")}</Link></li>
-            <li><Link to="/apartments" className="link-luxe">{t("columns.project.links.apartments")}</Link></li>
+            <li><Link to="/lots" className="link-luxe">{t("columns.project.links.apartments")}</Link></li>
             <li><Link to="/plans" className="link-luxe">{t("columns.project.links.plans")}</Link></li>
             <li><Link to="/timeline" className="link-luxe">{t("columns.project.links.timeline")}</Link></li>
             <li><Link to="/virtual-tour" className="link-luxe">{t("columns.project.links.virtualTour")}</Link></li>
@@ -54,11 +54,11 @@ const Footer = () => {
             </li>
             <li className="flex items-center gap-3">
               <Phone className="h-4 w-4 text-gold shrink-0" />
-              <a href="tel:+212500000000" className="link-luxe" aria-label={t("columns.contact.phoneLabel")}>+212 5 00 00 00 00</a>
+              <a href="tel:+212661228619" className="link-luxe" aria-label={t("columns.contact.phoneLabel")}>06 61 22 86 19</a>
             </li>
             <li className="flex items-center gap-3">
               <Mail className="h-4 w-4 text-gold shrink-0" />
-              <a href="mailto:contact@khazef.ma" className="link-luxe" aria-label={t("columns.contact.emailLabel")}>contact@khazef.ma</a>
+              <a href="https://wa.me/212661228619" target="_blank" rel="noopener noreferrer" className="link-luxe" aria-label={t("columns.contact.emailLabel")}>WhatsApp · 06 61 22 86 19</a>
             </li>
           </ul>
         </div>

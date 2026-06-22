@@ -1,38 +1,38 @@
 {
   "brand": {
-    "name": "Khazef",
-    "eyebrow": "Luxury Living",
-    "tagline": "« L'art de vivre,\nciselé dans la pierre. »"
+    "name": "Les Villas Ahlam",
+    "eyebrow": "Domaine Résidentiel Privé",
+    "tagline": "« Là où vos rêves\nprennent racine. »"
   },
   "columns": {
     "project": {
-      "title": "Le projet",
+      "title": "Le domaine",
       "links": {
-        "concept": "Concept architectural",
-        "apartments": "Appartements",
-        "plans": "Plans & étages",
-        "timeline": "Livraison",
-        "virtualTour": "Visite 360°"
+        "concept": "Le concept",
+        "apartments": "Les lots & disponibilités",
+        "plans": "Plan du lotissement",
+        "timeline": "Financement",
+        "virtualTour": "Galerie immersive"
       }
     },
     "discover": {
       "title": "Découvrir",
       "links": {
-        "location": "Emplacement",
-        "safi": "Ville de Safi",
+        "location": "Le quartier",
+        "safi": "Bouskoura",
         "gallery": "Galerie",
         "contact": "Contact"
       }
     },
     "contact": {
       "title": "Contact",
-      "address": "Avenue Atlantique, Safi 46000, Maroc",
+      "address": "Allée Ben Doukali, Bouskoura, Casablanca-Settat, Maroc",
       "phoneLabel": "Téléphone",
-      "emailLabel": "Adresse e-mail"
+      "emailLabel": "WhatsApp"
     }
   },
   "legal": {
-    "copyright": "© {{year}} Luxury Living — Résidence Khazef · Safi · Tous droits réservés.",
-    "locale": "Safi · Maroc · المغرب"
+    "copyright": "© {{year}} Les Villas Ahlam — Lotisseur Yatib Sakan · Bouskoura · Tous droits réservés.",
+    "locale": "Bouskoura · Casablanca · المغرب"
   }
 }

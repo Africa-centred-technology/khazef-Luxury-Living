@@ -1,19 +1,19 @@
 {
   "brand": {
-    "name": "Khazef",
-    "eyebrow": "Luxury Living",
-    "subtitle": "Résidence signature · Safi"
+    "name": "Les Villas Ahlam",
+    "eyebrow": "Domaine Résidentiel Privé",
+    "subtitle": "Bouskoura · Casablanca"
   },
   "nav": {
     "home": "Accueil",
-    "project": "Projet",
-    "apartments": "Appartements",
-    "plans": "Plans",
-    "virtualTour": "Visite 360°",
+    "project": "Le Domaine",
+    "apartments": "Les Lots",
+    "plans": "Plan & Disponibilités",
+    "virtualTour": "Galerie immersive",
     "gallery": "Galerie",
-    "location": "Emplacement",
-    "timeline": "Livraison",
-    "safi": "Safi",
+    "location": "Le Quartier",
+    "timeline": "Financement",
+    "safi": "Bouskoura",
     "contact": "Contact",
     "more": "Plus",
     "primaryNavigation": "Navigation principale",
@@ -24,9 +24,9 @@
     "navigation": "Navigation"
   },
   "cta": {
-    "privateVisit": "Visite privée",
-    "bookPrivateVisit": "Réserver une visite privée",
-    "byAppointment": "Sur rendez-vous · 7j/7",
+    "privateVisit": "Réserver un lot",
+    "bookPrivateVisit": "Réserver mon lot",
+    "byAppointment": "Rappel commercial sous 24 h",
     "directContact": "Contact direct",
     "discover": "Découvrir"
   },
@@ -44,13 +44,13 @@
     "scrollIndicator": "Découvrir"
   },
   "pageHeader": {
-    "brandCrumb": "Luxury Living",
+    "brandCrumb": "Les Villas Ahlam",
     "illustrationAlt": "Illustration de page",
     "scrollIndicator": "Découvrir",
     "discover": "Défiler vers le contenu",
     "breadcrumbLabel": "Fil d'Ariane"
   },
   "seo": {
-    "suffix": " · Luxury Living — Safi, Maroc"
+    "suffix": " · Les Villas Ahlam — Bouskoura, Maroc"
   }
 }
