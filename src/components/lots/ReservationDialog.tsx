@@ -14,6 +14,7 @@ import type { Lot } from "@/data/lots";
 import { CONTACT, PRIX, formatDH, whatsappLien } from "@/data/villas-ahlam";
 import { RENDERS } from "@/data/renders";
 import { ApiError, createReservation } from "@/lib/api";
+import { trackEvent } from "@/lib/analytics";
 
 interface ReservationDialogProps {
   lot: Lot | null;
@@ -131,6 +132,12 @@ export function ReservationDialog({ lot, open, onOpenChange }: ReservationDialog
       });
       // Le lot est passe "en cours" cote backend : on rafraichit la carte.
       await queryClient.invalidateQueries({ queryKey: ["lots"] });
+      trackEvent("reservation_submitted", {
+        lot_numero: lot.numero,
+        surface_m2: lot.surfaceM2,
+        financement: form.financement || "indecis",
+        canal: "api",
+      });
       setDone(true);
       toast.success(result.message);
     } catch (err) {
@@ -144,6 +151,11 @@ export function ReservationDialog({ lot, open, onOpenChange }: ReservationDialog
       } else {
         // API injoignable : repli WhatsApp (degradation gracieuse, CDC §7.6).
         window.open(whatsappLien(messageWhatsapp()), "_blank", "noopener,noreferrer");
+        trackEvent("reservation_submitted", {
+          lot_numero: lot.numero,
+          surface_m2: lot.surfaceM2,
+          canal: "whatsapp",
+        });
         setDone(true);
         toast.success("Demande envoyée par WhatsApp ! Un conseiller vous rappelle sous 24 h.");
       }

@@ -3,6 +3,7 @@ import { useLocation, Outlet } from "react-router-dom";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import CookieConsent from "@/components/CookieConsent";
+import Analytics from "@/components/Analytics";
 
 const Layout = () => {
   const { pathname } = useLocation();
@@ -19,6 +20,7 @@ const Layout = () => {
       </main>
       <Footer />
       <CookieConsent />
+      <Analytics />
     </div>
   );
 };

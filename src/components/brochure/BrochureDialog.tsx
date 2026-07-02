@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { ApiError, createBrochureLead } from "@/lib/api";
+import { trackEvent } from "@/lib/analytics";
 
 /** Chemin de la plaquette (a deposer dans public/). */
 const BROCHURE_URL = "/brochure-villas-ahlam.pdf";
@@ -60,6 +61,7 @@ export function BrochureDialog({ trigger }: BrochureDialogProps) {
         telephone: telephone || undefined,
         consentement_rgpd: consentement,
       });
+      trackEvent("brochure_download", { email: Boolean(email), telephone: Boolean(telephone) });
       toast.success("Merci ! Votre brochure se télécharge.");
       telechargerPdf();
       setOpen(false);
