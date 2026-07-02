@@ -14,8 +14,14 @@ const Layout = () => {
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-sm focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground"
+      >
+        Aller au contenu
+      </a>
       <Navbar />
-      <main key={pathname} className="page-enter flex-1">
+      <main id="main" tabIndex={-1} key={pathname} className="page-enter flex-1 outline-none">
         <Outlet />
       </main>
       <Footer />

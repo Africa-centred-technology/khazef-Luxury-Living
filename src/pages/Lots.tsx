@@ -106,7 +106,7 @@ const Lots = () => {
         intro={`${PROJET.nombreLots} lots viabilisés, de ${PROJET.surfaceMin} à ${PROJET.surfaceMax} m², ${PRIX.accroche.toLowerCase()}. Survolez le plan, cliquez sur un lot disponible et réservez en ligne — un conseiller vous rappelle.`}
       />
 
-      <main id="main" className="container-luxe py-16 md:py-24">
+      <div className="container-luxe py-16 md:py-24">
         {/* Compteur de rareté — CDC §7.3 */}
         <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-3">
@@ -220,7 +220,7 @@ const Lots = () => {
             )}
           </aside>
         </div>
-      </main>
+      </div>
 
       <ReservationDialog lot={selectedLive} open={reserveOpen} onOpenChange={setReserveOpen} />
 

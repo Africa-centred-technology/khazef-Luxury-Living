@@ -137,6 +137,23 @@
     outline: 2px solid hsl(var(--gold));
     outline-offset: 4px;
   }
+
+  /* Masque le marqueur natif des <summary> (FAQ) sur WebKit/Safari. */
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  /* Accessibilité — respecte la préférence de mouvement réduit (WCAG 2.3.3). */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
 @layer components {
