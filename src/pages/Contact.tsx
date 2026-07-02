@@ -7,6 +7,7 @@ import { Mail, Phone, MapPin, Send } from "lucide-react";
 import { RENDERS } from "@/data/renders";
 import { CONTACT } from "@/data/villas-ahlam";
 import { ApiError, createRappel } from "@/lib/api";
+import { RendezVous } from "@/components/RendezVous";
 
 const hero = RENDERS.villaDusk;
 
@@ -180,6 +181,10 @@ const Contact = () => {
           </div>
         </aside>
       </section>
+
+      <div className="container-luxe pb-24">
+        <RendezVous />
+      </div>
     </>
   );
 };

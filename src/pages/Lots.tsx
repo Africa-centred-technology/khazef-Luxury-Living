@@ -1,10 +1,11 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { MapPin, Maximize2, Phone, MessageCircle, Calculator, X } from "lucide-react";
+import { MapPin, Maximize2, Phone, MessageCircle, Calculator, X, Scale } from "lucide-react";
 import Seo from "@/components/Seo";
 import PageHeader from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
 import { LotsMap, LotsLegend } from "@/components/lots/LotsMap";
+import { LotComparator, MAX_COMPARE } from "@/components/lots/LotComparator";
 import { ReservationDialog } from "@/components/lots/ReservationDialog";
 import { BrochureDialog } from "@/components/brochure/BrochureDialog";
 import { RENDERS } from "@/data/renders";
@@ -21,8 +22,19 @@ const Lots = () => {
   const [surfaceMax, setSurfaceMax] = useState<number>(PROJET.surfaceMax);
   const [selected, setSelected] = useState<Lot | null>(null);
   const [reserveOpen, setReserveOpen] = useState(false);
+  const [compare, setCompare] = useState<number[]>([]);
 
   const { lots, isLoading, isFallback } = useLots();
+
+  const toggleCompare = (numero: number) => {
+    setCompare((prev) =>
+      prev.includes(numero)
+        ? prev.filter((n) => n !== numero)
+        : prev.length >= MAX_COMPARE
+          ? prev
+          : [...prev, numero],
+    );
+  };
 
   const visibleNumeros = useMemo(() => {
     const set = new Set<number>();
@@ -173,6 +185,11 @@ const Lots = () => {
                 lot={selectedLive}
                 onClose={() => setSelected(null)}
                 onReserve={() => setReserveOpen(true)}
+                inCompare={compare.includes(selectedLive.numero)}
+                compareDisabled={
+                  !compare.includes(selectedLive.numero) && compare.length >= MAX_COMPARE
+                }
+                onToggleCompare={() => toggleCompare(selectedLive.numero)}
               />
             ) : (
               <div className="rounded-sm border border-dashed border-border/70 bg-secondary/20 p-8 text-center">
@@ -189,6 +206,13 @@ const Lots = () => {
       </main>
 
       <ReservationDialog lot={selectedLive} open={reserveOpen} onOpenChange={setReserveOpen} />
+
+      <LotComparator
+        lots={lots}
+        compareNumeros={compare}
+        onRemove={toggleCompare}
+        onClear={() => setCompare([])}
+      />
     </>
   );
 };
@@ -197,10 +221,16 @@ function LotDetail({
   lot,
   onClose,
   onReserve,
+  inCompare,
+  compareDisabled,
+  onToggleCompare,
 }: {
   lot: Lot;
   onClose: () => void;
   onReserve: () => void;
+  inCompare: boolean;
+  compareDisabled: boolean;
+  onToggleCompare: () => void;
 }) {
   const meta = STATUT_META[lot.statut];
   const waMessage = `Bonjour, je suis intéressé(e) par le LOT ${lot.numero} (${lot.surfaceM2} m², îlot ${lot.ilot}) du projet ${PROJET.nom}. Pouvez-vous me donner plus d'informations ?`;
@@ -290,6 +320,20 @@ function LotDetail({
             Ce lot est vendu. Contactez-nous pour rejoindre la liste d'attente.
           </p>
         )}
+
+        <button
+          type="button"
+          onClick={onToggleCompare}
+          disabled={compareDisabled}
+          className={`flex w-full items-center justify-center gap-2 rounded-sm border py-2.5 text-sm transition-colors ${
+            inCompare
+              ? "border-primary bg-secondary/50 text-primary"
+              : "border-border/60 text-primary hover:border-primary disabled:cursor-not-allowed disabled:opacity-50"
+          }`}
+        >
+          <Scale className="h-4 w-4 text-gold" />
+          {inCompare ? "Retirer de la comparaison" : "Ajouter au comparateur"}
+        </button>
 
         <a
           href="#"

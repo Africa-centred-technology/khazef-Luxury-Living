@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import Seo from "@/components/Seo";
 import PageHeader from "@/components/PageHeader";
 import CtaBanner from "@/components/CtaBanner";
+import { FacadeConfigurator } from "@/components/FacadeConfigurator";
 import zellige from "@/assets/material-zellige.jpg";
 import tadelakt from "@/assets/material-tadelakt.jpg";
 import marble from "@/assets/material-marble.jpg";
@@ -161,6 +162,8 @@ const Project = () => {
           ))}
         </div>
       </section>
+
+      <FacadeConfigurator />
 
       <CtaBanner />
     </>
