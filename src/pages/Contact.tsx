@@ -4,22 +4,51 @@ import Seo from "@/components/Seo";
 import PageHeader from "@/components/PageHeader";
 import { toast } from "sonner";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
-import hero from "@/assets/safi-coast.jpg";
+import { RENDERS } from "@/data/renders";
+import { CONTACT } from "@/data/villas-ahlam";
+import { ApiError, createRappel } from "@/lib/api";
+
+const hero = RENDERS.villaDusk;
 
 const Contact = () => {
   const { t } = useTranslation("contact");
   const [loading, setLoading] = useState(false);
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const nom = String(data.get("name") ?? "").trim();
+    const telephone = String(data.get("phone") ?? "").trim();
+    const email = String(data.get("email") ?? "").trim();
+    const interet = String(data.get("interest") ?? "").trim();
+    const messageLibre = String(data.get("message") ?? "").trim();
+
+    if (!nom || !telephone) {
+      toast.error(t("form.name.label") + " / " + t("form.phone.label"));
+      return;
+    }
+
+    // On consolide e-mail, intérêt et message dans le champ message du rappel.
+    const message = [
+      interet && `Intérêt : ${interet}`,
+      email && `E-mail : ${email}`,
+      messageLibre,
+    ]
+      .filter(Boolean)
+      .join("\n");
+
     setLoading(true);
-    setTimeout(() => {
+    try {
+      await createRappel({ nom, telephone, sujet: "general", message, consentement_rgpd: true });
+      form.reset();
+      toast.success(t("form.toast.title"), { description: t("form.toast.description") });
+    } catch (err) {
+      const msg = err instanceof ApiError ? err.message : "Envoi impossible. Réessayez ou appelez-nous.";
+      toast.error(msg);
+    } finally {
       setLoading(false);
-      (e.target as HTMLFormElement).reset();
-      toast.success(t("form.toast.title"), {
-        description: t("form.toast.description"),
-      });
-    }, 900);
+    }
   };
 
   return (
@@ -118,15 +147,24 @@ const Contact = () => {
               <li className="flex items-start gap-4">
                 <Phone className="h-5 w-5 text-gold mt-1 shrink-0" strokeWidth={1.4} />
                 <div>
-                  <div className="text-primary font-medium">+212 5 00 00 00 00</div>
-                  {t("info.phone.hours")}
+                  <a href={`tel:${CONTACT.telephoneRaw}`} className="text-primary font-medium link-luxe">
+                    {CONTACT.telephone}
+                  </a>
+                  <div>{t("info.phone.hours")}</div>
                 </div>
               </li>
               <li className="flex items-start gap-4">
                 <Mail className="h-5 w-5 text-gold mt-1 shrink-0" strokeWidth={1.4} />
                 <div>
-                  <div className="text-primary font-medium">contact@khazef.ma</div>
-                  {t("info.email.reply")}
+                  <a
+                    href={CONTACT.whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary font-medium link-luxe"
+                  >
+                    WhatsApp · {CONTACT.telephone}
+                  </a>
+                  <div>{t("info.email.reply")}</div>
                 </div>
               </li>
             </ul>
@@ -135,7 +173,7 @@ const Contact = () => {
           <div className="aspect-[4/3] overflow-hidden border border-border shadow-luxe-sm">
             <iframe
               title={t("info.mapTitle")}
-              src="https://www.openstreetmap.org/export/embed.html?bbox=-9.27%2C32.28%2C-9.21%2C32.32&layer=mapnik&marker=32.30,-9.24"
+              src="https://www.openstreetmap.org/export/embed.html?bbox=-7.70%2C33.45%2C-7.63%2C33.51&layer=mapnik&marker=33.479327,-7.665879"
               className="h-full w-full grayscale-[20%]"
               loading="lazy"
             />

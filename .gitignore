@@ -22,3 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Rendus IA sources (lourds ~35 Mo) — versions optimisees dans src/assets/renders/
+update/images/
+
+# Env locaux (garder .env.example et .env.tunnel qui ne contiennent pas de secret)
+.env
+.env.local
+.env.*.local

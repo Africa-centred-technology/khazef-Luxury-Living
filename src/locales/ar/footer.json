@@ -19,9 +19,11 @@
       "title": "اكتشف",
       "links": {
         "location": "الموقع",
+        "financement": "التمويل",
         "safi": "مدينة آسفي",
         "gallery": "المعرض",
-        "contact": "اتصل بنا"
+        "contact": "اتصل بنا",
+        "brochure": "تحميل الكتيب"
       }
     },
     "contact": {

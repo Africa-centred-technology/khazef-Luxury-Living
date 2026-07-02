@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import logo from "@/assets/logo.png";
 import { Mail, Phone, MapPin } from "lucide-react";
+import { BrochureDialog } from "@/components/brochure/BrochureDialog";
 
 const Footer = () => {
   const { t } = useTranslation("footer");
@@ -30,8 +31,8 @@ const Footer = () => {
             <li><Link to="/project" className="link-luxe">{t("columns.project.links.concept")}</Link></li>
             <li><Link to="/lots" className="link-luxe">{t("columns.project.links.apartments")}</Link></li>
             <li><Link to="/plans" className="link-luxe">{t("columns.project.links.plans")}</Link></li>
+            <li><Link to="/financement" className="link-luxe">{t("columns.discover.links.financement")}</Link></li>
             <li><Link to="/timeline" className="link-luxe">{t("columns.project.links.timeline")}</Link></li>
-            <li><Link to="/virtual-tour" className="link-luxe">{t("columns.project.links.virtualTour")}</Link></li>
           </ul>
         </div>
 
@@ -39,9 +40,17 @@ const Footer = () => {
           <div className="eyebrow text-gold mb-5">{t("columns.discover.title")}</div>
           <ul className="space-y-3 text-sm text-secondary/85">
             <li><Link to="/location" className="link-luxe">{t("columns.discover.links.location")}</Link></li>
+            <li><Link to="/financement" className="link-luxe">{t("columns.discover.links.financement")}</Link></li>
             <li><Link to="/safi" className="link-luxe">{t("columns.discover.links.safi")}</Link></li>
             <li><Link to="/gallery" className="link-luxe">{t("columns.discover.links.gallery")}</Link></li>
             <li><Link to="/contact" className="link-luxe">{t("columns.discover.links.contact")}</Link></li>
+            <li>
+              <BrochureDialog
+                trigger={
+                  <button className="link-luxe text-left">{t("columns.discover.links.brochure")}</button>
+                }
+              />
+            </li>
           </ul>
         </div>
 

@@ -4,7 +4,9 @@ import Seo from "@/components/Seo";
 import PageHeader from "@/components/PageHeader";
 import CtaBanner from "@/components/CtaBanner";
 import { ZoomIn, X } from "lucide-react";
-import hero from "@/assets/interior-kitchen.jpg";
+import { RENDERS } from "@/data/renders";
+
+const hero = RENDERS.lotsAerial;
 
 interface LevelItem {
   n: string;

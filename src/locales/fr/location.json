@@ -1,41 +1,41 @@
 {
   "seo": {
-    "title": "Emplacement",
-    "description": "Luxury Living — au cœur de Safi, entre océan, médina et collines minérales."
+    "title": "Le Quartier",
+    "description": "Les Villas Ahlam à Bouskoura — entre la forêt de Bouskoura et Casablanca, à 15 minutes de l'aéroport Mohammed V. Commodités, écoles et golf à proximité."
   },
   "header": {
-    "eyebrow": "Emplacement",
-    "arabic": "الموقع",
-    "title": "Au croisement",
-    "italicWord": "de l'océan et de la médina.",
-    "intro": "Une adresse rare, à quelques pas de l'Atlantique et des artères les plus vivantes de Safi."
+    "eyebrow": "Le Quartier",
+    "arabic": "أحلام",
+    "title": "À Bouskoura,",
+    "italicWord": "entre forêt et ville.",
+    "intro": "Une adresse recherchée au sud de Casablanca : la quiétude de la forêt, la proximité du golf et l'accès immédiat aux grands axes."
   },
   "map": {
-    "iframeTitle": "Plan d'accès Khazef à Safi",
-    "address": "Avenue Atlantique, Safi 46000",
+    "iframeTitle": "Plan d'accès — Les Villas Ahlam à Bouskoura",
+    "address": "Douar Rmel Lahlal, Bouskoura, Casablanca-Settat",
     "separator": "—",
     "fullMapLink": "Voir le plan en grand"
   },
   "amenities": {
-    "eyebrow": "À deux pas",
+    "eyebrow": "À proximité",
     "titleBefore": "Tout,",
-    "titleItalic": "à portée de regard.",
+    "titleItalic": "à quelques minutes.",
     "items": [
-      { "key": "beach", "name": "Plage de Safi", "dist": "5 min" },
-      { "key": "medina", "name": "Médina & souks", "dist": "7 min" },
-      { "key": "schools", "name": "Écoles internationales", "dist": "10 min" },
-      { "key": "hospital", "name": "Hôpital Mohammed V", "dist": "8 min" },
-      { "key": "gardens", "name": "Jardins publics", "dist": "3 min" },
-      { "key": "airport", "name": "Aéroport Essaouira", "dist": "1 h 20" }
+      { "key": "airport", "name": "Aéroport Mohammed V", "dist": "15–20 min" },
+      { "key": "medina", "name": "Centre de Casablanca", "dist": "20–25 min" },
+      { "key": "gardens", "name": "Forêt de Bouskoura", "dist": "à proximité" },
+      { "key": "beach", "name": "Bouskoura Golf City", "dist": "à proximité" },
+      { "key": "schools", "name": "Écoles internationales", "dist": "à proximité" },
+      { "key": "hospital", "name": "Cliniques & commerces", "dist": "à proximité" }
     ]
   },
   "lifestyle": {
     "eyebrow": "Art de vivre",
-    "titleBefore": "Une ville",
-    "titleItalic": "à hauteur d'homme.",
+    "titleBefore": "Le calme,",
+    "titleItalic": "sans quitter la ville.",
     "paragraphs": [
-      "Safi cultive un rythme rare : celui d'une ville d'art, lente, méditative, ouverte sur l'océan.",
-      "Les terrasses des cafés y voisinent avec les ateliers de potiers, les criques sauvages avec les places ombragées. Vivre à Luxury Living, c'est habiter ce tempo."
+      "Bouskoura incarne un nouvel art de vivre casablancais : on y respire l'air de la forêt, on y élève ses enfants au vert, à deux pas des écoles et des commerces.",
+      "Le golf, les espaces boisés et les axes rapides vers Casablanca et l'aéroport font de ce sud de la métropole l'une des adresses résidentielles les plus prisées du moment."
     ]
   }
 }

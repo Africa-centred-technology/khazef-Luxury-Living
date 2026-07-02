@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Check, ChevronLeft, ChevronRight, Home, MessageCircle, Phone, User, Wallet } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   Dialog,
   DialogContent,
@@ -11,6 +12,8 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import type { Lot } from "@/data/lots";
 import { CONTACT, PRIX, formatDH, whatsappLien } from "@/data/villas-ahlam";
+import { RENDERS } from "@/data/renders";
+import { ApiError, createReservation } from "@/lib/api";
 
 interface ReservationDialogProps {
   lot: Lot | null;
@@ -56,6 +59,8 @@ export function ReservationDialog({ lot, open, onOpenChange }: ReservationDialog
   const [step, setStep] = useState(0);
   const [form, setForm] = useState<FormState>(EMPTY);
   const [done, setDone] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const queryClient = useQueryClient();
 
   if (!lot) return null;
 
@@ -91,12 +96,9 @@ export function ReservationDialog({ lot, open, onOpenChange }: ReservationDialog
     setStep((s) => Math.min(s + 1, STEPS.length - 1));
   };
 
-  const submit = () => {
-    if (!form.consentement) {
-      toast.error("Merci d'accepter d'être recontacté(e).");
-      return;
-    }
-    const lignes = [
+  /** Message WhatsApp de secours, utilise si l'API est injoignable. */
+  const messageWhatsapp = (): string =>
+    [
       `Bonjour, je souhaite réserver le LOT ${lot.numero} (${lot.surfaceM2} m², îlot ${lot.ilot}) du projet Les Villas Ahlam.`,
       `Prix indicatif : à partir de ${formatDH(lot.prixIndicatif)}.`,
       ``,
@@ -110,9 +112,44 @@ export function ReservationDialog({ lot, open, onOpenChange }: ReservationDialog
       .filter(Boolean)
       .join("\n");
 
-    window.open(whatsappLien(lignes), "_blank", "noopener,noreferrer");
-    setDone(true);
-    toast.success("Demande envoyée ! Un conseiller vous rappelle sous 24 h.");
+  const submit = async () => {
+    if (!form.consentement) {
+      toast.error("Merci d'accepter d'être recontacté(e).");
+      return;
+    }
+    setSubmitting(true);
+    try {
+      const result = await createReservation({
+        lot_numero: lot.numero,
+        nom: form.nom,
+        telephone: form.telephone,
+        email: form.email || undefined,
+        ville_pays: form.villePays || undefined,
+        financement: form.financement || "indecis",
+        message: form.message || undefined,
+        consentement_rgpd: form.consentement,
+      });
+      // Le lot est passe "en cours" cote backend : on rafraichit la carte.
+      await queryClient.invalidateQueries({ queryKey: ["lots"] });
+      setDone(true);
+      toast.success(result.message);
+    } catch (err) {
+      if (err instanceof ApiError) {
+        // Erreur metier (ex. lot deja reserve entre-temps, RGPD) : on informe.
+        toast.error(err.message);
+        if (err.status === 400 && err.fields?.lot_numero) {
+          // Lot pris pendant la saisie : on rafraichit pour refleter le nouveau statut.
+          await queryClient.invalidateQueries({ queryKey: ["lots"] });
+        }
+      } else {
+        // API injoignable : repli WhatsApp (degradation gracieuse, CDC §7.6).
+        window.open(whatsappLien(messageWhatsapp()), "_blank", "noopener,noreferrer");
+        setDone(true);
+        toast.success("Demande envoyée par WhatsApp ! Un conseiller vous rappelle sous 24 h.");
+      }
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -157,8 +194,13 @@ export function ReservationDialog({ lot, open, onOpenChange }: ReservationDialog
                     Continuer <ChevronRight className="h-4 w-4" />
                   </Button>
                 ) : (
-                  <Button onClick={submit} size="lg" className="bg-gradient-gold-bright text-primary">
-                    Envoyer ma demande
+                  <Button
+                    onClick={submit}
+                    size="lg"
+                    disabled={submitting}
+                    className="bg-gradient-gold-bright text-primary"
+                  >
+                    {submitting ? "Envoi…" : "Envoyer ma demande"}
                   </Button>
                 )}
               </div>
@@ -222,12 +264,20 @@ function StepLot({ lot }: { lot: Lot }) {
         <Info label="Surface" value={`${lot.surfaceM2} m²`} />
         <Info label="Hauteur" value={lot.hauteur} />
       </div>
-      <div className="rounded-sm border border-border/60 bg-secondary/40 p-4">
-        <div className="eyebrow text-gold mb-1">Imaginez votre villa</div>
-        <p className="text-sm text-muted-foreground">
-          Une villa R+1 contemporaine sur ce lot. Surface constructible et règles
-          précisées par votre conseiller.
-        </p>
+      <div className="overflow-hidden rounded-sm border border-border/60 bg-secondary/40">
+        <img
+          src={RENDERS.villaDay}
+          alt="Villa R+1 contemporaine — rendu illustratif"
+          className="aspect-[4/3] w-full object-cover"
+          loading="lazy"
+          decoding="async"
+        />
+        <div className="p-4">
+          <div className="eyebrow text-gold mb-1">Imaginez votre villa</div>
+          <p className="text-sm text-muted-foreground">
+            Une villa R+1 contemporaine sur ce lot. Rendu illustratif.
+          </p>
+        </div>
       </div>
     </div>
   );

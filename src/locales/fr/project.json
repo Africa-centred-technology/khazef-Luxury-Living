@@ -1,74 +1,74 @@
 {
   "seo": {
-    "title": "Le projet",
-    "description": "Luxury Living — concept architectural, matières et engagements du promoteur."
+    "title": "Le Domaine",
+    "description": "Les Villas Ahlam — un domaine résidentiel privé de 42 villas R+1 à Bouskoura : concept, architecture marocaine contemporaine et engagements du lotisseur Yatib Sakan."
   },
   "header": {
-    "eyebrow": "Le projet",
-    "arabic": "المشروع",
-    "title": "Une architecture",
-    "italicWord": "comme une calligraphie.",
-    "intro": "R+6, 25 appartements, 2 commerces. Une silhouette ciselée pensée pour épouser la lumière atlantique."
+    "eyebrow": "Le Domaine",
+    "arabic": "أحلام",
+    "title": "Un domaine privé",
+    "italicWord": "où vos rêves prennent racine.",
+    "intro": "42 villas R+1 sur lots viabilisés, dans un domaine clos et sécurisé à Bouskoura. Une parenthèse de calme, à quinze minutes de l'aéroport Mohammed V."
   },
   "concept": {
     "eyebrow": "Concept",
-    "titleLead": "Le minéral,",
-    "titleItalic": "en mouvement.",
-    "paragraph1": "L'architecture de Khazef joue sur deux registres : la masse minérale, héritée des remparts de Safi, et la finesse du zellige, qui ouvre les façades comme une dentelle.",
-    "paragraph2": "À chaque étage, les balcons s'avancent ou se retirent selon l'orientation du soleil — un dialogue précis entre intimité et panorama.",
-    "paragraph3": "Au pied de l'immeuble, deux commerces de charme animent l'avenue, prolongeant l'esprit de la médina dans une scénographie contemporaine."
+    "titleLead": "La villa,",
+    "titleItalic": "à votre image.",
+    "paragraph1": "Les Villas Ahlam, c'est le choix de la villa individuelle dans un cadre maîtrisé : un domaine privé organisé en deux îlots, des rues paysagées d'oliviers et de bougainvilliers, et l'intimité d'un terrain bien à soi.",
+    "paragraph2": "Chaque lot, de 200 à 461 m², accueille une villa R+1 contemporaine. Vous construisez le projet qui vous ressemble, dans le respect d'une charte qui garantit l'harmonie du domaine.",
+    "paragraph3": "Aux portes de la forêt de Bouskoura et de Bouskoura Golf City, le domaine conjugue la nature et la ville — l'air pur d'un côté, Casablanca à vingt minutes de l'autre."
   },
   "materials": {
-    "eyebrow": "Matériaux & finitions",
-    "titleLead": "Trois matières,",
-    "titleItalic": "une grammaire.",
+    "eyebrow": "Matières & savoir-faire",
+    "titleLead": "Une architecture",
+    "titleItalic": "marocaine contemporaine.",
     "items": {
       "tadelakt": {
         "name": "Tadelakt",
-        "desc": "Enduit chaulé, lissé à la pierre, pour une lumière douce et minérale."
+        "desc": "Enduit chaulé lissé à la pierre, pour des intérieurs à la lumière douce et minérale."
       },
       "zellige": {
-        "name": "Zellige cobalt",
-        "desc": "Mosaïque émaillée, taillée à la main par les maîtres de Safi."
+        "name": "Zellige",
+        "desc": "Mosaïque émaillée taillée à la main, en touches d'accent près des entrées et des niches."
       },
       "marble": {
-        "name": "Marbre veiné d'or",
-        "desc": "Carrare blanc, traversé d'éclats dorés — surfaces et sols nobles."
+        "name": "Pierre & bois",
+        "desc": "Pierre beige locale et bois chaud des moucharabiehs : la matière noble des façades."
       }
     }
   },
   "vision": {
-    "eyebrow": "Vision architecturale",
-    "titleLead": "Le silence",
+    "eyebrow": "Art de vivre",
+    "titleLead": "L'espace",
     "titleItalic": "comme luxe.",
-    "paragraph": "Plafonds hauts, murs épais, ouvertures généreuses. Khazef est conçu pour le silence, la lumière et la durée.",
+    "paragraph": "Toits plats habitables, grandes baies à menuiserie sombre, terrasses ouvertes sur le ciel. Les Villas Ahlam sont pensées pour la lumière, l'extérieur et la vie de famille.",
     "features": {
-      "ceiling": "Hauteur sous plafond 3,10 m",
-      "glazing": "Double vitrage acoustique 44.2",
-      "hvac": "Climatisation invisible par gaines",
-      "elevator": "Ascenseur silencieux dernière génération"
+      "ceiling": "Villas R+1 sur lots de 200 à 461 m²",
+      "glazing": "Grandes baies vitrées et lumière traversante",
+      "hvac": "Toit-terrasse aménageable",
+      "elevator": "Domaine clos, sécurisé et paysagé"
     }
   },
   "commitments": {
-    "eyebrow": "Engagements du promoteur",
+    "eyebrow": "Engagements du lotisseur",
     "titleLead": "Des promesses,",
-    "titleItalic": "écrites dans la pierre.",
+    "titleItalic": "ancrées dans le sol.",
     "items": {
       "01": {
-        "title": "Le geste juste",
-        "desc": "Chaque finition validée par un comité d'architectes et d'artisans locaux."
+        "title": "Lots viabilisés",
+        "desc": "Voirie, réseaux d'eau, d'électricité et d'assainissement réalisés — vous bâtissez sur un terrain prêt."
       },
       "02": {
-        "title": "Matériaux sourcés",
-        "desc": "Pierre, tadelakt et zellige : 80% des matériaux issus du Maroc."
+        "title": "Cadre juridique clair",
+        "desc": "Titre foncier 23025/63, projet conduit par l'architecte Badik Meriem. Réservation accompagnée par un conseiller."
       },
       "03": {
-        "title": "Performance énergétique",
-        "desc": "Isolation renforcée, double vitrage acoustique, ventilation maîtrisée."
+        "title": "Un domaine harmonieux",
+        "desc": "Une charte architecturale garantit la cohérence et la valeur de l'ensemble du lotissement."
       },
       "04": {
-        "title": "Garantie décennale",
-        "desc": "Suivi post-livraison de dix ans assuré par le promoteur."
+        "title": "Accompagnement Yatib Sakan",
+        "desc": "De la réservation au financement, un interlocuteur unique vous suit à chaque étape."
       }
     }
   }

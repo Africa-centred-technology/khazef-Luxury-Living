@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:tunnel": "vite --mode tunnel",
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
@@ -51,6 +52,8 @@
     "@react-three/postprocessing": "^2.19.1",
     "@react-three/xr": "^6.6.29",
     "@tanstack/react-query": "^5.83.0",
+    "baseline-browser-mapping": "^2.10.40",
+    "caniuse-lite": "^1.0.30001800",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",

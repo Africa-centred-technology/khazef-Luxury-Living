@@ -3,7 +3,9 @@ import Seo from "@/components/Seo";
 import PageHeader from "@/components/PageHeader";
 import CtaBanner from "@/components/CtaBanner";
 import { MapPin, ShoppingBag, GraduationCap, Hospital, Waves, Trees, type LucideIcon } from "lucide-react";
-import safi from "@/assets/safi-aerial.jpg";
+import { RENDERS } from "@/data/renders";
+
+const safi = RENDERS.landscapedStreet;
 
 type AmenityKey = "beach" | "medina" | "schools" | "hospital" | "gardens" | "airport";
 
@@ -44,13 +46,13 @@ const Location = () => {
         <div className="aspect-[16/10] w-full overflow-hidden border border-border shadow-luxe-md bg-muted">
           <iframe
             title={t("map.iframeTitle")}
-            src="https://www.openstreetmap.org/export/embed.html?bbox=-9.27%2C32.28%2C-9.21%2C32.32&layer=mapnik&marker=32.30,-9.24"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=-7.70%2C33.45%2C-7.63%2C33.51&layer=mapnik&marker=33.479327,-7.665879"
             className="h-full w-full grayscale-[20%]"
             loading="lazy"
           />
         </div>
         <div className="mt-4 text-sm text-muted-foreground">
-          {t("map.address")} {t("map.separator")} <a className="link-luxe text-primary" href="https://www.openstreetmap.org/?mlat=32.30&mlon=-9.24#map=14/32.30/-9.24" target="_blank" rel="noreferrer">{t("map.fullMapLink")}</a>
+          {t("map.address")} {t("map.separator")} <a className="link-luxe text-primary" href="https://maps.app.goo.gl/xYt5rhptRdtU6wk79" target="_blank" rel="noreferrer">{t("map.fullMapLink")}</a>
         </div>
       </section>
 

@@ -17,13 +17,13 @@ const PRIMARY: NavItem[] = [
   { to: "/project", labelKey: "nav.project" },
   { to: "/lots", labelKey: "nav.apartments" },
   { to: "/plans", labelKey: "nav.plans" },
-  { to: "/virtual-tour", labelKey: "nav.virtualTour" },
   { to: "/gallery", labelKey: "nav.gallery" },
 ];
 
 /** Secondary nav — grouped under a "Plus" dropdown on desktop */
 const SECONDARY: NavItem[] = [
   { to: "/location", labelKey: "nav.location" },
+  { to: "/financement", labelKey: "nav.financement" },
   { to: "/timeline", labelKey: "nav.timeline" },
   { to: "/safi", labelKey: "nav.safi" },
 ];

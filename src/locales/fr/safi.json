@@ -1,41 +1,41 @@
 {
   "seo": {
-    "title": "Ville de Safi",
-    "description": "Découvrez Safi, ville portuaire et capitale marocaine de la céramique."
+    "title": "Bouskoura",
+    "description": "Bouskoura, le sud résidentiel de Casablanca : forêt, golf et nouvelles adresses de standing, à 15 minutes de l'aéroport Mohammed V."
   },
   "header": {
-    "eyebrow": "Ville de Safi",
-    "arabic": "آسفي",
-    "title": "Safi,",
-    "italicWord": "le bleu et le feu.",
-    "intro": "Ville portuaire millénaire, capitale marocaine de la poterie, Safi tisse depuis toujours un dialogue rare entre la terre, l'océan et le feu."
+    "eyebrow": "Bouskoura",
+    "arabic": "أحلام",
+    "title": "Bouskoura,",
+    "italicWord": "le sud qui respire.",
+    "intro": "À la lisière de Casablanca, Bouskoura conjugue la forêt, le golf et un urbanisme résidentiel de qualité. Le nouveau visage de la vie au calme près de la métropole."
   },
   "history": {
-    "eyebrow": "Histoire",
-    "title": "Mille ans",
-    "italicWord": "de céramique.",
-    "p1": "Depuis le XIIe siècle, Safi est connue pour ses ateliers de potiers. Ses fours alignés sur la colline d'Asfi enseignent encore aujourd'hui un art devenu marque de fabrique du Maroc.",
-    "p2": "Le bleu cobalt de Safi — profond, intense — est devenu un emblème : c'est lui que l'on retrouve dans le logo et l'âme de Khazef."
+    "eyebrow": "Le territoire",
+    "title": "La forêt",
+    "italicWord": "aux portes de la ville.",
+    "p1": "Longtemps poumon vert de Casablanca, la forêt de Bouskoura — des centaines d'hectares d'eucalyptus et de pins — façonne l'identité d'un territoire où l'on vient chercher l'air pur et l'espace.",
+    "p2": "En une génération, Bouskoura est devenue l'une des destinations résidentielles les plus convoitées du Grand Casablanca, portée par le golf, les écoles internationales et les grands axes."
   },
   "culture": {
-    "imageAlt": "Atelier de poterie à Safi",
-    "eyebrow": "Culture & artisanat",
-    "title": "La main qui pense.",
-    "text": "Dans les ateliers de la colline aux potiers, la matière prend forme sous des gestes transmis depuis huit générations. Une tradition vivante, intime, exigeante."
+    "imageAlt": "L'art de vivre à Bouskoura",
+    "eyebrow": "Art de vivre",
+    "title": "Vivre au vert, travailler en ville.",
+    "text": "Le matin la forêt et le golf, la journée Casablanca à vingt minutes : Bouskoura offre cet équilibre rare entre nature et métropole, recherché par les familles et les cadres."
   },
   "coast": {
-    "imageAlt": "Côte atlantique de Safi",
-    "eyebrow": "Côte atlantique",
-    "title": "Le large,",
-    "italicWord": "à perte de vue.",
-    "text": "Falaises de grès doré, criques préservées, vagues légendaires : Safi offre 50 km de littoral parmi les plus authentiques du Maroc, à quelques minutes seulement de Khazef."
+    "imageAlt": "Le domaine résidentiel à Bouskoura",
+    "eyebrow": "Connexions",
+    "title": "Tout proche,",
+    "italicWord": "et bien relié.",
+    "text": "À 15 minutes de l'aéroport Mohammed V, à 20 minutes du centre de Casablanca, à deux pas de Bouskoura Golf City et des écoles internationales : Les Villas Ahlam profitent du meilleur du sud casablancais."
   },
   "stats": {
     "items": [
-      { "n": "1100", "l": "Année de fondation" },
-      { "n": "350K", "l": "Habitants" },
-      { "n": "50", "l": "Km de côte" },
-      { "n": "8", "l": "Générations de potiers" }
+      { "n": "15 min", "l": "Aéroport Mohammed V" },
+      { "n": "20 min", "l": "Centre de Casablanca" },
+      { "n": "42", "l": "Villas R+1" },
+      { "n": "4 500", "l": "DH/m² à partir de" }
     ]
   }
 }

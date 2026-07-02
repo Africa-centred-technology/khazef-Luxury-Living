@@ -5,8 +5,10 @@ import CtaBanner from "@/components/CtaBanner";
 import zellige from "@/assets/material-zellige.jpg";
 import tadelakt from "@/assets/material-tadelakt.jpg";
 import marble from "@/assets/material-marble.jpg";
-import hero from "@/assets/hero-building.jpg";
-import living from "@/assets/interior-living.jpg";
+import { RENDERS } from "@/data/renders";
+
+const hero = RENDERS.entranceGate;
+const living = RENDERS.rooftopSunset;
 
 type MaterialKey = "tadelakt" | "zellige" | "marble";
 type CommitmentKey = "01" | "02" | "03" | "04";
@@ -91,7 +93,7 @@ const Project = () => {
                     <img
                       src={m.img}
                       alt={name}
-                      className="h-full w-full object-cover transition-transform duration-[2000ms] group-hover:scale-110"
+                      className="h-full w-full object-cover transition-transform [transition-duration:2000ms] group-hover:scale-110"
                       loading="lazy"
                     />
                   </div>

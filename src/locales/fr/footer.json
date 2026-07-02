@@ -19,9 +19,11 @@
       "title": "Découvrir",
       "links": {
         "location": "Le quartier",
+        "financement": "Financement",
         "safi": "Bouskoura",
         "gallery": "Galerie",
-        "contact": "Contact"
+        "contact": "Contact",
+        "brochure": "Télécharger la brochure"
       }
     },
     "contact": {

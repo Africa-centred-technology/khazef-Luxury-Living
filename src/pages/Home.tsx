@@ -3,9 +3,9 @@ import { ArrowRight, Building2, Compass, Sparkles } from "lucide-react";
 import { useTranslation, Trans } from "react-i18next";
 import Seo from "@/components/Seo";
 import CtaBanner from "@/components/CtaBanner";
-import hero from "@/assets/hero-building.jpg";
-import living from "@/assets/interior-living.jpg";
-import safiAerial from "@/assets/safi-aerial.jpg";
+import hero from "@/assets/renders/hero-aerial.webp";
+import living from "@/assets/renders/living-room.webp";
+import safiAerial from "@/assets/renders/landscaped-street.webp";
 import logo from "@/assets/logo.png";
 
 const highlightIcons = [Building2, Sparkles, Compass] as const;
@@ -50,7 +50,7 @@ const Home = () => {
           width={1920}
           height={1080}
           loading="eager"
-          fetchPriority="high"
+          fetchpriority="high"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-primary/40 via-primary/50 to-primary/90" />
         <div className="absolute inset-0 bg-gradient-to-r from-primary/60 via-primary/15 to-transparent md:to-primary/0" />
@@ -176,7 +176,7 @@ const Home = () => {
           <img
             src={living}
             alt={t("quote.imageAlt")}
-            className="absolute inset-0 h-full w-full object-cover transition-transform duration-[2000ms] hover:scale-105"
+            className="absolute inset-0 h-full w-full object-cover transition-transform [transition-duration:2000ms] hover:scale-105"
             loading="lazy"
             width={1600}
             height={1200}
@@ -211,7 +211,7 @@ const Home = () => {
               <img
                 src={[hero, living, safiAerial][i]}
                 alt=""
-                className="absolute inset-0 h-full w-full object-cover opacity-80 transition-all duration-[1500ms] group-hover:scale-110 group-hover:opacity-60"
+                className="absolute inset-0 h-full w-full object-cover opacity-80 transition-all [transition-duration:1500ms] group-hover:scale-110 group-hover:opacity-60"
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/30 to-transparent" />

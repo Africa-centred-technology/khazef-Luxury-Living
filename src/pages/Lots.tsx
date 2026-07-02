@@ -1,11 +1,15 @@
 import { useMemo, useState } from "react";
-import { MapPin, Maximize2, Phone, MessageCircle, X } from "lucide-react";
+import { Link } from "react-router-dom";
+import { MapPin, Maximize2, Phone, MessageCircle, Calculator, X } from "lucide-react";
 import Seo from "@/components/Seo";
 import PageHeader from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
 import { LotsMap, LotsLegend } from "@/components/lots/LotsMap";
 import { ReservationDialog } from "@/components/lots/ReservationDialog";
-import { LOTS, STATUT_META, compteParStatut, type Lot, type StatutLot } from "@/data/lots";
+import { BrochureDialog } from "@/components/brochure/BrochureDialog";
+import { RENDERS } from "@/data/renders";
+import { STATUT_META, type Lot, type StatutLot } from "@/data/lots";
+import { useLots } from "@/hooks/useLots";
 import { PROJET, PRIX, formatDH, whatsappLien } from "@/data/villas-ahlam";
 
 type FiltreStatut = StatutLot | "tous";
@@ -18,18 +22,25 @@ const Lots = () => {
   const [selected, setSelected] = useState<Lot | null>(null);
   const [reserveOpen, setReserveOpen] = useState(false);
 
+  const { lots, isLoading, isFallback } = useLots();
+
   const visibleNumeros = useMemo(() => {
     const set = new Set<number>();
-    for (const lot of LOTS) {
+    for (const lot of lots) {
       if (statut !== "tous" && lot.statut !== statut) continue;
       if (ilot !== "tous" && lot.ilot !== ilot) continue;
       if (lot.surfaceM2 > surfaceMax) continue;
       set.add(lot.numero);
     }
     return set;
-  }, [statut, ilot, surfaceMax]);
+  }, [lots, statut, ilot, surfaceMax]);
 
-  const disponibles = compteParStatut("disponible");
+  const disponibles = lots.filter((l) => l.statut === "disponible").length;
+
+  // Version "live" du lot selectionne : reflete les MAJ de statut issues du polling.
+  const selectedLive = selected
+    ? lots.find((l) => l.numero === selected.numero) ?? selected
+    : null;
 
   return (
     <>
@@ -52,10 +63,24 @@ const Lots = () => {
             <span className="gold-rule" />
             <span className="eyebrow text-gold">Disponibilités en temps réel</span>
           </div>
+          <BrochureDialog />
           <p className="text-sm font-medium text-primary">
-            Plus que <span className="text-gold">{disponibles}</span> lots disponibles
+            {isLoading ? (
+              <span className="text-muted-foreground">Chargement des disponibilités…</span>
+            ) : (
+              <>
+                Plus que <span className="text-gold">{disponibles}</span> lots disponibles
+              </>
+            )}
           </p>
         </div>
+
+        {isFallback && (
+          <div className="mb-6 rounded-sm border border-gold/40 bg-gold/5 px-4 py-3 text-sm text-muted-foreground">
+            Disponibilités affichées en mode hors-ligne — la mise à jour en temps réel
+            est momentanément indisponible. La réservation reste possible via WhatsApp.
+          </div>
+        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-8">
           {/* Carte + filtres */}
@@ -93,8 +118,8 @@ const Lots = () => {
             </div>
 
             <LotsMap
-              lots={LOTS}
-              selectedNumero={selected?.numero ?? null}
+              lots={lots}
+              selectedNumero={selectedLive?.numero ?? null}
               onSelectLot={(lot) => setSelected(lot)}
               visibleNumeros={visibleNumeros}
             />
@@ -109,9 +134,9 @@ const Lots = () => {
 
           {/* Panneau de détail — CDC §7.3 */}
           <aside className="lg:sticky lg:top-32 h-fit">
-            {selected ? (
+            {selectedLive ? (
               <LotDetail
-                lot={selected}
+                lot={selectedLive}
                 onClose={() => setSelected(null)}
                 onReserve={() => setReserveOpen(true)}
               />
@@ -129,7 +154,7 @@ const Lots = () => {
         </div>
       </main>
 
-      <ReservationDialog lot={selected} open={reserveOpen} onOpenChange={setReserveOpen} />
+      <ReservationDialog lot={selectedLive} open={reserveOpen} onOpenChange={setReserveOpen} />
     </>
   );
 };
@@ -180,13 +205,22 @@ function LotDetail({
           </p>
         </div>
 
-        {/* "Imaginez votre villa" — CDC §8.6 (placeholder visuel) */}
-        <div className="rounded-sm border border-border/60 bg-secondary/40 p-4">
-          <div className="eyebrow text-gold mb-1">Imaginez votre villa</div>
-          <p className="text-sm text-muted-foreground">
-            Une villa R+1 contemporaine sur ce lot. Surface constructible et règles
-            précisées par votre conseiller.
-          </p>
+        {/* "Imaginez votre villa" — CDC §8.6 */}
+        <div className="overflow-hidden rounded-sm border border-border/60 bg-secondary/40">
+          <img
+            src={RENDERS.villaDay}
+            alt="Villa R+1 contemporaine — rendu illustratif"
+            className="aspect-[4/3] w-full object-cover"
+            loading="lazy"
+            decoding="async"
+          />
+          <div className="p-4">
+            <div className="eyebrow text-gold mb-1">Imaginez votre villa</div>
+            <p className="text-sm text-muted-foreground">
+              Une villa R+1 contemporaine sur ce lot. Rendu illustratif ; surface
+              constructible et règles précisées par votre conseiller.
+            </p>
+          </div>
         </div>
 
         {meta.cliquable ? (
@@ -210,6 +244,12 @@ function LotDetail({
                 </a>
               </Button>
             </div>
+            <Link
+              to={`/financement?prix=${lot.prixIndicatif}`}
+              className="flex items-center justify-center gap-2 rounded-sm border border-border/60 py-2.5 text-sm text-primary transition-colors hover:border-primary"
+            >
+              <Calculator className="h-4 w-4 text-gold" /> Simuler mon financement
+            </Link>
           </div>
         ) : (
           <p className="rounded-sm bg-secondary/50 p-4 text-center text-sm text-muted-foreground">

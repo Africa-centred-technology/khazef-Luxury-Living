@@ -8,6 +8,8 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
+    // Autorise l'acces via les tunnels Cloudflare (mode tunnel : npm run dev:tunnel)
+    allowedHosts: [".trycloudflare.com", ".workers.dev"],
     hmr: {
       overlay: false,
     },

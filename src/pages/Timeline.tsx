@@ -3,7 +3,9 @@ import Seo from "@/components/Seo";
 import PageHeader from "@/components/PageHeader";
 import CtaBanner from "@/components/CtaBanner";
 import { Check } from "lucide-react";
-import hero from "@/assets/hero-building.jpg";
+import { RENDERS } from "@/data/renders";
+
+const hero = RENDERS.villaDay;
 
 interface Phase {
   date: string;

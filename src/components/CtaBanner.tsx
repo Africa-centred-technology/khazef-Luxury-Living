@@ -29,7 +29,7 @@ const CtaBanner = () => {
             <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
           </Link>
           <Link
-            to="/apartments"
+            to="/lots"
             className="inline-flex items-center justify-center gap-3 border border-gold/40 text-secondary px-8 py-4 text-[12px] uppercase tracking-[0.22em] font-medium hover:bg-gold/10 transition-all duration-500"
           >
             {t("banner.actions.discoverApartments")}

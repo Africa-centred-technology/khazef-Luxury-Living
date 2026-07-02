@@ -2,9 +2,11 @@ import { useTranslation } from "react-i18next";
 import Seo from "@/components/Seo";
 import PageHeader from "@/components/PageHeader";
 import CtaBanner from "@/components/CtaBanner";
-import hero from "@/assets/safi-coast.jpg";
-import coast from "@/assets/safi-coast.jpg";
-import pottery from "@/assets/safi-pottery.jpg";
+import { RENDERS } from "@/data/renders";
+
+const hero = RENDERS.heroAerial;
+const coast = RENDERS.villaDusk;
+const pottery = RENDERS.lifestyleFamily;
 
 interface StatItem {
   n: string;

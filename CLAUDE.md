@@ -4,7 +4,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-**Khazef — Porcelain Elegance** is a luxury real-estate marketing site for a residential project (R+6, 25 apartments, 2 shops) in Safi, Morocco. The UI is in French with Arabic calligraphy accents. Positioning: premium / editorial, not a template.
+**Les Villas Ahlam** is a luxury real-estate marketing site for a private gated subdivision of **42 R+1 villas** in **Bouskoura** (south of Casablanca), Morocco — developer **Yatib Sakan**. The UI is in French with Arabic calligraphy accents. Positioning: premium / editorial, not a template. Goal: generate leads and **online lot reservations** around a real-time interactive lot map.
+
+> This repo (`khazef-porcelain-elegance/`, originally the "Khazef" Safi apartments project) was **repurposed** into Les Villas Ahlam. Some legacy assets/pages still carry Safi/Khazef theming (`Apartments`, `ApartmentDetail`, `VirtualTour`, 3D scenes, `material-*`/`safi-*` images); AR translations of rewritten pages are still pending. Source of truth for product requirements: `update/CDC-Site-Les-Villas-Ahlam (1).md` (CDC v1.2); progress log: `update/AVANCEMENT-Villas-Ahlam.md`.
+
+### Backend (separate repo)
+
+The backend is **Django 5.1 + DRF** in the sibling folder **`D:\Immobilier\villas-ahlam-api\`** (not in this repo). It exposes a REST API under `/api/` (lots, reservations, rappels, brochure, waitlist, credit simulator) backed by **Supabase Postgres**. The frontend talks to it via `src/lib/api.ts` (base URL `VITE_API_URL`, default `http://127.0.0.1:8000/api`); lot statuses are kept fresh by **polling** (TanStack Query, `src/hooks/useLots.ts`). Django Admin is the operator interface for Yatib Sakan. See that folder's `README.md`.
 
 ## Tech stack
 
@@ -12,7 +18,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **React Router DOM v6** — multi-route app under one BrowserRouter; each section is its own route
 - **Tailwind CSS 3** with `tailwindcss-animate`, shadcn/ui primitives in `src/components/ui/`
 - **Radix UI** (extensive) + **Framer Motion** + **lucide-react**
-- **TanStack Query** (provider mounted, not heavily used yet)
+- **TanStack Query** — drives lot data fetching + polling against the Django API (`src/hooks/useLots.ts`, `src/lib/api.ts`)
 - **Vitest + @testing-library/react + jsdom** for tests
 - **bun** and **npm** lockfiles both exist — prefer the tool the user is actively using; `bun.lock` + `bun.lockb` are current, `package-lock.json` is also committed
 - `lovable-tagger` is a dev-only Vite plugin (project originated on Lovable) — do not remove
