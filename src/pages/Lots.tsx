@@ -20,6 +20,9 @@ const Lots = () => {
   const [statut, setStatut] = useState<FiltreStatut>("tous");
   const [ilot, setIlot] = useState<FiltreIlot>("tous");
   const [surfaceMax, setSurfaceMax] = useState<number>(PROJET.surfaceMax);
+  const budgetMin = PROJET.surfaceMin * PRIX.prixM2;
+  const budgetMax = PROJET.surfaceMax * PRIX.prixM2;
+  const [budget, setBudget] = useState<number>(budgetMax);
   const [selected, setSelected] = useState<Lot | null>(null);
   const [reserveOpen, setReserveOpen] = useState(false);
   const [compare, setCompare] = useState<number[]>([]);
@@ -42,10 +45,11 @@ const Lots = () => {
       if (statut !== "tous" && lot.statut !== statut) continue;
       if (ilot !== "tous" && lot.ilot !== ilot) continue;
       if (lot.surfaceM2 > surfaceMax) continue;
+      if (lot.prixIndicatif > budget) continue;
       set.add(lot.numero);
     }
     return set;
-  }, [lots, statut, ilot, surfaceMax]);
+  }, [lots, statut, ilot, surfaceMax, budget]);
 
   const disponibles = lots.filter((l) => l.statut === "disponible").length;
 
@@ -159,6 +163,19 @@ const Lots = () => {
                   onChange={(e) => setSurfaceMax(Number(e.target.value))}
                   className="w-44 accent-[hsl(var(--primary))]"
                   aria-label="Surface maximale"
+                />
+              </FilterGroup>
+
+              <FilterGroup label={`Budget ≤ ${formatDH(budget)}`}>
+                <input
+                  type="range"
+                  min={budgetMin}
+                  max={budgetMax}
+                  step={4500}
+                  value={budget}
+                  onChange={(e) => setBudget(Number(e.target.value))}
+                  className="w-44 accent-[hsl(var(--primary))]"
+                  aria-label="Budget indicatif maximal"
                 />
               </FilterGroup>
             </div>

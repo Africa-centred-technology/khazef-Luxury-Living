@@ -8,6 +8,7 @@ import { RENDERS } from "@/data/renders";
 import { CONTACT } from "@/data/villas-ahlam";
 import { ApiError, createRappel } from "@/lib/api";
 import { RendezVous } from "@/components/RendezVous";
+import { Faq } from "@/components/Faq";
 
 const hero = RENDERS.villaDusk;
 
@@ -181,6 +182,8 @@ const Contact = () => {
           </div>
         </aside>
       </section>
+
+      <Faq />
 
       <div className="container-luxe pb-24">
         <RendezVous />
