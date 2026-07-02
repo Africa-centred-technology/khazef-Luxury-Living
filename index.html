@@ -19,6 +19,65 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Les Villas Ahlam — Bouskoura, Maroc" />
     <meta name="twitter:description" content="Là où vos rêves prennent racine. Domaine résidentiel privé de 42 villas R+1." />
+
+    <meta property="og:site_name" content="Les Villas Ahlam" />
+    <meta property="og:locale" content="fr_MA" />
+    <meta property="og:url" content="https://villas-ahlam.ma/" />
+
+    <!-- Données structurées (Schema.org) — CDC §10 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "RealEstateAgent",
+          "@id": "https://villas-ahlam.ma/#developer",
+          "name": "Yatib Sakan — Les Villas Ahlam",
+          "url": "https://villas-ahlam.ma/",
+          "telephone": "+212661228619",
+          "image": "https://villas-ahlam.ma/og.jpg",
+          "areaServed": "Bouskoura, Casablanca-Settat, Maroc",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Allée Ben Doukali, Douar Rmel Lahlal",
+            "addressLocality": "Bouskoura",
+            "addressRegion": "Casablanca-Settat",
+            "addressCountry": "MA"
+          }
+        },
+        {
+          "@type": ["RealEstateListing", "Residence"],
+          "@id": "https://villas-ahlam.ma/#listing",
+          "name": "Les Villas Ahlam — Domaine Résidentiel Privé",
+          "description": "Domaine résidentiel privé et sécurisé de 42 lots de villas R+1 viabilisés à Bouskoura, de 200 à 461 m², à partir de 4 500 DH/m². À 15 min de l'aéroport Mohammed V.",
+          "url": "https://villas-ahlam.ma/",
+          "image": "https://villas-ahlam.ma/og.jpg",
+          "numberOfItems": 42,
+          "broker": { "@id": "https://villas-ahlam.ma/#developer" },
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Allée Ben Doukali, Douar Rmel Lahlal",
+            "addressLocality": "Bouskoura",
+            "addressRegion": "Casablanca-Settat",
+            "addressCountry": "MA"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 33.479327,
+            "longitude": -7.665879
+          },
+          "offers": {
+            "@type": "AggregateOffer",
+            "priceCurrency": "MAD",
+            "lowPrice": 900000,
+            "highPrice": 2074500,
+            "offerCount": 42,
+            "availability": "https://schema.org/InStock"
+          }
+        }
+      ]
+    }
+    </script>
   </head>
 
   <body>

@@ -37,6 +37,39 @@ const Lots = () => {
 
   const disponibles = lots.filter((l) => l.statut === "disponible").length;
 
+  // Données structurées Schema.org : ItemList des 42 lots (CDC §10).
+  const lotsJsonLd = useMemo(() => {
+    if (lots.length === 0) return undefined;
+    const availability = (s: StatutLot) =>
+      s === "vendu"
+        ? "https://schema.org/SoldOut"
+        : s === "en_cours"
+          ? "https://schema.org/LimitedAvailability"
+          : "https://schema.org/InStock";
+    return {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: `Les ${PROJET.nombreLots} lots — ${PROJET.nom}`,
+      numberOfItems: lots.length,
+      itemListElement: lots.map((lot, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        item: {
+          "@type": "Offer",
+          name: `Lot ${lot.numero} — ${lot.surfaceM2} m² (îlot ${lot.ilot})`,
+          price: lot.prixIndicatif,
+          priceCurrency: "MAD",
+          availability: availability(lot.statut),
+          itemOffered: {
+            "@type": "Residence",
+            name: `Lot ${lot.numero} — villa ${lot.hauteur}`,
+            floorSize: { "@type": "QuantitativeValue", value: lot.surfaceM2, unitCode: "MTK" },
+          },
+        },
+      })),
+    };
+  }, [lots]);
+
   // Version "live" du lot selectionne : reflete les MAJ de statut issues du polling.
   const selectedLive = selected
     ? lots.find((l) => l.numero === selected.numero) ?? selected
@@ -47,6 +80,7 @@ const Lots = () => {
       <Seo
         title="Plan & Disponibilités — les 42 lots"
         description="Carte interactive des 42 lots de villas R+1 du domaine Les Villas Ahlam à Bouskoura. Statut en temps réel, surface, prix indicatif et réservation en ligne."
+        jsonLd={lotsJsonLd}
       />
       <PageHeader
         eyebrow="Plan & Disponibilités"

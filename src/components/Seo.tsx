@@ -5,9 +5,17 @@ interface SeoProps {
   title: string;
   description?: string;
   canonical?: string;
+  /**
+   * Données structurées Schema.org propres à la page (objet ou tableau d'objets).
+   * Injectées dans un <script type="application/ld+json"> dédié, en complément du
+   * graphe global d'index.html.
+   */
+  jsonLd?: object | object[];
 }
 
-const Seo = ({ title, description, canonical }: SeoProps) => {
+const PAGE_JSONLD_ID = "seo-page-jsonld";
+
+const Seo = ({ title, description, canonical, jsonLd }: SeoProps) => {
   const { t } = useTranslation("common");
 
   useEffect(() => {
@@ -34,6 +42,23 @@ const Seo = ({ title, description, canonical }: SeoProps) => {
     }
     link.setAttribute("href", canonical ?? window.location.href);
   }, [title, description, canonical, t]);
+
+  // Données structurées par page (nettoyées au démontage / changement).
+  useEffect(() => {
+    const existing = document.getElementById(PAGE_JSONLD_ID);
+    if (existing) existing.remove();
+    if (!jsonLd) return;
+
+    const script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.id = PAGE_JSONLD_ID;
+    script.textContent = JSON.stringify(jsonLd);
+    document.head.appendChild(script);
+
+    return () => {
+      document.getElementById(PAGE_JSONLD_ID)?.remove();
+    };
+  }, [jsonLd]);
 
   return null;
 };
