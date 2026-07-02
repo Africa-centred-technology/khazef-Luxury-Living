@@ -85,7 +85,8 @@ export function LotsMap({ lots, selectedNumero, onSelectLot, visibleNumeros }: L
   };
 
   const onPointerDown = (e: React.PointerEvent) => {
-    wrapRef.current?.setPointerCapture?.(e.pointerId);
+    // NB : pas de setPointerCapture ici — capturer le pointeur redirige l'event
+    // `click` vers le conteneur et empêche le onClick du lot (ouverture du détail).
     pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
     moved.current = false;
     if (pointers.current.size === 2) pinchDist.current = twoFingerDist();
