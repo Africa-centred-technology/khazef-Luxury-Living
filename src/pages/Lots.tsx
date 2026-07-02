@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { MapPin, Maximize2, Phone, MessageCircle, Calculator, X, Scale, Star } from "lucide-react";
+import { MapPin, Maximize2, Phone, MessageCircle, Calculator, X, Scale, Star, Map as MapIcon, Satellite } from "lucide-react";
 import Seo from "@/components/Seo";
 import PageHeader from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
@@ -11,7 +11,7 @@ import { BrochureDialog } from "@/components/brochure/BrochureDialog";
 import { RENDERS } from "@/data/renders";
 import { STATUT_META, type Lot, type StatutLot } from "@/data/lots";
 import { useLots } from "@/hooks/useLots";
-import { PROJET, PRIX, formatDH, whatsappLien } from "@/data/villas-ahlam";
+import { PROJET, PRIX, GPS, formatDH, whatsappLien } from "@/data/villas-ahlam";
 
 type FiltreStatut = StatutLot | "tous";
 type FiltreIlot = "A" | "B" | "tous";
@@ -26,6 +26,7 @@ const Lots = () => {
   const [selected, setSelected] = useState<Lot | null>(null);
   const [reserveOpen, setReserveOpen] = useState(false);
   const [compare, setCompare] = useState<number[]>([]);
+  const [mapMode, setMapMode] = useState<"plan" | "satellite">("plan");
 
   const { lots, isLoading, isFallback } = useLots();
 
@@ -180,17 +181,61 @@ const Lots = () => {
               </FilterGroup>
             </div>
 
-            <LotsMap
-              lots={lots}
-              selectedNumero={selectedLive?.numero ?? null}
-              onSelectLot={(lot) => setSelected(lot)}
-              visibleNumeros={visibleNumeros}
-            />
+            {/* Bascule Plan interactif / Satellite */}
+            <div className="mb-4 flex justify-end">
+              <div
+                role="group"
+                aria-label="Type de vue"
+                className="inline-flex overflow-hidden rounded-sm border border-border/60 bg-background shadow-luxe-sm"
+              >
+                <button
+                  type="button"
+                  onClick={() => setMapMode("plan")}
+                  aria-pressed={mapMode === "plan"}
+                  className={`inline-flex items-center gap-2 px-4 py-2 text-xs uppercase tracking-[0.14em] transition-colors ${
+                    mapMode === "plan" ? "bg-primary text-primary-foreground" : "text-primary hover:bg-secondary"
+                  }`}
+                >
+                  <MapIcon className="h-4 w-4" /> Plan interactif
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setMapMode("satellite")}
+                  aria-pressed={mapMode === "satellite"}
+                  className={`inline-flex items-center gap-2 border-l border-border/60 px-4 py-2 text-xs uppercase tracking-[0.14em] transition-colors ${
+                    mapMode === "satellite" ? "bg-primary text-primary-foreground" : "text-primary hover:bg-secondary"
+                  }`}
+                >
+                  <Satellite className="h-4 w-4" /> Satellite
+                </button>
+              </div>
+            </div>
+
+            {mapMode === "plan" ? (
+              <LotsMap
+                lots={lots}
+                selectedNumero={selectedLive?.numero ?? null}
+                onSelectLot={(lot) => setSelected(lot)}
+                visibleNumeros={visibleNumeros}
+              />
+            ) : (
+              <div className="overflow-hidden rounded-sm border border-border/60 shadow-luxe-md">
+                <iframe
+                  title="Vue satellite — domaine Les Villas Ahlam, Bouskoura"
+                  src={`https://maps.google.com/maps?q=${GPS.lat},${GPS.lng}&t=k&z=17&hl=fr&output=embed`}
+                  className="aspect-[3/4] w-full"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              </div>
+            )}
 
             <div className="mt-4 flex flex-wrap items-center justify-between gap-4">
               <LotsLegend />
               <p className="text-xs text-muted-foreground">
-                Plan schématique provisoire — sera calé sur le plan d'architecte.
+                {mapMode === "plan"
+                  ? "Plan réel de l'architecte du lotissement (TF 23025/63)."
+                  : "Vue satellite du site — imagerie Google, centrée sur le domaine."}
               </p>
             </div>
           </div>
