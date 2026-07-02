@@ -35,8 +35,10 @@
     "label": "Langue",
     "fr": "Français",
     "ar": "العربية",
+    "en": "English",
     "switchToFrench": "Passer au français",
-    "switchToArabic": "Passer à l'arabe"
+    "switchToArabic": "Passer à l'arabe",
+    "switchToEnglish": "Passer à l'anglais"
   },
   "breadcrumb": {
     "separator": "›"

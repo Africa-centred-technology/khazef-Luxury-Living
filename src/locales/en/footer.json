@@ -1,0 +1,40 @@
+{
+  "brand": {
+    "name": "Les Villas Ahlam",
+    "eyebrow": "Private Residential Estate",
+    "tagline": "“Where your dreams\ntake root.”"
+  },
+  "columns": {
+    "project": {
+      "title": "The estate",
+      "links": {
+        "concept": "The concept",
+        "apartments": "Lots & availability",
+        "plans": "Subdivision plan",
+        "timeline": "Financing",
+        "virtualTour": "Immersive gallery"
+      }
+    },
+    "discover": {
+      "title": "Discover",
+      "links": {
+        "location": "The area",
+        "financement": "Financing",
+        "safi": "Bouskoura",
+        "gallery": "Gallery",
+        "contact": "Contact",
+        "brochure": "Download the brochure"
+      }
+    },
+    "contact": {
+      "title": "Contact",
+      "address": "Allée Ben Doukali, Bouskoura, Casablanca-Settat, Morocco",
+      "phoneLabel": "Phone",
+      "emailLabel": "WhatsApp"
+    }
+  },
+  "legal": {
+    "copyright": "© {{year}} Les Villas Ahlam — Developer Yatib Sakan · Bouskoura · All rights reserved.",
+    "locale": "Bouskoura · Casablanca · المغرب"
+  }
+}

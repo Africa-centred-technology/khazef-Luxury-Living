@@ -3,6 +3,15 @@ import { Languages } from "lucide-react";
 
 import { SUPPORTED_LOCALES, type SupportedLocale } from "@/lib/i18n";
 
+/** Libellé court affiché par langue. */
+const LABELS: Record<SupportedLocale, string> = { fr: "FR", ar: "ع", en: "EN" };
+/** Clé d'aria-label i18n par langue. */
+const ARIA_KEYS: Record<SupportedLocale, string> = {
+  fr: "language.switchToFrench",
+  ar: "language.switchToArabic",
+  en: "language.switchToEnglish",
+};
+
 interface LanguageSwitcherProps {
   /** Use white text when the switcher sits over a hero image. */
   onImage?: boolean;
@@ -40,9 +49,7 @@ export function LanguageSwitcher({ onImage = false, variant = "inline" }: Langua
               type="button"
               onClick={() => handleSwitch(locale)}
               aria-pressed={locale === current}
-              aria-label={
-                locale === "fr" ? t("language.switchToFrench") : t("language.switchToArabic")
-              }
+              aria-label={t(ARIA_KEYS[locale])}
               className={[
                 "px-2.5 py-1 text-[11px] uppercase tracking-[0.18em] border transition-all duration-300",
                 locale === current
@@ -50,7 +57,7 @@ export function LanguageSwitcher({ onImage = false, variant = "inline" }: Langua
                   : "border-border/60 text-primary/75 hover:border-gold/70 hover:text-gold",
               ].join(" ")}
             >
-              {locale === "fr" ? "FR" : "ع"}
+              {LABELS[locale]}
             </button>
           ))}
         </div>
@@ -70,16 +77,14 @@ export function LanguageSwitcher({ onImage = false, variant = "inline" }: Langua
           type="button"
           onClick={() => handleSwitch(locale)}
           aria-pressed={locale === current}
-          aria-label={
-            locale === "fr" ? t("language.switchToFrench") : t("language.switchToArabic")
-          }
+          aria-label={t(ARIA_KEYS[locale])}
           style={locale === current ? undefined : shadow}
           className={[
             "px-1.5 text-[11px] uppercase tracking-[0.18em] transition-colors duration-300",
             locale === current ? activeLabel : `${baseLabel} hover:text-gold`,
           ].join(" ")}
         >
-          {locale === "fr" ? "FR" : "ع"}
+          {LABELS[locale]}
         </button>
       ))}
     </div>

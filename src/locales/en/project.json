@@ -1,0 +1,75 @@
+{
+  "seo": {
+    "title": "The Estate",
+    "description": "Les Villas Ahlam — a private residential estate of 42 R+1 villas in Bouskoura: concept, contemporary Moroccan architecture and the commitments of developer Yatib Sakan."
+  },
+  "header": {
+    "eyebrow": "The Estate",
+    "arabic": "أحلام",
+    "title": "A private estate",
+    "italicWord": "where your dreams take root.",
+    "intro": "42 R+1 villas on serviced lots, in a gated, secure estate in Bouskoura. A haven of calm, fifteen minutes from Mohammed V airport."
+  },
+  "concept": {
+    "eyebrow": "Concept",
+    "titleLead": "The villa,",
+    "titleItalic": "in your own image.",
+    "paragraph1": "Les Villas Ahlam is the choice of the individual villa within a curated setting: a private estate organised into two blocks, streets landscaped with olive trees and bougainvillea, and the privacy of land that is truly your own.",
+    "paragraph2": "Each lot, from 200 to 461 m², hosts a contemporary R+1 villa. You build the project that reflects you, within a charter that guarantees the estate's harmony.",
+    "paragraph3": "At the gates of the Bouskoura forest and Bouskoura Golf City, the estate blends nature and city — fresh air on one side, Casablanca twenty minutes on the other."
+  },
+  "materials": {
+    "eyebrow": "Materials & craftsmanship",
+    "titleLead": "A contemporary",
+    "titleItalic": "Moroccan architecture.",
+    "items": {
+      "tadelakt": {
+        "name": "Tadelakt",
+        "desc": "Lime plaster polished with stone, for interiors bathed in soft, mineral light."
+      },
+      "zellige": {
+        "name": "Zellige",
+        "desc": "Hand-cut glazed mosaic, as accent touches near entrances and niches."
+      },
+      "marble": {
+        "name": "Stone & wood",
+        "desc": "Local beige stone and warm mashrabiya wood: the noble material of the facades."
+      }
+    }
+  },
+  "vision": {
+    "eyebrow": "Art of living",
+    "titleLead": "Space",
+    "titleItalic": "as luxury.",
+    "paragraph": "Habitable flat roofs, large dark-framed bay windows, terraces open to the sky. Les Villas Ahlam are designed for light, the outdoors and family life.",
+    "features": {
+      "ceiling": "R+1 villas on lots of 200 to 461 m²",
+      "glazing": "Large bay windows and cross-lighting",
+      "hvac": "Convertible rooftop terrace",
+      "elevator": "Gated, secure and landscaped estate"
+    }
+  },
+  "commitments": {
+    "eyebrow": "Developer's commitments",
+    "titleLead": "Promises,",
+    "titleItalic": "anchored in the ground.",
+    "items": {
+      "01": {
+        "title": "Serviced lots",
+        "desc": "Roads, water, electricity and sanitation networks completed — you build on ready land."
+      },
+      "02": {
+        "title": "Clear legal framework",
+        "desc": "Land Title 23025/63, project led by architect Badik Meriem. Reservation supported by an adviser."
+      },
+      "03": {
+        "title": "A harmonious estate",
+        "desc": "An architectural charter guarantees the consistency and value of the entire subdivision."
+      },
+      "04": {
+        "title": "Yatib Sakan support",
+        "desc": "From reservation to financing, a single point of contact follows you at every step."
+      }
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "seo": {
+    "title": "Contact",
+    "description": "Contact Yatib Sakan to reserve a lot or visit the Les Villas Ahlam estate in Bouskoura."
+  },
+  "header": {
+    "eyebrow": "Contact",
+    "arabic": "أحلام",
+    "title": "Let's talk",
+    "italicWord": "about your project.",
+    "intro": "A Yatib Sakan adviser guides you through choosing your lot, the reservation and the financing of your future villa."
+  },
+  "form": {
+    "name": {
+      "label": "Full name",
+      "placeholder": "Your name"
+    },
+    "phone": {
+      "label": "Phone",
+      "placeholder": "+212 …"
+    },
+    "email": {
+      "label": "Email",
+      "placeholder": "you@example.com"
+    },
+    "interest": {
+      "label": "Your interest",
+      "placeholder": "Select…",
+      "options": {
+        "visit": "Estate visit",
+        "apartments": "Information on the lots",
+        "documentation": "Receive the brochure",
+        "commercial": "Financing & credit"
+      }
+    },
+    "message": {
+      "label": "Message",
+      "placeholder": "A few words about your project…"
+    },
+    "submit": "Send request",
+    "submitting": "Sending…",
+    "disclaimer": "By submitting this form, you agree to be contacted by a Yatib Sakan adviser (Law 09-08).",
+    "toast": {
+      "title": "Request sent",
+      "description": "Our adviser will call you back within 24h."
+    }
+  },
+  "info": {
+    "eyebrow": "Yatib Sakan",
+    "title": "Here for you,",
+    "italicWord": "every day.",
+    "address": {
+      "line1": "Bouskoura, Douar Rmel Lahlal",
+      "line2": "Bouskoura Prefecture, Casablanca-Settat"
+    },
+    "phone": {
+      "hours": "Mon. – Sat. · 9am–7pm"
+    },
+    "email": {
+      "reply": "Reply within 24h"
+    },
+    "mapTitle": "Access map — Les Villas Ahlam"
+  }
+}

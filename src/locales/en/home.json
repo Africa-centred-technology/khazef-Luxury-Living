@@ -1,0 +1,68 @@
+{
+  "seo": {
+    "title": "Les Villas Ahlam — Private residential estate in Bouskoura",
+    "description": "Les Villas Ahlam · Where your dreams take root. 42 R+1 villa lots in a secure private estate in Bouskoura, from 4,500 MAD/m²."
+  },
+  "hero": {
+    "imageAlt": "Contemporary R+1 villa of the Les Villas Ahlam estate in Bouskoura at sunset",
+    "eyebrow": "Bouskoura · Casablanca · 2026",
+    "titleLine1": "Where your dreams",
+    "titleItalic": "take root.",
+    "intro": "Les Villas Ahlam — <1>أحلام</1> — is a private residential estate of 42 R+1 villas, fifteen minutes from Mohammed V airport, designed for family peace of mind.",
+    "ctaVisit": "Reserve a lot",
+    "ctaProject": "Discover the estate",
+    "scroll": "Scroll"
+  },
+  "manifesto": {
+    "eyebrow": "The manifesto",
+    "titleLine1": "We don't sell land,",
+    "titleLine2Prefix": "we bring ",
+    "titleItalic": "a dream to life.",
+    "paragraph1": "Ahlam means <1>“dreams”</1> in Arabic. Within a secure, private estate, each lot is the space of a life to imagine — a contemporary villa, bright and timeless.",
+    "paragraph2": "An authorised and titled project (Land Title 23025/63, architect Badik Meriem), at the heart of a booming residential district south of Casablanca. Trust first.",
+    "link": "Discover the estate"
+  },
+  "stats": {
+    "items": [
+      { "n": "42", "l": "Villa lots" },
+      { "n": "R+1", "l": "Height" },
+      { "n": "200", "l": "m² minimum" },
+      { "n": "4500", "l": "MAD/m² from" }
+    ]
+  },
+  "highlights": {
+    "eyebrow": "The essentials",
+    "titlePrefix": "Three promises, ",
+    "titleItalic": "kept.",
+    "items": [
+      {
+        "title": "Secure private estate",
+        "text": "A gated, guarded estate along a 30 m road, for the peace of mind of families."
+      },
+      {
+        "title": "R+1 architecture",
+        "text": "Contemporary villas to build, bright and timeless, on 200 to 461 m² of land."
+      },
+      {
+        "title": "Strategic address",
+        "text": "15 min from Mohammed V airport, close to Casablanca, the golf course and the Bouskoura forest."
+      }
+    ]
+  },
+  "quote": {
+    "imageAlt": "Bright living room of a contemporary villa at the Les Villas Ahlam estate",
+    "text": "“Your villa. Your estate. Your dream.”",
+    "attribution": "Les Villas Ahlam"
+  },
+  "previews": {
+    "eyebrow": "Explore",
+    "titlePrefix": "The journey ",
+    "titleItalic": "begins here.",
+    "discover": "Discover",
+    "items": [
+      { "label": "The Estate", "title": "A residential vision" },
+      { "label": "The Lots", "title": "Plan & availability" },
+      { "label": "Bouskoura", "title": "A booming district" }
+    ]
+  }
+}

@@ -36,8 +36,19 @@ import arNotFound from "@/locales/ar/notFound.json";
 import arFooter from "@/locales/ar/footer.json";
 import arCta from "@/locales/ar/cta.json";
 
-export type SupportedLocale = "fr" | "ar";
-export const SUPPORTED_LOCALES: SupportedLocale[] = ["fr", "ar"];
+// EN resources (namespaces actifs ; les autres retombent sur FR via fallbackLng)
+import enCommon from "@/locales/en/common.json";
+import enHome from "@/locales/en/home.json";
+import enProject from "@/locales/en/project.json";
+import enLocation from "@/locales/en/location.json";
+import enGallery from "@/locales/en/gallery.json";
+import enContact from "@/locales/en/contact.json";
+import enNotFound from "@/locales/en/notFound.json";
+import enFooter from "@/locales/en/footer.json";
+import enCta from "@/locales/en/cta.json";
+
+export type SupportedLocale = "fr" | "ar" | "en";
+export const SUPPORTED_LOCALES: SupportedLocale[] = ["fr", "ar", "en"];
 export const RTL_LOCALES: SupportedLocale[] = ["ar"];
 
 export const NAMESPACES = [
@@ -96,6 +107,17 @@ void i18n
         notFound: arNotFound,
         footer: arFooter,
         cta: arCta,
+      },
+      en: {
+        common: enCommon,
+        home: enHome,
+        project: enProject,
+        location: enLocation,
+        gallery: enGallery,
+        contact: enContact,
+        notFound: enNotFound,
+        footer: enFooter,
+        cta: enCta,
       },
     },
     fallbackLng: "fr",

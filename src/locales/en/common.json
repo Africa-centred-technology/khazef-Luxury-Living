@@ -1,0 +1,59 @@
+{
+  "brand": {
+    "name": "Les Villas Ahlam",
+    "eyebrow": "Private Residential Estate",
+    "subtitle": "Bouskoura · Casablanca"
+  },
+  "nav": {
+    "home": "Home",
+    "project": "The Estate",
+    "apartments": "The Lots",
+    "plans": "Plan & Availability",
+    "virtualTour": "Immersive gallery",
+    "gallery": "Gallery",
+    "location": "The Area",
+    "financement": "Financing",
+    "timeline": "Delivery",
+    "safi": "Bouskoura",
+    "contact": "Contact",
+    "more": "More",
+    "primaryNavigation": "Main navigation",
+    "mobileMenu": "Menu",
+    "open": "Open menu",
+    "close": "Close menu",
+    "closeShort": "Close",
+    "navigation": "Navigation"
+  },
+  "cta": {
+    "privateVisit": "Reserve a lot",
+    "bookPrivateVisit": "Reserve my lot",
+    "byAppointment": "Sales callback within 24 h",
+    "directContact": "Direct contact",
+    "discover": "Discover"
+  },
+  "language": {
+    "label": "Language",
+    "fr": "Français",
+    "ar": "العربية",
+    "en": "English",
+    "switchToFrench": "Switch to French",
+    "switchToArabic": "Switch to Arabic",
+    "switchToEnglish": "Switch to English"
+  },
+  "breadcrumb": {
+    "separator": "›"
+  },
+  "misc": {
+    "scrollIndicator": "Discover"
+  },
+  "pageHeader": {
+    "brandCrumb": "Les Villas Ahlam",
+    "illustrationAlt": "Page illustration",
+    "scrollIndicator": "Discover",
+    "discover": "Scroll to content",
+    "breadcrumbLabel": "Breadcrumb"
+  },
+  "seo": {
+    "suffix": " · Les Villas Ahlam — Bouskoura, Morocco"
+  }
+}

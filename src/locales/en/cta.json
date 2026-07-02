@@ -1,0 +1,12 @@
+{
+  "banner": {
+    "eyebrow": "A confidential address",
+    "titleLead": "Step into your home,",
+    "titleAccent": "before everyone else.",
+    "description": "A private visit, on request. Our adviser guides you through the discovery of your future residence.",
+    "actions": {
+      "bookVisit": "Book a visit",
+      "discoverApartments": "Discover the lots"
+    }
+  }
+}

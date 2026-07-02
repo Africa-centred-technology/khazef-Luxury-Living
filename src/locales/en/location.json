@@ -1,0 +1,41 @@
+{
+  "seo": {
+    "title": "The Area",
+    "description": "Les Villas Ahlam in Bouskoura — between the Bouskoura forest and Casablanca, 15 minutes from Mohammed V airport. Amenities, schools and golf nearby."
+  },
+  "header": {
+    "eyebrow": "The Area",
+    "arabic": "أحلام",
+    "title": "In Bouskoura,",
+    "italicWord": "between forest and city.",
+    "intro": "A sought-after address south of Casablanca: the quiet of the forest, the proximity of the golf course and immediate access to major roads."
+  },
+  "map": {
+    "iframeTitle": "Access map — Les Villas Ahlam in Bouskoura",
+    "address": "Douar Rmel Lahlal, Bouskoura, Casablanca-Settat",
+    "separator": "—",
+    "fullMapLink": "View the full map"
+  },
+  "amenities": {
+    "eyebrow": "Nearby",
+    "titleBefore": "Everything,",
+    "titleItalic": "minutes away.",
+    "items": [
+      { "key": "airport", "name": "Mohammed V airport", "dist": "15–20 min" },
+      { "key": "medina", "name": "Casablanca centre", "dist": "20–25 min" },
+      { "key": "gardens", "name": "Bouskoura forest", "dist": "nearby" },
+      { "key": "beach", "name": "Bouskoura Golf City", "dist": "nearby" },
+      { "key": "schools", "name": "International schools", "dist": "nearby" },
+      { "key": "hospital", "name": "Clinics & shops", "dist": "nearby" }
+    ]
+  },
+  "lifestyle": {
+    "eyebrow": "Art of living",
+    "titleBefore": "The calm,",
+    "titleItalic": "without leaving the city.",
+    "paragraphs": [
+      "Bouskoura embodies a new Casablancan art of living: you breathe the forest air and raise your children in the green, a stone's throw from schools and shops.",
+      "The golf course, wooded areas and fast roads to Casablanca and the airport make this southern edge of the metropolis one of the most sought-after residential addresses of the moment."
+    ]
+  }
+}

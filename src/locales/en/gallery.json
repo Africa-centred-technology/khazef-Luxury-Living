@@ -1,0 +1,28 @@
+{
+  "seo": {
+    "title": "Gallery",
+    "description": "Image and video gallery of the Les Villas Ahlam estate in Bouskoura."
+  },
+  "header": {
+    "eyebrow": "Gallery",
+    "arabic": "المعرض",
+    "title": "Les Villas Ahlam,",
+    "italicWord": "image after image."
+  },
+  "mosaic": {
+    "alts": [
+      "Estate facade at sunset",
+      "Luxurious living room",
+      "Master bedroom",
+      "Marble kitchen",
+      "Aerial view of Bouskoura",
+      "Bouskoura green surroundings",
+      "Craftsmanship detail",
+      "Cobalt blue zellige",
+      "Gold-veined marble"
+    ]
+  },
+  "lightbox": {
+    "close": "Close"
+  }
+}

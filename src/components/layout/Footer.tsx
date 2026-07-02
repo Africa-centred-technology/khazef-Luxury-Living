@@ -74,8 +74,13 @@ const Footer = () => {
       </div>
 
       <div className="relative border-t border-secondary/10">
-        <div className="container-luxe py-6 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-secondary/60">
+        <div className="container-luxe py-6 flex flex-col gap-3 text-xs text-secondary/60 md:flex-row md:items-center md:justify-between">
           <div>{t("legal.copyright", { year })}</div>
+          <nav className="flex flex-wrap items-center gap-x-4 gap-y-2" aria-label="Liens légaux">
+            <Link to="/mentions-legales" className="link-luxe">Mentions légales</Link>
+            <Link to="/confidentialite" className="link-luxe">Confidentialité</Link>
+            <Link to="/cookies" className="link-luxe">Cookies</Link>
+          </nav>
           <div className="eyebrow text-secondary/50">{t("legal.locale")}</div>
         </div>
       </div>

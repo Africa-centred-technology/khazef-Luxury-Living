@@ -14,6 +14,9 @@ import Timeline from "./pages/Timeline";
 import Gallery from "./pages/Gallery";
 import Safi from "./pages/Safi";
 import Contact from "./pages/Contact";
+import MentionsLegales from "./pages/MentionsLegales";
+import Confidentialite from "./pages/Confidentialite";
+import Cookies from "./pages/Cookies";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -36,6 +39,9 @@ const App = () => (
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/safi" element={<Safi />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/mentions-legales" element={<MentionsLegales />} />
+            <Route path="/confidentialite" element={<Confidentialite />} />
+            <Route path="/cookies" element={<Cookies />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
