@@ -115,6 +115,18 @@ def paragraph(draw, text, fnt, x, y, max_w, fill, leading=1.45):
     return y
 
 
+_MEASURE = ImageDraw.Draw(Image.new("RGB", (1, 1)))
+
+
+def fit(text, font_fn, max_w, size, min_size=18):
+    """Retourne une police (via font_fn) réduite jusqu'à ce que `text` tienne dans max_w."""
+    f = font_fn(size)
+    while size > min_size and _MEASURE.textlength(text, font=f) > max_w:
+        size -= 2
+        f = font_fn(size)
+    return f
+
+
 def eyebrow(draw, text, x, y, color=ORCHID):
     draw.rectangle([x, y + 6, x + 46, y + 9], fill=HONEY)
     draw.text((x + 62, y), text, font=sans_b(24), fill=color)
@@ -141,12 +153,12 @@ def new_page(bg=IVORY):
 p, d = new_page()
 hero = gradient_overlay(cover(load("1. hero"), W, int(H * 0.72)), strength=210, start=0.35)
 p.paste(hero, (0, 0))
-y = int(H * 0.72) - 360
+y = int(H * 0.72) - 430
 d.rectangle([MARGIN, y, MARGIN + 60, y + 5], fill=HONEY)
 d.text((MARGIN, y + 26), "DOMAINE RÉSIDENTIEL PRIVÉ · BOUSKOURA", font=sans_b(28), fill=HONEY)
 d.text((MARGIN - 4, y + 74), "Les Villas", font=serif_b(118), fill=WHITE)
 d.text((MARGIN - 4, y + 196), "Ahlam", font=serif_b(118), fill=WHITE)
-d.text((MARGIN, y + 340), "Là où vos rêves prennent racine.", font=serif(44), fill=IVORY)
+d.text((MARGIN, y + 322), "Là où vos rêves prennent racine.", font=serif(42), fill=IVORY)
 # bandeau bas
 d.rectangle([0, H - 150, W, H], fill=ORCHID)
 d.text((MARGIN, H - 118), "Plaquette de présentation", font=serif_b(40), fill=WHITE)
@@ -177,7 +189,8 @@ facts = [("42", "villas R+1"), ("2", "îlots"), ("200–461 m²", "de terrain"),
 cw = (W - 2 * MARGIN) // 4
 for i, (big, small) in enumerate(facts):
     x = MARGIN + i * cw
-    d.text((x, y), big, font=serif_b(46), fill=ORCHID)
+    # Réduit la police du chiffre pour qu'il tienne dans sa colonne (évite le chevauchement).
+    d.text((x, y), big, font=fit(big, serif_b, cw - 16, 46), fill=ORCHID)
     d.text((x, y + 60), small, font=sans(24), fill=GREY)
 footer(d, 2)
 pages.append(p)
@@ -246,27 +259,28 @@ pages.append(p)
 
 # ============ PAGE 6 — PLAN & PRIX ============
 p, d = new_page()
-img = cover(load("lots"), W, 520)
+img = cover(load("lots"), W, 430)
 p.paste(img, (0, 0))
-y = 580
+y = 480
 y = eyebrow(d, "PLAN & DISPONIBILITÉS", MARGIN, y)
-d.text((MARGIN - 2, y), "42 lots, deux îlots.", font=serif_b(58), fill=OAK)
-y += 90
+d.text((MARGIN - 2, y), "42 lots, deux îlots.", font=serif_b(54), fill=OAK)
+y += 84
 d.text((MARGIN, y), "Prix indicatif « à partir de » = surface × 4 500 DH/m². Prix exact sur demande.",
-       font=sans(26), fill=GREY)
-y += 64
-# table 2 colonnes (ilot A 1-16, ilot B 17-42)
+       font=sans(25), fill=GREY)
+y += 54
+# table 2 colonnes (ilot A 1-16, ilot B 17-42) — compacte pour tenir 26 lignes
 col_w = (W - 2 * MARGIN - 40) // 2
+ROW_H = 30
 
 def draw_lot_table(x, y0, title, nums):
-    d.text((x, y0), title, font=sans_b(28), fill=ORCHID)
-    yy = y0 + 46
+    d.text((x, y0), title, font=sans_b(26), fill=ORCHID)
+    yy = y0 + 42
     for n in nums:
         s = SURFACES[n]
-        d.text((x, yy), f"Lot {n:>2}", font=sans(24), fill=OAK)
-        d.text((x + 150, yy), f"{s} m²", font=sans(24), fill=GREY)
-        d.text((x + 300, yy), f"{s*4500:,}".replace(",", " ") + " DH", font=sans(24), fill=OAK)
-        yy += 38
+        d.text((x, yy), f"Lot {n:>2}", font=sans(22), fill=OAK)
+        d.text((x + 140, yy), f"{s} m²", font=sans(22), fill=GREY)
+        d.text((x + 288, yy), f"{s*4500:,}".replace(",", " ") + " DH", font=sans(22), fill=OAK)
+        yy += ROW_H
     return yy
 
 draw_lot_table(MARGIN, y, "ÎLOT A · lots 1 à 16", range(1, 17))
