@@ -8,11 +8,8 @@ import Home from "./pages/Home";
 import Project from "./pages/Project";
 import Location from "./pages/Location";
 import Lots from "./pages/Lots";
-import Plans from "./pages/Plans";
 import Financement from "./pages/Financement";
-import Timeline from "./pages/Timeline";
 import Gallery from "./pages/Gallery";
-import Safi from "./pages/Safi";
 import Contact from "./pages/Contact";
 import MentionsLegales from "./pages/MentionsLegales";
 import Confidentialite from "./pages/Confidentialite";
@@ -33,11 +30,8 @@ const App = () => (
             <Route path="/project" element={<Project />} />
             <Route path="/location" element={<Location />} />
             <Route path="/lots" element={<Lots />} />
-            <Route path="/plans" element={<Plans />} />
             <Route path="/financement" element={<Financement />} />
-            <Route path="/timeline" element={<Timeline />} />
             <Route path="/gallery" element={<Gallery />} />
-            <Route path="/safi" element={<Safi />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/mentions-legales" element={<MentionsLegales />} />
             <Route path="/confidentialite" element={<Confidentialite />} />

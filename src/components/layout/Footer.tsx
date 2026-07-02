@@ -30,9 +30,7 @@ const Footer = () => {
           <ul className="space-y-3 text-sm text-secondary/85">
             <li><Link to="/project" className="link-luxe">{t("columns.project.links.concept")}</Link></li>
             <li><Link to="/lots" className="link-luxe">{t("columns.project.links.apartments")}</Link></li>
-            <li><Link to="/plans" className="link-luxe">{t("columns.project.links.plans")}</Link></li>
             <li><Link to="/financement" className="link-luxe">{t("columns.discover.links.financement")}</Link></li>
-            <li><Link to="/timeline" className="link-luxe">{t("columns.project.links.timeline")}</Link></li>
           </ul>
         </div>
 
@@ -41,7 +39,6 @@ const Footer = () => {
           <ul className="space-y-3 text-sm text-secondary/85">
             <li><Link to="/location" className="link-luxe">{t("columns.discover.links.location")}</Link></li>
             <li><Link to="/financement" className="link-luxe">{t("columns.discover.links.financement")}</Link></li>
-            <li><Link to="/safi" className="link-luxe">{t("columns.discover.links.safi")}</Link></li>
             <li><Link to="/gallery" className="link-luxe">{t("columns.discover.links.gallery")}</Link></li>
             <li><Link to="/contact" className="link-luxe">{t("columns.discover.links.contact")}</Link></li>
             <li>

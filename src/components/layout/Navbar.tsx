@@ -16,7 +16,6 @@ const PRIMARY: NavItem[] = [
   { to: "/", labelKey: "nav.home" },
   { to: "/project", labelKey: "nav.project" },
   { to: "/lots", labelKey: "nav.apartments" },
-  { to: "/plans", labelKey: "nav.plans" },
   { to: "/gallery", labelKey: "nav.gallery" },
 ];
 
@@ -24,8 +23,6 @@ const PRIMARY: NavItem[] = [
 const SECONDARY: NavItem[] = [
   { to: "/location", labelKey: "nav.location" },
   { to: "/financement", labelKey: "nav.financement" },
-  { to: "/timeline", labelKey: "nav.timeline" },
-  { to: "/safi", labelKey: "nav.safi" },
 ];
 
 const ALL_NAV: NavItem[] = [...PRIMARY, ...SECONDARY, { to: "/contact", labelKey: "nav.contact" }];

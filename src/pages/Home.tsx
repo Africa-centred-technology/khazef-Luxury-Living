@@ -10,7 +10,7 @@ import logo from "@/assets/logo.png";
 
 const highlightIcons = [Building2, Sparkles, Compass] as const;
 
-const previewRoutes = ["/project", "/lots", "/safi"] as const;
+const previewRoutes = ["/project", "/lots", "/location"] as const;
 
 interface HighlightItem {
   title: string;
