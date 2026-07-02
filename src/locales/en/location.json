@@ -14,7 +14,10 @@
     "iframeTitle": "Access map — Les Villas Ahlam in Bouskoura",
     "address": "Douar Rmel Lahlal, Bouskoura, Casablanca-Settat",
     "separator": "—",
-    "fullMapLink": "View the full map"
+    "fullMapLink": "View the full map",
+    "plan": "Map",
+    "satellite": "Satellite",
+    "viewToggle": "Map type"
   },
   "amenities": {
     "eyebrow": "Nearby",

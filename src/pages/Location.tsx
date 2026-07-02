@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Seo from "@/components/Seo";
 import PageHeader from "@/components/PageHeader";
 import CtaBanner from "@/components/CtaBanner";
-import { MapPin, ShoppingBag, GraduationCap, Hospital, Waves, Trees, TrainFront, type LucideIcon } from "lucide-react";
+import { MapPin, ShoppingBag, GraduationCap, Hospital, Waves, Trees, TrainFront, Map as MapIcon, Satellite, type LucideIcon } from "lucide-react";
 import { RENDERS } from "@/data/renders";
+import { GPS } from "@/data/villas-ahlam";
 
 const safi = RENDERS.landscapedStreet;
 
@@ -25,10 +27,15 @@ const AMENITY_ICONS: Record<AmenityKey, LucideIcon> = {
   train: TrainFront,
 };
 
+const PLAN_SRC =
+  "https://www.openstreetmap.org/export/embed.html?bbox=-7.70%2C33.45%2C-7.63%2C33.51&layer=mapnik&marker=33.479327,-7.665879";
+const SAT_SRC = `https://maps.google.com/maps?q=${GPS.lat},${GPS.lng}&t=k&z=16&hl=fr&output=embed`;
+
 const Location = () => {
   const { t } = useTranslation("location");
   const amenities = t("amenities.items", { returnObjects: true }) as AmenityItem[];
   const lifestyleParagraphs = t("lifestyle.paragraphs", { returnObjects: true }) as string[];
+  const [mapView, setMapView] = useState<"plan" | "satellite">("plan");
 
   return (
     <>
@@ -44,12 +51,44 @@ const Location = () => {
 
       {/* MAP */}
       <section className="container-luxe py-20">
+        {/* Bascule Plan / Satellite */}
+        <div className="mb-4 flex justify-end">
+          <div
+            role="group"
+            aria-label={t("map.viewToggle")}
+            className="inline-flex overflow-hidden rounded-sm border border-border/60 bg-background shadow-luxe-sm"
+          >
+            <button
+              type="button"
+              onClick={() => setMapView("plan")}
+              aria-pressed={mapView === "plan"}
+              className={`inline-flex items-center gap-2 px-4 py-2 text-xs uppercase tracking-[0.14em] transition-colors ${
+                mapView === "plan" ? "bg-primary text-primary-foreground" : "text-primary hover:bg-secondary"
+              }`}
+            >
+              <MapIcon className="h-4 w-4" /> {t("map.plan")}
+            </button>
+            <button
+              type="button"
+              onClick={() => setMapView("satellite")}
+              aria-pressed={mapView === "satellite"}
+              className={`inline-flex items-center gap-2 border-l border-border/60 px-4 py-2 text-xs uppercase tracking-[0.14em] transition-colors ${
+                mapView === "satellite" ? "bg-primary text-primary-foreground" : "text-primary hover:bg-secondary"
+              }`}
+            >
+              <Satellite className="h-4 w-4" /> {t("map.satellite")}
+            </button>
+          </div>
+        </div>
+
         <div className="aspect-[16/10] w-full overflow-hidden border border-border shadow-luxe-md bg-muted">
           <iframe
+            key={mapView}
             title={t("map.iframeTitle")}
-            src="https://www.openstreetmap.org/export/embed.html?bbox=-7.70%2C33.45%2C-7.63%2C33.51&layer=mapnik&marker=33.479327,-7.665879"
-            className="h-full w-full grayscale-[20%]"
+            src={mapView === "satellite" ? SAT_SRC : PLAN_SRC}
+            className={`h-full w-full ${mapView === "plan" ? "grayscale-[20%]" : ""}`}
             loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
           />
         </div>
         <div className="mt-4 text-sm text-muted-foreground">
