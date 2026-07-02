@@ -23,8 +23,12 @@ W, H = 1240, 1754          # A4 @150 dpi
 MARGIN = 104
 TOP = 150
 BOTTOM = H - 120           # limite basse du contenu (footer en dessous)
-SRC = "update/images"
-OUT = "docs/RECAP-CONFORMITE-CDC.pdf"
+
+# Chemins calcules depuis l'emplacement du script (independant du dossier courant).
+_HERE = os.path.dirname(os.path.abspath(__file__))
+_ROOT = os.path.dirname(_HERE)               # racine du repo frontend
+SRC = os.path.join(_ROOT, "update", "images")
+OUT = os.path.join(_HERE, "RECAP-CONFORMITE-CDC.pdf")
 F = "C:/Windows/Fonts/"
 
 
