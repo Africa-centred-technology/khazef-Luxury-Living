@@ -1,23 +1,23 @@
 {
   "seo": {
     "title": "Galerie",
-    "description": "Galerie d'images et de vidéos de la résidence Luxury Living à Safi."
+    "description": "Galerie d'images et de rendus du domaine Les Villas Ahlam à Bouskoura."
   },
   "header": {
     "eyebrow": "Galerie",
     "arabic": "المعرض",
-    "title": "Luxury Living,",
+    "title": "Les Villas Ahlam,",
     "italicWord": "image après image."
   },
   "mosaic": {
     "alts": [
-      "Façade de la résidence au coucher du soleil",
-      "Salon luxueux",
-      "Chambre parentale",
-      "Cuisine en marbre",
-      "Vue aérienne de Safi",
-      "Côte atlantique de Safi",
-      "Artisanat de la poterie",
+      "Façade de la villa au coucher du soleil",
+      "Salon lumineux",
+      "Suite parentale",
+      "Cuisine ouverte",
+      "Vue aérienne du domaine",
+      "Allée paysagère de Bouskoura",
+      "Entrée du domaine",
       "Zellige bleu cobalt",
       "Marbre veiné d'or"
     ]

@@ -2,12 +2,12 @@ import { useTranslation } from "react-i18next";
 import Seo from "@/components/Seo";
 import PageHeader from "@/components/PageHeader";
 import CtaBanner from "@/components/CtaBanner";
-import { MapPin, ShoppingBag, GraduationCap, Hospital, Waves, Trees, type LucideIcon } from "lucide-react";
+import { MapPin, ShoppingBag, GraduationCap, Hospital, Waves, Trees, TrainFront, type LucideIcon } from "lucide-react";
 import { RENDERS } from "@/data/renders";
 
 const safi = RENDERS.landscapedStreet;
 
-type AmenityKey = "beach" | "medina" | "schools" | "hospital" | "gardens" | "airport";
+type AmenityKey = "beach" | "medina" | "schools" | "hospital" | "gardens" | "airport" | "train";
 
 interface AmenityItem {
   key: AmenityKey;
@@ -22,6 +22,7 @@ const AMENITY_ICONS: Record<AmenityKey, LucideIcon> = {
   hospital: Hospital,
   gardens: Trees,
   airport: MapPin,
+  train: TrainFront,
 };
 
 const Location = () => {

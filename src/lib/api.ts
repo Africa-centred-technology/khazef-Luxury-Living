@@ -57,6 +57,8 @@ function toLot(api: ApiLot): Lot {
     statut: api.statut,
     prixM2: api.prix_m2_mad,
     prixIndicatif: api.prix_indicatif_mad,
+    highlight: api.highlight,
+    vues: api.vues,
   };
 }
 

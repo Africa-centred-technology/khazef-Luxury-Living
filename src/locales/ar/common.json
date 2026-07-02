@@ -7,14 +7,14 @@
   "nav": {
     "home": "الرئيسية",
     "project": "المشروع",
-    "apartments": "الشقق",
-    "plans": "المخططات",
+    "apartments": "القطع",
+    "plans": "المخطط والتوفّر",
     "virtualTour": "جولة افتراضية",
     "gallery": "المعرض",
     "location": "الموقع",
     "financement": "التمويل",
     "timeline": "التسليم",
-    "safi": "آسفي",
+    "safi": "بوسكورة",
     "contact": "اتصل بنا",
     "more": "المزيد",
     "primaryNavigation": "القائمة الرئيسية",
@@ -47,13 +47,13 @@
     "scrollIndicator": "اكتشف"
   },
   "pageHeader": {
-    "brandCrumb": "لاكشري ليفينغ",
+    "brandCrumb": "فيلات أحلام",
     "illustrationAlt": "صورةٌ توضيحيةٌ للصفحة",
     "scrollIndicator": "اكتشف",
     "discover": "انتقل إلى المحتوى",
     "breadcrumbLabel": "مسار التنقل"
   },
   "seo": {
-    "suffix": " · لاكشري ليفينغ — آسفي، المغرب"
+    "suffix": " · فيلات أحلام — بوسكورة، المغرب"
   }
 }

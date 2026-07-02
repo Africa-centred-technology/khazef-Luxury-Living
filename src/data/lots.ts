@@ -22,6 +22,10 @@ export interface Lot {
   prixM2: number;
   /** surface × prix au m², affiché « À partir de » */
   prixIndicatif: number;
+  /** Lot mis en avant (badge « populaire ») — CDC §8 #11. */
+  highlight: boolean;
+  /** Nombre de vues (compteur de popularité) — CDC §8 #11. */
+  vues: number;
 }
 
 /** Surfaces (m²) par numéro de lot — CDC §13. */
@@ -51,6 +55,8 @@ export const LOTS: Lot[] = Array.from({ length: 42 }, (_, i) => {
     statut: "disponible",
     prixM2: PRIX.prixM2,
     prixIndicatif: prixIndicatif(surfaceM2),
+    highlight: false,
+    vues: 0,
   };
 });
 

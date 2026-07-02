@@ -6,7 +6,7 @@
     "description": "زيارةٌ خاصّةٌ بطلبٍ بسيط. يرافقكم مستشارُنا في اكتشافِ إقامتِكم المستقبليّة.",
     "actions": {
       "bookVisit": "احجزْ زيارتَك",
-      "discoverApartments": "اكتشفِ الشقق"
+      "discoverApartments": "اكتشفِ القطع"
     }
   }
 }

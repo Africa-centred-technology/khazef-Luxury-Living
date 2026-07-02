@@ -26,7 +26,8 @@
       { "key": "gardens", "name": "Bouskoura forest", "dist": "nearby" },
       { "key": "beach", "name": "Bouskoura Golf City", "dist": "nearby" },
       { "key": "schools", "name": "International schools", "dist": "nearby" },
-      { "key": "hospital", "name": "Clinics & shops", "dist": "nearby" }
+      { "key": "hospital", "name": "Clinics & shops", "dist": "nearby" },
+      { "key": "train", "name": "Bouskoura ONCF train station", "dist": "nearby" }
     ]
   },
   "lifestyle": {

@@ -26,7 +26,8 @@
       { "key": "gardens", "name": "Forêt de Bouskoura", "dist": "à proximité" },
       { "key": "beach", "name": "Bouskoura Golf City", "dist": "à proximité" },
       { "key": "schools", "name": "Écoles internationales", "dist": "à proximité" },
-      { "key": "hospital", "name": "Cliniques & commerces", "dist": "à proximité" }
+      { "key": "hospital", "name": "Cliniques & commerces", "dist": "à proximité" },
+      { "key": "train", "name": "Gare ONCF de Bouskoura", "dist": "à proximité" }
     ]
   },
   "lifestyle": {

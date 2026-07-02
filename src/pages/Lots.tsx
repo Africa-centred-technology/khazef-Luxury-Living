@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { MapPin, Maximize2, Phone, MessageCircle, Calculator, X, Scale } from "lucide-react";
+import { MapPin, Maximize2, Phone, MessageCircle, Calculator, X, Scale, Star } from "lucide-react";
 import Seo from "@/components/Seo";
 import PageHeader from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
@@ -266,12 +266,19 @@ function LotDetail({
         <div className="eyebrow text-gold">Lot {lot.numero} · Îlot {lot.ilot}</div>
         <div className="mt-1 font-display text-4xl">{lot.surfaceM2} m²</div>
         <div className="mt-1 text-sm opacity-90">Villa {lot.hauteur} · lot viabilisé</div>
-        <span
-          className="mt-3 inline-block rounded-full px-3 py-1 text-xs font-medium text-background"
-          style={{ backgroundColor: `hsl(${meta.colorVar})` }}
-        >
-          {meta.label}
-        </span>
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          <span
+            className="inline-block rounded-full px-3 py-1 text-xs font-medium text-background"
+            style={{ backgroundColor: `hsl(${meta.colorVar})` }}
+          >
+            {meta.label}
+          </span>
+          {lot.highlight && (
+            <span className="inline-flex items-center gap-1 rounded-full bg-gold/90 px-3 py-1 text-xs font-medium text-primary">
+              <Star className="h-3 w-3 fill-current" /> Populaire
+            </span>
+          )}
+        </div>
       </div>
 
       <div className="p-6 space-y-5">
