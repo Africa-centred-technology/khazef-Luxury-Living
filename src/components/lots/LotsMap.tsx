@@ -171,6 +171,27 @@ export function LotsMap({ lots, selectedNumero, onSelectLot, visibleNumeros }: L
             role="group"
             aria-label="Plan interactif des 42 lots"
           >
+            {/* Filtres de relief : ombre portée qui « soulève » les parcelles du plan. */}
+            <defs>
+              <filter id="lot-relief" x="-25%" y="-25%" width="150%" height="150%">
+                <feDropShadow
+                  dx="0"
+                  dy="4"
+                  stdDeviation="4"
+                  floodColor="hsl(21 12% 18%)"
+                  floodOpacity="0.35"
+                />
+              </filter>
+              <filter id="lot-relief-lift" x="-40%" y="-40%" width="180%" height="180%">
+                <feDropShadow
+                  dx="0"
+                  dy="9"
+                  stdDeviation="8"
+                  floodColor="hsl(21 12% 18%)"
+                  floodOpacity="0.48"
+                />
+              </filter>
+            </defs>
             {lots.map((lot) => {
               const g = geom.get(lot.numero);
               if (!g) return null;
@@ -213,6 +234,7 @@ export function LotsMap({ lots, selectedNumero, onSelectLot, visibleNumeros }: L
                     stroke={isSelected ? "hsl(var(--primary))" : "hsl(var(--background))"}
                     strokeWidth={isSelected ? 6 : 2}
                     strokeLinejoin="round"
+                    filter={isHovered || isSelected ? "url(#lot-relief-lift)" : "url(#lot-relief)"}
                     className="transition-[fill-opacity]"
                   />
                   <text
