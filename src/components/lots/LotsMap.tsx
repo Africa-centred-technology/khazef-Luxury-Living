@@ -2,7 +2,13 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Minus, Plus, Maximize } from "lucide-react";
 import { type Lot, STATUT_META } from "@/data/lots";
 import { formatDH } from "@/data/villas-ahlam";
-import { LOT_PARCELS, PLAN_IMAGE, PLAN_WIDTH, PLAN_HEIGHT } from "@/data/lot-parcels";
+import {
+  LOT_PARCELS,
+  PLAN_IMAGE,
+  PLAN_IMAGE_RELIEF,
+  PLAN_WIDTH,
+  PLAN_HEIGHT,
+} from "@/data/lot-parcels";
 
 interface LotsMapProps {
   lots: Lot[];
@@ -10,6 +16,8 @@ interface LotsMapProps {
   onSelectLot: (lot: Lot) => void;
   /** Numéros visibles (selon filtres) ; les autres sont estompés. */
   visibleNumeros: Set<number>;
+  /** Fond : « plan » (plan de l'architecte) ou « relief » (parcelles surélevées). */
+  variant?: "plan" | "relief";
 }
 
 const MIN_SCALE = 1;
@@ -27,7 +35,13 @@ function centroid(poly: ReadonlyArray<readonly [number, number]>): { x: number; 
  * est un polygone réel extrait du vectoriel PDF (src/data/lot-parcels.ts), rempli
  * selon son statut temps réel. Zoom molette/pinch + pan glisser.
  */
-export function LotsMap({ lots, selectedNumero, onSelectLot, visibleNumeros }: LotsMapProps) {
+export function LotsMap({
+  lots,
+  selectedNumero,
+  onSelectLot,
+  visibleNumeros,
+  variant = "plan",
+}: LotsMapProps) {
   const [hover, setHover] = useState<Lot | null>(null);
   const [view, setView] = useState({ scale: 1, x: 0, y: 0 });
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -155,7 +169,7 @@ export function LotsMap({ lots, selectedNumero, onSelectLot, visibleNumeros }: L
           style={{ transform: `translate(${view.x}px, ${view.y}px) scale(${view.scale})` }}
         >
           <img
-            src={PLAN_IMAGE}
+            src={variant === "relief" ? PLAN_IMAGE_RELIEF : PLAN_IMAGE}
             alt="Plan du lotissement Les Villas Ahlam — Bouskoura"
             width={PLAN_WIDTH}
             height={PLAN_HEIGHT}

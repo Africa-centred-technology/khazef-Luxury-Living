@@ -3,6 +3,8 @@
 // coordonnées normalisées (0..1) sur l'image du plan (public/plan-lotissement.webp).
 
 export const PLAN_IMAGE = "/plan-lotissement.webp";
+/** Variante « relief » : parcelles en tuiles surélevées (même géométrie/cadrage). */
+export const PLAN_IMAGE_RELIEF = "/plan-lotissement-relief.webp";
 export const PLAN_WIDTH = 2001;
 export const PLAN_HEIGHT = 2954;
 

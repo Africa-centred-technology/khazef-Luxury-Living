@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { MapPin, Maximize2, Phone, MessageCircle, Calculator, X, Scale, Star, Map as MapIcon, Satellite } from "lucide-react";
+import { MapPin, Maximize2, Phone, MessageCircle, Calculator, X, Scale, Star, Map as MapIcon, Mountain } from "lucide-react";
 import Seo from "@/components/Seo";
 import PageHeader from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
@@ -11,7 +11,7 @@ import { BrochureDialog } from "@/components/brochure/BrochureDialog";
 import { RENDERS } from "@/data/renders";
 import { STATUT_META, type Lot, type StatutLot } from "@/data/lots";
 import { useLots } from "@/hooks/useLots";
-import { PROJET, PRIX, GPS, formatDH, whatsappLien } from "@/data/villas-ahlam";
+import { PROJET, PRIX, formatDH, whatsappLien } from "@/data/villas-ahlam";
 
 type FiltreStatut = StatutLot | "tous";
 type FiltreIlot = "A" | "B" | "tous";
@@ -26,7 +26,7 @@ const Lots = () => {
   const [selected, setSelected] = useState<Lot | null>(null);
   const [reserveOpen, setReserveOpen] = useState(false);
   const [compare, setCompare] = useState<number[]>([]);
-  const [mapMode, setMapMode] = useState<"plan" | "satellite">("plan");
+  const [mapMode, setMapMode] = useState<"plan" | "relief">("plan");
 
   const { lots, isLoading, isFallback } = useLots();
 
@@ -181,7 +181,7 @@ const Lots = () => {
               </FilterGroup>
             </div>
 
-            {/* Bascule Plan interactif / Satellite */}
+            {/* Bascule Plan / Relief (les deux : carte interactive) */}
             <div className="mb-4 flex justify-end">
               <div
                 role="group"
@@ -196,46 +196,35 @@ const Lots = () => {
                     mapMode === "plan" ? "bg-primary text-primary-foreground" : "text-primary hover:bg-secondary"
                   }`}
                 >
-                  <MapIcon className="h-4 w-4" /> Plan interactif
+                  <MapIcon className="h-4 w-4" /> Plan
                 </button>
                 <button
                   type="button"
-                  onClick={() => setMapMode("satellite")}
-                  aria-pressed={mapMode === "satellite"}
+                  onClick={() => setMapMode("relief")}
+                  aria-pressed={mapMode === "relief"}
                   className={`inline-flex items-center gap-2 border-l border-border/60 px-4 py-2 text-xs uppercase tracking-[0.14em] transition-colors ${
-                    mapMode === "satellite" ? "bg-primary text-primary-foreground" : "text-primary hover:bg-secondary"
+                    mapMode === "relief" ? "bg-primary text-primary-foreground" : "text-primary hover:bg-secondary"
                   }`}
                 >
-                  <Satellite className="h-4 w-4" /> Satellite
+                  <Mountain className="h-4 w-4" /> Relief
                 </button>
               </div>
             </div>
 
-            {mapMode === "plan" ? (
-              <LotsMap
-                lots={lots}
-                selectedNumero={selectedLive?.numero ?? null}
-                onSelectLot={(lot) => setSelected(lot)}
-                visibleNumeros={visibleNumeros}
-              />
-            ) : (
-              <div className="overflow-hidden rounded-sm border border-border/60 shadow-luxe-md">
-                <iframe
-                  title="Vue satellite — domaine Les Villas Ahlam, Bouskoura"
-                  src={`https://maps.google.com/maps?q=${GPS.lat},${GPS.lng}&t=k&z=17&hl=fr&output=embed`}
-                  className="aspect-[3/4] w-full"
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
-              </div>
-            )}
+            <LotsMap
+              lots={lots}
+              selectedNumero={selectedLive?.numero ?? null}
+              onSelectLot={(lot) => setSelected(lot)}
+              visibleNumeros={visibleNumeros}
+              variant={mapMode}
+            />
 
             <div className="mt-4 flex flex-wrap items-center justify-between gap-4">
               <LotsLegend />
               <p className="text-xs text-muted-foreground">
                 {mapMode === "plan"
                   ? "Plan réel de l'architecte du lotissement (TF 23025/63)."
-                  : "Vue satellite du site — imagerie Google, centrée sur le domaine."}
+                  : "Vue relief — les îlots en tuiles surélevées, mêmes interactions."}
               </p>
             </div>
           </div>
