@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { MapPin, Maximize2, Phone, MessageCircle, Calculator, X, Scale, Star, Map as MapIcon, Mountain } from "lucide-react";
+import { MapPin, Maximize2, Phone, MessageCircle, Calculator, X, Scale, Star } from "lucide-react";
 import Seo from "@/components/Seo";
 import PageHeader from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
@@ -26,7 +26,6 @@ const Lots = () => {
   const [selected, setSelected] = useState<Lot | null>(null);
   const [reserveOpen, setReserveOpen] = useState(false);
   const [compare, setCompare] = useState<number[]>([]);
-  const [mapMode, setMapMode] = useState<"plan" | "relief">("plan");
 
   const { lots, isLoading, isFallback } = useLots();
 
@@ -181,50 +180,17 @@ const Lots = () => {
               </FilterGroup>
             </div>
 
-            {/* Bascule Plan / Relief (les deux : carte interactive) */}
-            <div className="mb-4 flex justify-end">
-              <div
-                role="group"
-                aria-label="Type de vue"
-                className="inline-flex overflow-hidden rounded-sm border border-border/60 bg-background shadow-luxe-sm"
-              >
-                <button
-                  type="button"
-                  onClick={() => setMapMode("plan")}
-                  aria-pressed={mapMode === "plan"}
-                  className={`inline-flex items-center gap-2 px-4 py-2 text-xs uppercase tracking-[0.14em] transition-colors ${
-                    mapMode === "plan" ? "bg-primary text-primary-foreground" : "text-primary hover:bg-secondary"
-                  }`}
-                >
-                  <MapIcon className="h-4 w-4" /> Plan
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setMapMode("relief")}
-                  aria-pressed={mapMode === "relief"}
-                  className={`inline-flex items-center gap-2 border-l border-border/60 px-4 py-2 text-xs uppercase tracking-[0.14em] transition-colors ${
-                    mapMode === "relief" ? "bg-primary text-primary-foreground" : "text-primary hover:bg-secondary"
-                  }`}
-                >
-                  <Mountain className="h-4 w-4" /> Relief
-                </button>
-              </div>
-            </div>
-
             <LotsMap
               lots={lots}
               selectedNumero={selectedLive?.numero ?? null}
               onSelectLot={(lot) => setSelected(lot)}
               visibleNumeros={visibleNumeros}
-              variant={mapMode}
             />
 
             <div className="mt-4 flex flex-wrap items-center justify-between gap-4">
               <LotsLegend />
               <p className="text-xs text-muted-foreground">
-                {mapMode === "plan"
-                  ? "Plan réel de l'architecte du lotissement (TF 23025/63)."
-                  : "Vue relief — les îlots en tuiles surélevées, mêmes interactions."}
+                Plan réel de l'architecte du lotissement (TF 23025/63).
               </p>
             </div>
           </div>
